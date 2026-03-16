@@ -995,6 +995,252 @@
   }
   .action-btn.primary:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(255,107,43,0.35); }
 
+  /* ===== EXERCISE CHECKBOX ===== */
+  .exercise-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 10px;
+    border-radius: 8px;
+    transition: background 0.15s;
+    cursor: pointer;
+  }
+  .exercise-row:hover { background: rgba(0,0,0,0.03); }
+  .exercise-row.done {
+    opacity: 0.55;
+    text-decoration: line-through;
+    text-decoration-color: var(--text-muted);
+  }
+  .ex-check {
+    flex-shrink: 0;
+    width: 20px; height: 20px;
+    border-radius: 6px;
+    border: 2px solid var(--border-strong);
+    background: white;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px;
+    transition: all 0.18s;
+    cursor: pointer;
+    user-select: none;
+  }
+  .exercise-row.done .ex-check {
+    background: var(--accent-green);
+    border-color: var(--accent-green);
+    color: white;
+  }
+  .block-progress {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+    padding: 0 10px 4px;
+  }
+  .block-progress-bar {
+    flex: 1;
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .block-progress-fill {
+    height: 100%;
+    background: var(--accent-green);
+    border-radius: 2px;
+    transition: width 0.3s;
+  }
+  .block-progress-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .day-completion-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    background: var(--bg-page);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    margin-left: 8px;
+    transition: all 0.2s;
+  }
+  .day-completion-badge.all-done {
+    background: rgba(24,169,106,0.1);
+    border-color: var(--accent-green);
+    color: var(--accent-green);
+  }
+
+  /* ===== ASSESSMENT DAY ===== */
+  .assessment-day-card {
+    background: linear-gradient(135deg, rgba(124,58,237,0.08) 0%, rgba(37,99,235,0.08) 100%);
+    border: 2px solid rgba(124,58,237,0.25);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+  .assessment-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .assessment-icon {
+    width: 48px; height: 48px;
+    background: linear-gradient(135deg, #7C3AED, #2563EB);
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(124,58,237,0.3);
+  }
+  .assessment-title { font-size: 18px; font-weight: 800; color: var(--text-primary); }
+  .assessment-subtitle { font-size: 13px; color: var(--text-muted); margin-top: 3px; }
+  .assessment-section {
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 14px;
+    border: 1px solid var(--border);
+  }
+  .assessment-section-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .rating-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .rating-label {
+    width: 90px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    flex-shrink: 0;
+  }
+  .rating-stars {
+    display: flex;
+    gap: 4px;
+  }
+  .rating-star {
+    width: 28px; height: 28px;
+    border-radius: 7px;
+    border: 1.5px solid var(--border-strong);
+    background: white;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s;
+    user-select: none;
+  }
+  .rating-star.active {
+    background: var(--orange);
+    border-color: var(--orange);
+    color: white;
+    box-shadow: 0 2px 8px rgba(255,107,43,0.3);
+  }
+  .test-input-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .test-input-label {
+    flex: 1;
+    font-size: 13px;
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+  .test-input-sub {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 400;
+    display: block;
+    margin-top: 2px;
+  }
+  .test-input-field {
+    width: 70px;
+    padding: 7px 10px;
+    border: 1.5px solid var(--border-strong);
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+    color: var(--text-primary);
+    background: white;
+    outline: none;
+    transition: border-color 0.18s;
+  }
+  .test-input-field:focus { border-color: var(--orange); }
+  .test-input-unit {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 600;
+    width: 30px;
+  }
+  .assessment-submit-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #7C3AED, #2563EB);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 16px;
+    box-shadow: 0 4px 14px rgba(124,58,237,0.3);
+    transition: all 0.2s;
+    letter-spacing: 0.3px;
+  }
+  .assessment-submit-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(124,58,237,0.4); }
+  .assessment-result-card {
+    background: white;
+    border: 2px solid rgba(24,169,106,0.3);
+    border-radius: 12px;
+    padding: 18px;
+    margin-top: 14px;
+  }
+  .assessment-result-title {
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--accent-green);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .assessment-advice-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+  .assessment-advice-item:last-child { border-bottom: none; }
+  .assessment-advice-icon { flex-shrink: 0; font-size: 16px; }
+  .day-tab.assessment::after {
+    content: '📋';
+    display: block;
+    font-size: 9px;
+    line-height: 1;
+  }
+
   /* ===== PRINT STYLES ===== */
   @media print {
     .app-header, .action-bar, .checkin-area, .coach-notes-area,
@@ -1258,6 +1504,23 @@ const STRINGS = {
     notesSaving: '保存中…',
     notesSaved: '✓ 已保存',
     exportBtn: '导出 / 打印',
+    // Exercise completion
+    exDoneLabel: (done, total) => `已完成 ${done}/${total} 项`,
+    exAllDone: '全部完成 🎉',
+    // Assessment day
+    assessmentDayTitle: '阶段评估日',
+    assessmentDaySubtitle: '每5天进行一次评估，了解进步情况并调整下一阶段训练',
+    assessRatingTitle: '⭐ 主观评分（家长/教练）',
+    assessTestTitle: '📊 测试数据（实测记录）',
+    assessSubmitBtn: '生成下一阶段建议 →',
+    assessResultTitle: '✅ 评估完成，下一阶段建议',
+    assessDone: '已完成评估',
+    assessRatingLabels: ['控球稳定', '脚步灵活', '投篮手型', '体能表现', '专注度'],
+    assessTests: [
+      { label: '1分钟右手运球', sub: '连续不失误次数', unit: '次' },
+      { label: '1分钟左手运球', sub: '连续不失误次数', unit: '次' },
+      { label: '平板支撑', sub: '最长坚持时间', unit: '秒' },
+    ],
   },
 
   pt: {
@@ -1438,6 +1701,21 @@ const STRINGS = {
     notesSaving: 'A guardar…',
     notesSaved: '✓ Guardado',
     exportBtn: 'Exportar / Imprimir',
+    exDoneLabel: (done, total) => `${done}/${total} concluídos`,
+    exAllDone: 'Tudo feito 🎉',
+    assessmentDayTitle: 'Dia de Avaliação',
+    assessmentDaySubtitle: 'Avaliação a cada 5 dias para acompanhar o progresso e ajustar o treino',
+    assessRatingTitle: '⭐ Avaliação subjetiva (pais/treinador)',
+    assessTestTitle: '📊 Dados do teste (registo real)',
+    assessSubmitBtn: 'Gerar sugestões para a próxima fase →',
+    assessResultTitle: '✅ Avaliação concluída — Sugestões para a próxima fase',
+    assessDone: 'Avaliação concluída',
+    assessRatingLabels: ['Controlo da bola', 'Agilidade', 'Arremesso', 'Físico', 'Concentração'],
+    assessTests: [
+      { label: 'Dribble direita 1 min', sub: 'Sem erros consecutivos', unit: 'vezes' },
+      { label: 'Dribble esquerda 1 min', sub: 'Sem erros consecutivos', unit: 'vezes' },
+      { label: 'Prancha', sub: 'Tempo máximo', unit: 's' },
+    ],
   },
 
   en: {
@@ -1619,6 +1897,21 @@ const STRINGS = {
     notesSaving: 'Saving…',
     notesSaved: '✓ Saved',
     exportBtn: 'Export / Print',
+    exDoneLabel: (done, total) => `${done}/${total} done`,
+    exAllDone: 'All done 🎉',
+    assessmentDayTitle: 'Assessment Day',
+    assessmentDaySubtitle: 'Every 5 days — track progress and adjust the next training phase',
+    assessRatingTitle: '⭐ Subjective Rating (Parent / Coach)',
+    assessTestTitle: '📊 Test Results (measured)',
+    assessSubmitBtn: 'Generate next-phase recommendations →',
+    assessResultTitle: '✅ Assessment complete — Next phase recommendations',
+    assessDone: 'Assessment completed',
+    assessRatingLabels: ['Ball control', 'Footwork', 'Shooting form', 'Fitness', 'Focus'],
+    assessTests: [
+      { label: '1-min right-hand dribble', sub: 'Consecutive without error', unit: 'reps' },
+      { label: '1-min left-hand dribble', sub: 'Consecutive without error', unit: 'reps' },
+      { label: 'Plank hold', sub: 'Maximum duration', unit: 's' },
+    ],
   }
 };
 
@@ -1950,6 +2243,20 @@ function fmtTime(min) {
 
 function buildDay(dayIndex, params) {
   const { age, years, totalMin, goal, hoop, fitness } = params;
+
+  // ---- 评估日：每5天插入一次（第5、10、15…天）----
+  if ((dayIndex + 1) % 5 === 0) {
+    const s = STRINGS[currentLang];
+    return {
+      dayIndex,
+      isAssessment: true,
+      isRest: false,
+      theme: s.assessmentDayTitle || '阶段评估日',
+      title: s.assessmentDayTitle || '阶段评估日',
+      phase: Math.floor((dayIndex + 1) / 5),
+    };
+  }
+
   const level = getLevel(age, years);
   const theme = getTheme(dayIndex, goal);
   const prog = getProgression(dayIndex);
@@ -2203,8 +2510,8 @@ function renderSoloCalendar(days, params) {
     <div class="section-label">${s.calendarLabel}</div>
     <div class="day-tabs" id="dayTabs">
       ${days.map((d,i)=>{
-        const cls = d.isRest ? 'rest' : (d.isLight ? 'light' : '');
-        const icon = d.isRest ? '😴' : (d.isLight ? '🌿' : '🔥');
+        const cls = d.isAssessment ? 'assessment' : (d.isRest ? 'rest' : (d.isLight ? 'light' : ''));
+        const icon = d.isAssessment ? '📋' : (d.isRest ? '😴' : (d.isLight ? '🌿' : '🔥'));
         return `<button class="day-tab ${cls}${i===0?' active':''}" onclick="switchDay(${i})">${icon}<span class="day-num">D${i+1}</span></button>`;
       }).join('')}
     </div>
@@ -2333,8 +2640,8 @@ function renderPlayerView(playerData) {
     <div class="section-label">${s.calendarLabel}</div>
     <div class="day-tabs" id="dayTabs">
       ${days.map((d,i)=>{
-        const cls = d.isRest ? 'rest' : (d.isLight ? 'light' : '');
-        const icon = d.isRest ? '😴' : (d.isLight ? '🌿' : '🔥');
+        const cls = d.isAssessment ? 'assessment' : (d.isRest ? 'rest' : (d.isLight ? 'light' : ''));
+        const icon = d.isAssessment ? '📋' : (d.isRest ? '😴' : (d.isLight ? '🌿' : '🔥'));
         return `<button class="day-tab ${cls}${i===0?' active':''}" onclick="switchPlayerDay(${i})">${icon}<span class="day-num">D${i+1}</span></button>`;
       }).join('')}
     </div>
@@ -2400,6 +2707,13 @@ function renderDay(day, playerIdx) {
   void container.offsetWidth;
   container.classList.add('fade-in');
 
+  // ---- 评估日 ----
+  if (day.isAssessment) {
+    container.innerHTML = renderAssessmentDay(day, playerIdx, s);
+    bindAssessmentDay(day, playerIdx);
+    return;
+  }
+
   if (day.isRest) {
     const thStyle = THEME_COLORS[day.theme] || { bg:'rgba(37,99,235,0.10)', color:'#2563EB' };
     container.innerHTML = `
@@ -2440,22 +2754,30 @@ function renderDay(day, playerIdx) {
   }
 
   html += `<div class="timeline">`;
-  day.blocks.forEach(block => {
+  day.blocks.forEach((block, blockIdx) => {
     const endMin = block.startMin + block.dur;
-    html += `<div class="timeline-block ${block.type}">
+    html += `<div class="timeline-block ${block.type}" id="block_${day.dayIndex}_${blockIdx}">
       <div class="block-header">
         <span class="block-time">${fmtTime(block.startMin)} – ${fmtTime(endMin)}</span>
         <span class="block-title">${block.title}</span>
         <span class="block-duration">${block.dur} ${s.minLabel}</span>
       </div>
       <div class="block-content">
-        ${block.exercises.map(ex=>`
-          <div class="exercise-row">
+        ${block.exercises.map((ex, exIdx) => {
+          const exKey = `${currentPlanKey}_p${playerIdx}_d${day.dayIndex}_b${blockIdx}_e${exIdx}`;
+          const isDone = localStorage.getItem(exKey) === '1';
+          return `<div class="exercise-row${isDone?' done':''}" id="exrow_${day.dayIndex}_${blockIdx}_${exIdx}" onclick="toggleExercise(${playerIdx},${day.dayIndex},${blockIdx},${exIdx})">
+            <div class="ex-check">${isDone?'✓':''}</div>
             <span class="ex-name">${ex.name}</span>
             <span class="ex-detail">${ex.detail}</span>
             <span class="ex-rest">${ex.rest}</span>
             <span class="ex-intensity intensity-${ex.intensity}"></span>
-          </div>`).join('')}
+          </div>`;
+        }).join('')}
+      </div>
+      <div class="block-progress" id="blockprog_${day.dayIndex}_${blockIdx}">
+        <div class="block-progress-bar"><div class="block-progress-fill" style="width:${getBlockProgress(playerIdx,day.dayIndex,blockIdx,block.exercises.length)}%"></div></div>
+        <span class="block-progress-label">${getBlockProgressLabel(playerIdx,day.dayIndex,blockIdx,block.exercises.length,s)}</span>
       </div>
     </div>`;
   });
@@ -2464,6 +2786,7 @@ function renderDay(day, playerIdx) {
   const tip = s.tips[day.theme];
   if (tip) html += `<div class="tip-box"><strong>${s.coachTip}</strong>${tip}</div>`;
 
+  // 全天完成度 badge 加在 checkin 旁边
   html += renderCheckinArea(playerIdx, day.dayIndex, s);
   html += renderNotesArea(playerIdx, day.dayIndex, s);
   html += `</div>`;
@@ -2581,6 +2904,263 @@ function saveNote(playerIdx, dayIdx, text) {
   const key = `${currentPlanKey}_note_p${playerIdx}_d${dayIdx}`;
   localStorage.setItem(key, text);
 }
+
+// =============================================
+// EXERCISE CHECKBOX (per-item completion)
+// =============================================
+function getExKey(playerIdx, dayIdx, blockIdx, exIdx) {
+  return `${currentPlanKey}_p${playerIdx}_d${dayIdx}_b${blockIdx}_e${exIdx}`;
+}
+
+function isExDone(playerIdx, dayIdx, blockIdx, exIdx) {
+  return localStorage.getItem(getExKey(playerIdx, dayIdx, blockIdx, exIdx)) === '1';
+}
+
+function getBlockProgress(playerIdx, dayIdx, blockIdx, total) {
+  if (!total) return 0;
+  let done = 0;
+  for (let i = 0; i < total; i++) if (isExDone(playerIdx, dayIdx, blockIdx, i)) done++;
+  return Math.round(done / total * 100);
+}
+
+function getBlockProgressLabel(playerIdx, dayIdx, blockIdx, total, s) {
+  let done = 0;
+  for (let i = 0; i < total; i++) if (isExDone(playerIdx, dayIdx, blockIdx, i)) done++;
+  if (done === total && total > 0) return s.exAllDone || '全部完成 🎉';
+  return (s.exDoneLabel || ((d, t) => `已完成 ${d}/${t} 项`))(done, total);
+}
+
+function toggleExercise(playerIdx, dayIdx, blockIdx, exIdx) {
+  const key = getExKey(playerIdx, dayIdx, blockIdx, exIdx);
+  const was = localStorage.getItem(key) === '1';
+  localStorage.setItem(key, was ? '0' : '1');
+
+  // Update the row UI
+  const row = document.getElementById(`exrow_${dayIdx}_${blockIdx}_${exIdx}`);
+  if (row) {
+    row.classList.toggle('done', !was);
+    const check = row.querySelector('.ex-check');
+    if (check) check.textContent = was ? '' : '✓';
+  }
+
+  // Update block progress bar
+  const progEl = document.getElementById(`blockprog_${dayIdx}_${blockIdx}`);
+  if (progEl) {
+    const day = planData[playerIdx]?.days[dayIdx];
+    if (day && day.blocks && day.blocks[blockIdx]) {
+      const total = day.blocks[blockIdx].exercises.length;
+      const pct = getBlockProgress(playerIdx, dayIdx, blockIdx, total);
+      const fill = progEl.querySelector('.block-progress-fill');
+      const label = progEl.querySelector('.block-progress-label');
+      if (fill) fill.style.width = pct + '%';
+      if (label) label.textContent = getBlockProgressLabel(playerIdx, dayIdx, blockIdx, total, STRINGS[currentLang]);
+    }
+  }
+}
+
+// =============================================
+// ASSESSMENT DAY
+// =============================================
+function getAssessKey(playerIdx, dayIdx) {
+  return `${currentPlanKey}_assess_p${playerIdx}_d${dayIdx}`;
+}
+
+function saveAssessment(playerIdx, dayIdx, data) {
+  localStorage.setItem(getAssessKey(playerIdx, dayIdx), JSON.stringify(data));
+}
+
+function loadAssessment(playerIdx, dayIdx) {
+  try { return JSON.parse(localStorage.getItem(getAssessKey(playerIdx, dayIdx))); } catch(e) { return null; }
+}
+
+function renderAssessmentDay(day, playerIdx, s) {
+  const existing = loadAssessment(playerIdx, day.dayIndex);
+  const ratingLabels = s.assessRatingLabels || ['控球稳定','脚步灵活','投篮手型','体能表现','专注度'];
+  const tests = s.assessTests || [];
+
+  let ratingHtml = ratingLabels.map((lbl, ri) => {
+    const savedVal = existing ? (existing.ratings[ri] || 0) : 0;
+    return `<div class="rating-row">
+      <div class="rating-label">${lbl}</div>
+      <div class="rating-stars" id="stars_${day.dayIndex}_${ri}">
+        ${[1,2,3,4,5].map(v => `<div class="rating-star${savedVal>=v?' active':''}" onclick="setRating(${day.dayIndex},${ri},${v})">${v<=savedVal?'★':'☆'}</div>`).join('')}
+      </div>
+    </div>`;
+  }).join('');
+
+  let testHtml = tests.map((t, ti) => {
+    const savedVal = existing ? (existing.tests[ti] || '') : '';
+    return `<div class="test-input-row">
+      <div class="test-input-label">${t.label}<span class="test-input-sub">${t.sub}</span></div>
+      <input class="test-input-field" id="testinput_${day.dayIndex}_${ti}" type="number" min="0" max="999" placeholder="—" value="${savedVal}">
+      <span class="test-input-unit">${t.unit}</span>
+    </div>`;
+  }).join('');
+
+  const resultHtml = existing
+    ? `<div class="assessment-result-card">${renderAssessmentResult(existing, s)}</div>`
+    : '';
+
+  return `<div class="daily-detail">
+    <div class="daily-header">
+      <div>
+        <div class="daily-title">Day ${day.dayIndex+1} · ${s.assessmentDayTitle||'阶段评估日'}</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:4px">${s.assessmentDaySubtitle||''}</div>
+      </div>
+      <div class="daily-theme-badge" style="background:rgba(124,58,237,0.12);color:#7C3AED">📋 ${currentLang==='zh'?'第':'Phase '}${day.phase}${currentLang==='zh'?'阶段':''}</div>
+    </div>
+    <div class="assessment-day-card">
+      <div class="assessment-header">
+        <div class="assessment-icon">📊</div>
+        <div>
+          <div class="assessment-title">${s.assessmentDayTitle||'阶段评估日'}</div>
+          <div class="assessment-subtitle">${s.assessmentDaySubtitle||''}</div>
+        </div>
+      </div>
+
+      <div class="assessment-section">
+        <div class="assessment-section-title">${s.assessRatingTitle||'⭐ 主观评分'}</div>
+        ${ratingHtml}
+      </div>
+
+      <div class="assessment-section">
+        <div class="assessment-section-title">${s.assessTestTitle||'📊 测试数据'}</div>
+        ${testHtml}
+      </div>
+
+      <button class="assessment-submit-btn" id="assessSubmitBtn_${day.dayIndex}" onclick="submitAssessment(${playerIdx},${day.dayIndex})">
+        ${existing ? (s.assessDone||'已完成评估') + ' — ' + (s.assessSubmitBtn||'重新生成建议 →') : (s.assessSubmitBtn||'生成下一阶段建议 →')}
+      </button>
+
+      <div id="assessResult_${day.dayIndex}">${resultHtml}</div>
+    </div>
+    ${renderCheckinArea(playerIdx, day.dayIndex, s)}
+    ${renderNotesArea(playerIdx, day.dayIndex, s)}
+  </div>`;
+}
+
+function bindAssessmentDay(day, playerIdx) {
+  updateCheckinBtn(playerIdx, day.dayIndex);
+  bindNotesArea(playerIdx, day.dayIndex);
+  // Restore rating state from localStorage
+  const existing = loadAssessment(playerIdx, day.dayIndex);
+  if (existing && existing.ratings) {
+    existing.ratings.forEach((val, ri) => {
+      if (val > 0) _applyRatingUI(day.dayIndex, ri, val);
+    });
+  }
+}
+
+// Temporary in-memory storage for current rating selections (before submit)
+const _pendingRatings = {};
+function setRating(dayIdx, ratingIdx, val) {
+  if (!_pendingRatings[dayIdx]) _pendingRatings[dayIdx] = {};
+  _pendingRatings[dayIdx][ratingIdx] = val;
+  _applyRatingUI(dayIdx, ratingIdx, val);
+}
+function _applyRatingUI(dayIdx, ratingIdx, val) {
+  const container = document.getElementById(`stars_${dayIdx}_${ratingIdx}`);
+  if (!container) return;
+  container.querySelectorAll('.rating-star').forEach((star, i) => {
+    star.classList.toggle('active', i < val);
+    star.textContent = i < val ? '★' : '☆';
+  });
+}
+
+function submitAssessment(playerIdx, dayIdx) {
+  const s = STRINGS[currentLang];
+  const ratingLabels = s.assessRatingLabels || [];
+  const tests = s.assessTests || [];
+  const ratings = ratingLabels.map((_, ri) => {
+    // Try pending first, then DOM
+    if (_pendingRatings[dayIdx] && _pendingRatings[dayIdx][ri] !== undefined) return _pendingRatings[dayIdx][ri];
+    const container = document.getElementById(`stars_${dayIdx}_${ri}`);
+    if (!container) return 0;
+    const activeStars = container.querySelectorAll('.rating-star.active');
+    return activeStars.length;
+  });
+  const testVals = tests.map((_, ti) => {
+    const el = document.getElementById(`testinput_${dayIdx}_${ti}`);
+    return el ? (parseFloat(el.value) || 0) : 0;
+  });
+
+  const data = { ratings, tests: testVals, timestamp: Date.now() };
+  saveAssessment(playerIdx, dayIdx, data);
+
+  const resultContainer = document.getElementById(`assessResult_${dayIdx}`);
+  if (resultContainer) {
+    resultContainer.innerHTML = `<div class="assessment-result-card">${renderAssessmentResult(data, s)}</div>`;
+  }
+  const submitBtn = document.getElementById(`assessSubmitBtn_${dayIdx}`);
+  if (submitBtn) submitBtn.textContent = (s.assessDone||'已完成评估') + ' ✓';
+
+  // Also mark this day checked in
+  const ciKey = `${currentPlanKey}_p${playerIdx}_d${dayIdx}`;
+  localStorage.setItem(ciKey, '1');
+  refreshCalendarDots(playerIdx);
+}
+
+function renderAssessmentResult(data, s) {
+  const ratingLabels = s.assessRatingLabels || ['控球稳定','脚步灵活','投篮手型','体能表现','专注度'];
+  const tests = s.assessTests || [];
+  const avgRating = data.ratings.length ? (data.ratings.reduce((a,b)=>a+b,0) / data.ratings.length) : 0;
+
+  // Generate advice based on weakest dimensions
+  const advice = [];
+  const weakThreshold = 3;
+
+  data.ratings.forEach((val, i) => {
+    if (val <= weakThreshold) {
+      const label = ratingLabels[i] || '';
+      const adviceMap = {
+        zh: {
+          '控球稳定': { icon:'🏀', text:'控球评分偏低，建议下阶段增加每天运球基础练习时间，重点做低位运球和换手练习。' },
+          '脚步灵活': { icon:'🦵', text:'脚步灵活度有待提高，建议增加急停急起和侧滑步训练，每天加入10分钟脚步专项练习。' },
+          '投篮手型': { icon:'🎯', text:'投篮手型需要改进，建议每天加入20次墙壁投篮练习，重点检查手腕跟进动作。' },
+          '体能表现': { icon:'💪', text:'体能表现不足，建议下阶段适当增加间歇跑的组数，注意休息比例不要太短。' },
+          '专注度':   { icon:'🧠', text:'专注度有所下降，建议缩短单次训练时长、增加休息频率，让孩子保持更高质量的注意力。' },
+        },
+        pt: {
+          'Controlo da bola': { icon:'🏀', text:'Controlo baixo. Aumente o tempo de dribble diário. Foco em dribble baixo e trocas de mão.' },
+          'Agilidade':         { icon:'🦵', text:'Agilidade a melhorar. Adicione arranque-paragem e deslize lateral — 10 min/dia.' },
+          'Arremesso':         { icon:'🎯', text:'Forma do arremesso a melhorar. 20 arremessos na parede por dia; verifique o pulso.' },
+          'Físico':            { icon:'💪', text:'Físico insuficiente. Aumente as séries de intervalos; mantenha pausas adequadas.' },
+          'Concentração':      { icon:'🧠', text:'Concentração baixa. Reduza a duração de cada sessão e aumente as pausas.' },
+        },
+        en: {
+          'Ball control':   { icon:'🏀', text:'Ball control rating is low. Increase daily dribbling time — focus on low dribble and crossover drills.' },
+          'Footwork':       { icon:'🦵', text:'Footwork needs work. Add drive-and-stop and lateral shuffle drills — 10 min/day.' },
+          'Shooting form':  { icon:'🎯', text:'Shooting form needs improvement. Practice 20 wall push-shots daily; check wrist follow-through.' },
+          'Fitness':        { icon:'💪', text:'Fitness is low. Add more interval sets in the next phase; keep rest ratios balanced.' },
+          'Focus':          { icon:'🧠', text:'Focus is dropping. Shorten each session, increase breaks to maintain quality attention.' },
+        },
+      };
+      const lang = currentLang;
+      const map = adviceMap[lang] || adviceMap.zh;
+      const item = map[label] || { icon:'📌', text: label };
+      advice.push(item);
+    }
+  });
+
+  // If all good
+  if (advice.length === 0) {
+    const goodMsg = { zh:'整体表现优秀！保持现有训练强度，下阶段可以尝试适当增加训练时长或难度。', pt:'Excelente desempenho! Mantenha a intensidade atual. Na próxima fase, tente aumentar a duração ou dificuldade.', en:'Excellent overall performance! Keep the current training intensity. In the next phase, try gradually increasing duration or difficulty.' };
+    advice.push({ icon:'🏆', text: goodMsg[currentLang] || goodMsg.zh });
+  }
+
+  // Test data summary
+  const testSummary = data.tests.map((val, ti) => {
+    const t = (s.assessTests||[])[ti];
+    if (!t || !val) return '';
+    return `<span style="font-size:12px;color:var(--text-secondary);margin-right:12px"><strong>${val}</strong> ${t.unit} ${t.label}</span>`;
+  }).filter(Boolean).join('');
+
+  const titleText = s.assessResultTitle || '✅ 评估完成，下一阶段建议';
+  return `<div class="assessment-result-title">${titleText}</div>
+    ${testSummary ? `<div style="margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--border)">${testSummary}</div>` : ''}
+    ${advice.map(a=>`<div class="assessment-advice-item"><div class="assessment-advice-icon">${a.icon}</div><div>${a.text}</div></div>`).join('')}`;
+}
+
 
 // =============================================
 // EXPORT to PDF (print)
