@@ -1448,10 +1448,12 @@ let playerSelections = [
   { goal: '综合', space: '家里', hoop: '无', fitness: '中等' },
   { goal: '综合', space: '家里', hoop: '无', fitness: '中等' },
   { goal: '综合', space: '家里', hoop: '无', fitness: '中等' },
+  { goal: '综合', space: '家里', hoop: '无', fitness: '中等' },
+  { goal: '综合', space: '家里', hoop: '无', fitness: '中等' },
 ];
 
-const PLAYER_COLORS = ['#FF6B2B','#7C3AED','#18A96A'];
-const PLAYER_EMOJIS = ['🏀','⚡','🌟'];
+const PLAYER_COLORS = ['#FF6B2B','#7C3AED','#18A96A','#2563EB','#D97706'];
+const PLAYER_EMOJIS = ['🏀','⚡','🌟','🔥','🎯'];
 
 function setPlayerCount(count) {
   currentPlayerCount = count;
@@ -1470,9 +1472,9 @@ function initPlayerPanels() {
   // Update player tabs
   const tabsRow = document.getElementById('playerTabsRow');
   if (tabsRow) {
-    const dnames = currentLang==='zh' ? ['玩家1','玩家2','玩家3']
-                 : currentLang==='pt' ? ['Jogador 1','Jogador 2','Jogador 3']
-                 : ['Player 1','Player 2','Player 3'];
+    const dnames = currentLang==='zh' ? ['玩家1','玩家2','玩家3','玩家4','玩家5']
+                 : currentLang==='pt' ? ['Jogador 1','Jogador 2','Jogador 3','Jogador 4','Jogador 5']
+                 : ['Player 1','Player 2','Player 3','Player 4','Player 5'];
     tabsRow.innerHTML = Array.from({length: count}, (_, i) => {
       return `<button class="player-tab-btn${i===0?' active':''}" id="ptab_${i}" onclick="switchPlayerPanel(${i})">
         <span class="player-avatar">${PLAYER_EMOJIS[i]}</span>
@@ -1524,9 +1526,9 @@ function initPlayerPanels() {
 
 function buildPlayerPanel(pid, s, isActive) {
   const lang = currentLang;
-  const dnames = lang==='zh' ? ['玩家1','玩家2','玩家3']
-               : lang==='pt' ? ['Jogador 1','Jogador 2','Jogador 3']
-               : ['Player 1','Player 2','Player 3'];
+  const dnames = lang==='zh' ? ['玩家1','玩家2','玩家3','玩家4','玩家5']
+               : lang==='pt' ? ['Jogador 1','Jogador 2','Jogador 3','Jogador 4','Jogador 5']
+               : ['Player 1','Player 2','Player 3','Player 4','Player 5'];
   const dname = dnames[pid];
   const color = PLAYER_COLORS[pid];
 
@@ -1589,6 +1591,8 @@ function buildPlayerPanel(pid, s, isActive) {
             <button class="count-btn${currentPlayerCount===1?' active':''}" data-count="1" onclick="setPlayerCount(1)">1</button>
             <button class="count-btn${currentPlayerCount===2?' active':''}" data-count="2" onclick="setPlayerCount(2)">2</button>
             <button class="count-btn${currentPlayerCount===3?' active':''}" data-count="3" onclick="setPlayerCount(3)">3</button>
+            <button class="count-btn${currentPlayerCount===4?' active':''}" data-count="4" onclick="setPlayerCount(4)">4</button>
+            <button class="count-btn${currentPlayerCount===5?' active':''}" data-count="5" onclick="setPlayerCount(5)">5</button>
           </div>
         </div>` : ''}
         <div class="form-group">
@@ -2089,25 +2093,33 @@ function buildTeamDrills(count, spaceZH, hasHoop, s) {
   const lang = currentLang;
   const is2 = count >= 2;
   const is3 = count >= 3;
+  const is4 = count >= 4;
+  const is5 = count >= 5;
 
   const drills2 = {
     zh: [
       { icon:'🔥', title:'共同热身', duration:10, desc:'<strong>全员一起</strong>：高抬腿 1 分钟 → 开合跳 1 分钟 → 动态拉伸（髋/膝/踝）3 分钟 → 手腕激活 1 分钟。互相监督，保持一致节奏。' },
-      { icon:'⚡', title:'双人传球热身', duration:8, desc:'<strong>对传激活</strong>：两人相距 3-4 米，胸前传球 2 分钟 → 弹地传球 2 分钟 → 头顶传球 2 分钟。专注接球手型，每次接球喊出「catch」确认。' },
-      { icon:'🎯', title:'1对1 防守轮换', duration:10, desc:'<strong>进攻方</strong>持球，从罚球线出发，尝试突破防守方；<strong>防守方</strong>保持防守姿势，不许手碰人。每 45 秒换攻防。' + (is3 ? '第三人计分并等待轮换。' : '') + (hasHoop ? '进攻方可投篮得分。' : '到达禁区内视为得分。') },
-      { icon:'🏃', title:'团队体能挑战', duration:8, desc:'全员同步完成：<strong>波比跳</strong> 5 次 → 休息 20 秒，重复 4-6 组。互相鼓励，最后一组一起冲！' + (is3 ? '可以3人比赛，最慢的人请喝水。' : '') },
+      { icon:'⚡', title:'传球热身', duration:8, desc:'<strong>传球激活</strong>：' + (is4 ? '分成两组对传，' : '两人相距 3-4 米，') + '胸前传球 2 分钟 → 弹地传球 2 分钟 → 头顶传球 2 分钟。专注接球手型，每次接球喊出「catch」确认。' + (is5 ? '5人可三角传球轮换。' : '') },
+      { icon:'🎯', title:(is4 ? '多人防守轮换' : '1对1 防守轮换'), duration:10, desc: is4
+        ? '<strong>2对2 或 3对2</strong>：分组进行半场对抗，每 45 秒换攻防。' + (is5 ? '5人轮流，1人计分计时。' : '剩余1人计分并轮候。') + (hasHoop ? '进攻方可投篮得分。' : '到达禁区内视为得分。')
+        : '<strong>进攻方</strong>持球，从罚球线出发，尝试突破防守方；<strong>防守方</strong>保持防守姿势，不许手碰人。每 45 秒换攻防。' + (is3 ? '第三人计分并等待轮换。' : '') + (hasHoop ? '进攻方可投篮得分。' : '到达禁区内视为得分。') },
+      { icon:'🏃', title:'团队体能挑战', duration:8, desc:'全员同步完成：<strong>波比跳</strong> 5 次 → 休息 20 秒，重复 4-6 组。互相鼓励，最后一组一起冲！' + (is4 ? `${count}人同时比赛，最慢的人请喝水！` : is3 ? '可以3人比赛，最慢的人请喝水。' : '') },
     ],
     pt: [
       { icon:'🔥', title:'Aquecimento em grupo', duration:10, desc:'<strong>Todos juntos</strong>: joelho alto 1 min → jumping jack 1 min → alongamento dinâmico (quadril/joelho/tornozelo) 3 min → ativação de pulso 1 min. Mantenham o mesmo ritmo.' },
-      { icon:'⚡', title:'Passes de aquecimento', duration:8, desc:'<strong>Passe em dupla</strong>: 3-4 m de distância — passe de peito 2 min → passe quicado 2 min → passe alto 2 min. Concentrem-se na pegada ao receber.' },
-      { icon:'🎯', title:'1x1 com revezamento', duration:10, desc:'<strong>Ataque</strong>: bola na linha de lance livre, tenta passar pelo defensor. <strong>Defesa</strong>: postura defensiva, sem tocar. Troca a cada 45s.' + (is3?' Terceiro marca pontos e espera.'  :'') + (hasHoop?' Atacante pode arremessar.'    :' Entrar na área = ponto.') },
-      { icon:'🏃', title:'Desafio físico em grupo', duration:8, desc:'Todos sincronizados: <strong>Burpee</strong> 5x → pausa 20s, repetir 4-6 séries. Incentivem uns aos outros — na última série, vão juntos!' + (is3?' Quem terminar por último paga água!'  :'') },
+      { icon:'⚡', title:'Passes de aquecimento', duration:8, desc:'<strong>Passe em dupla</strong>: ' + (is4 ? 'Dividam-se em dois grupos — ' : '3-4 m de distância — ') + 'passe de peito 2 min → passe quicado 2 min → passe alto 2 min.' + (is5 ? ' Com 5, façam passe triangular rotativo.' : '') },
+      { icon:'🎯', title:(is4 ? 'Rotação em grupo' : '1x1 com revezamento'), duration:10, desc: is4
+        ? '<strong>2x2 ou 3x2</strong>: defesa em grupos, troca a cada 45s.' + (is5 ? ' 5º jogador marca e controla o tempo.' : ' Quem sobrar marca pontos e aguarda.') + (hasHoop ? ' Atacante pode arremessar.' : ' Entrar na área = ponto.')
+        : '<strong>Ataque</strong>: bola na linha de lance livre, tenta passar pelo defensor. <strong>Defesa</strong>: postura defensiva, sem tocar. Troca a cada 45s.' + (is3 ? ' Terceiro marca pontos e espera.' : '') + (hasHoop ? ' Atacante pode arremessar.' : ' Entrar na área = ponto.') },
+      { icon:'🏃', title:'Desafio físico em grupo', duration:8, desc:'Todos sincronizados: <strong>Burpee</strong> 5x → pausa 20s, repetir 4-6 séries.' + (is4 ? ` ${count} juntos — quem terminar por último paga água!` : is3 ? ' Quem terminar por último paga água!' : ' Incentivem uns aos outros!') },
     ],
     en: [
       { icon:'🔥', title:'Group Warm-Up', duration:10, desc:'<strong>Everyone together</strong>: high knees 1 min → jumping jacks 1 min → dynamic stretch (hip/knee/ankle) 3 min → wrist activation 1 min. Keep the same rhythm and pace.' },
-      { icon:'⚡', title:'Partner Passing Warm-Up', duration:8, desc:'<strong>Passing drills</strong>: stand 3-4 m apart — chest pass 2 min → bounce pass 2 min → overhead pass 2 min. Focus on clean hand placement each catch.' },
-      { icon:'🎯', title:'1-on-1 Defense Rotation', duration:10, desc:'<strong>Offense</strong>: start at the free-throw line and try to beat the defender. <strong>Defense</strong>: maintain stance — no fouling. Rotate every 45s.' + (is3?' Third player keeps score and waits their turn.'  :'') + (hasHoop?' Offense can shoot to score.'    :' Reaching the key counts as a score.') },
-      { icon:'🏃', title:'Team Fitness Challenge', duration:8, desc:'All players in sync: <strong>Burpees</strong> ×5 → rest 20s, repeat 4-6 sets. Hype each other up — finish the last set together!' + (is3?' Loser of each round buys the water!'  :'') },
+      { icon:'⚡', title:'Partner Passing Warm-Up', duration:8, desc:'<strong>Passing drills</strong>: ' + (is4 ? 'split into two groups — ' : 'stand 3-4 m apart — ') + 'chest pass 2 min → bounce pass 2 min → overhead pass 2 min.' + (is5 ? ' With 5 players, add a triangle passing rotation.' : '') },
+      { icon:'🎯', title:(is4 ? 'Group Defense Rotation' : '1-on-1 Defense Rotation'), duration:10, desc: is4
+        ? '<strong>2-on-2 or 3-on-2</strong>: half-court scrimmage, rotate offense/defense every 45s.' + (is5 ? ' 5th player keeps score and tracks time.' : ' Extra player keeps score and waits.') + (hasHoop ? ' Offense can shoot to score.' : ' Reaching the key counts as a score.')
+        : '<strong>Offense</strong>: start at the free-throw line and try to beat the defender. <strong>Defense</strong>: maintain stance — no fouling. Rotate every 45s.' + (is3 ? ' Third player keeps score and waits their turn.' : '') + (hasHoop ? ' Offense can shoot to score.' : ' Reaching the key counts as a score.') },
+      { icon:'🏃', title:'Team Fitness Challenge', duration:8, desc:'All players in sync: <strong>Burpees</strong> ×5 → rest 20s, repeat 4-6 sets.' + (is4 ? ` All ${count} go together — last one done buys the drinks!` : is3 ? ' Loser of each round buys the water!' : ' Hype each other up — finish the last set together!') },
     ],
   };
 
@@ -2207,9 +2219,9 @@ function generatePlan() {
     // Space: always stored as-is from data-val (ZH for zh, PT for pt, EN for en)
     const spaceRaw = ps.space || '家里';
     const nameEl = document.getElementById(`p${p}_name`);
-    const dnames = currentLang==='zh' ? ['玩家1','玩家2','玩家3']
-                 : currentLang==='pt' ? ['Jogador 1','Jogador 2','Jogador 3']
-                 : ['Player 1','Player 2','Player 3'];
+    const dnames = currentLang==='zh' ? ['玩家1','玩家2','玩家3','玩家4','玩家5']
+                 : currentLang==='pt' ? ['Jogador 1','Jogador 2','Jogador 3','Jogador 4','Jogador 5']
+                 : ['Player 1','Player 2','Player 3','Player 4','Player 5'];
     allParams.push({
       name:     (nameEl && nameEl.value.trim()) || dnames[p],
       age:      parseInt(document.getElementById(`p${p}_age`).value),
