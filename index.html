@@ -901,16 +901,6 @@
       <p id="introSub">填写孩子的基本信息，自动生成精确到每分钟的篮球训练课表。</p>
     </div>
 
-    <!-- Player count selector -->
-    <div class="player-count-card fade-in">
-      <div class="player-count-label">👥 <span id="lblPlayerCount">训练人数</span></div>
-      <div class="player-count-btns">
-        <button class="count-btn active" data-count="1" onclick="setPlayerCount(1)">1</button>
-        <button class="count-btn" data-count="2" onclick="setPlayerCount(2)">2</button>
-        <button class="count-btn" data-count="3" onclick="setPlayerCount(3)">3</button>
-      </div>
-    </div>
-
     <!-- Player input tabs (visible when >1 player) -->
     <div id="playerTabsRow" class="player-tabs-row fade-in" style="display:none"></div>
 
@@ -1477,10 +1467,6 @@ function initPlayerPanels() {
   const count = currentPlayerCount;
   const s = STRINGS[currentLang];
 
-  // Update player-count label
-  const lbl = document.getElementById('lblPlayerCount');
-  if (lbl) lbl.textContent = s.playerCountLabel || '训练人数';
-
   // Update player tabs
   const tabsRow = document.getElementById('playerTabsRow');
   if (tabsRow) {
@@ -1597,6 +1583,14 @@ function buildPlayerPanel(pid, s, isActive) {
     <div class="input-card">
       <div class="section-label" style="color:${color}">${s.secPref}</div>
       <div class="form-grid">
+        ${pid === 0 ? `<div class="form-group" style="grid-column:1/-1">
+          <label class="form-label">👥 <span id="lblPlayerCount">${s.playerCountLabel || '训练人数'}</span></label>
+          <div class="player-count-btns">
+            <button class="count-btn${currentPlayerCount===1?' active':''}" data-count="1" onclick="setPlayerCount(1)">1</button>
+            <button class="count-btn${currentPlayerCount===2?' active':''}" data-count="2" onclick="setPlayerCount(2)">2</button>
+            <button class="count-btn${currentPlayerCount===3?' active':''}" data-count="3" onclick="setPlayerCount(3)">3</button>
+          </div>
+        </div>` : ''}
         <div class="form-group">
           <label class="form-label">🎯 <span>${s.lblGoal}</span></label>
           <div class="option-group">
