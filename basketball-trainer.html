@@ -1,0 +1,1501 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>篮球训练计划 / Plano de Treino de Basquete</title>
+<style>
+  :root {
+    --orange: #FF6B2B;
+    --orange-light: #FF8F5A;
+    --orange-dark: #E0551A;
+    --bg: #FFFFFF;
+    --bg-page: #F5F6FA;
+    --card-bg: #FFFFFF;
+    --card-hover: #FAFAFA;
+    --border: #E8ECF2;
+    --border-strong: #D0D8E4;
+    --text-primary: #1A1E2E;
+    --text-secondary: #4A5568;
+    --text-muted: #8896A8;
+    --accent-green: #18A96A;
+    --accent-blue: #2563EB;
+    --accent-yellow: #D97706;
+    --accent-red: #DC2626;
+    --accent-purple: #7C3AED;
+    --shadow-sm: 0 1px 4px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+    --shadow-lg: 0 8px 32px rgba(0,0,0,0.10);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', 'Segoe UI', sans-serif;
+    background: var(--bg-page);
+    color: var(--text-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ===== HEADER ===== */
+  .app-header {
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    height: 64px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .header-left { display: flex; align-items: center; gap: 12px; }
+
+  .app-logo {
+    width: 40px; height: 40px;
+    background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(255,107,43,0.3);
+  }
+
+  .app-title { font-size: 17px; font-weight: 700; color: var(--text-primary); }
+  .app-subtitle { font-size: 11px; color: var(--text-muted); margin-top: 1px; }
+
+  /* Language switcher */
+  .lang-switcher {
+    display: flex;
+    background: var(--bg-page);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .lang-btn {
+    padding: 7px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    transition: all 0.2s;
+    display: flex; align-items: center; gap: 5px;
+  }
+  .lang-btn.active {
+    background: var(--orange);
+    color: white;
+  }
+  .lang-btn:hover:not(.active) { color: var(--text-primary); background: var(--border); }
+
+  /* ===== MAIN LAYOUT ===== */
+  .main-container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 28px 20px 80px;
+  }
+
+  /* ===== SCREENS ===== */
+  .screen { display: none; }
+  .screen.active { display: block; }
+
+  /* ===== INPUT SCREEN ===== */
+  .input-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    color: var(--orange);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  @media (max-width: 600px) { .form-grid { grid-template-columns: 1fr; } }
+
+  .form-group { display: flex; flex-direction: column; gap: 10px; }
+
+  .form-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    display: flex; align-items: center; gap: 7px;
+  }
+
+  input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 5px;
+    background: var(--border);
+    border-radius: 3px;
+    outline: none;
+    cursor: pointer;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px; height: 20px;
+    background: var(--orange);
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(255,107,43,0.4);
+    transition: transform 0.15s;
+    border: 3px solid white;
+  }
+  input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.15); }
+
+  .slider-value {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+    color: white;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 3px 12px;
+    border-radius: 20px;
+    margin-top: 6px;
+  }
+
+  .option-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .option-btn {
+    padding: 7px 15px;
+    border: 1.5px solid var(--border-strong);
+    border-radius: 20px;
+    background: var(--bg);
+    color: var(--text-secondary);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.18s;
+  }
+  .option-btn:hover { border-color: var(--orange); color: var(--orange); background: rgba(255,107,43,0.04); }
+  .option-btn.selected {
+    background: var(--orange);
+    border-color: var(--orange);
+    color: white;
+    box-shadow: 0 3px 10px rgba(255,107,43,0.25);
+  }
+
+  /* ===== GENERATE BUTTON ===== */
+  .generate-btn {
+    width: 100%;
+    padding: 17px;
+    background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+    border: none;
+    border-radius: 14px;
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    box-shadow: 0 6px 20px rgba(255,107,43,0.35);
+    margin-top: 4px;
+  }
+  .generate-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(255,107,43,0.45); }
+  .generate-btn:active { transform: translateY(0); }
+
+  /* ===== LOADING ===== */
+  .loading-screen {
+    display: none;
+    text-align: center;
+    padding: 100px 20px;
+  }
+  .loading-screen.active { display: block; }
+
+  .loader {
+    width: 52px; height: 52px;
+    border: 4px solid var(--border);
+    border-top-color: var(--orange);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    margin: 0 auto 24px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .loading-text { font-size: 17px; font-weight: 600; color: var(--text-secondary); }
+  .loading-sub { font-size: 13px; color: var(--text-muted); margin-top: 8px; }
+
+  /* ===== RESULT SCREEN ===== */
+
+  /* --- Summary Banner --- */
+  .summary-banner {
+    background: linear-gradient(135deg, var(--orange) 0%, #C0392B 100%);
+    border-radius: 16px;
+    padding: 28px 32px;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 6px 24px rgba(255,107,43,0.3);
+  }
+  .summary-banner::after {
+    content: '🏀';
+    position: absolute;
+    right: 24px; top: 50%;
+    transform: translateY(-50%);
+    font-size: 88px;
+    opacity: 0.12;
+    pointer-events: none;
+  }
+  .summary-banner h2 { font-size: 22px; font-weight: 800; color: white; margin-bottom: 6px; }
+  .summary-banner p { font-size: 14px; color: rgba(255,255,255,0.88); margin-bottom: 18px; }
+  .summary-stats { display: flex; gap: 10px; flex-wrap: wrap; }
+  .stat-pill {
+    background: rgba(255,255,255,0.22);
+    border-radius: 20px;
+    padding: 5px 13px;
+    font-size: 13px;
+    font-weight: 600;
+    color: white;
+    backdrop-filter: blur(4px);
+  }
+
+  /* --- Goals Card --- */
+  .goals-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .goals-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 16px;
+  }
+  @media (max-width: 600px) { .goals-grid { grid-template-columns: 1fr 1fr; } }
+
+  .goal-item {
+    background: var(--bg-page);
+    border-radius: 12px;
+    padding: 16px 12px;
+    text-align: center;
+    border: 1px solid var(--border);
+    transition: box-shadow 0.2s;
+  }
+  .goal-item:hover { box-shadow: var(--shadow-md); }
+  .goal-icon { font-size: 26px; margin-bottom: 8px; }
+  .goal-title { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; font-weight: 500; }
+  .goal-value { font-size: 14px; font-weight: 700; color: var(--text-primary); }
+
+  /* --- Calendar --- */
+  .calendar-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .day-tabs {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+  }
+
+  .day-tab {
+    padding: 8px 12px;
+    border-radius: 10px;
+    border: 1.5px solid var(--border);
+    background: var(--bg);
+    color: var(--text-muted);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.18s;
+    display: flex; flex-direction: column; align-items: center; gap: 3px;
+    min-width: 52px;
+  }
+  .day-tab .day-num { font-size: 10px; opacity: 0.75; }
+  .day-tab:hover { border-color: var(--orange-light); color: var(--orange); background: rgba(255,107,43,0.04); }
+  .day-tab.active { background: var(--orange); border-color: var(--orange); color: white; box-shadow: 0 3px 10px rgba(255,107,43,0.3); }
+  .day-tab.rest { border-color: #BFDBFE; color: var(--accent-blue); }
+  .day-tab.rest.active { background: var(--accent-blue); border-color: var(--accent-blue); color: white; box-shadow: 0 3px 10px rgba(37,99,235,0.3); }
+  .day-tab.light { border-color: #BBF7D0; color: var(--accent-green); }
+  .day-tab.light.active { background: var(--accent-green); border-color: var(--accent-green); color: white; box-shadow: 0 3px 10px rgba(24,169,106,0.3); }
+
+  /* --- Daily Detail --- */
+  .daily-detail {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .daily-header {
+    display: flex; align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    flex-wrap: wrap; gap: 12px;
+  }
+
+  .daily-title { font-size: 20px; font-weight: 800; color: var(--text-primary); }
+  .daily-theme-badge {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .daily-goals {
+    background: var(--bg-page);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border);
+  }
+  .daily-goals h4 { font-size: 12px; color: var(--orange); font-weight: 700; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.8px; }
+  .goal-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+  .goal-list li { font-size: 13px; color: var(--text-secondary); display: flex; align-items: flex-start; gap: 8px; }
+  .goal-list li::before { content: '✓'; color: var(--accent-green); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+  /* --- Timeline --- */
+  .timeline { position: relative; padding-left: 22px; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 7px; top: 8px; bottom: 8px;
+    width: 2px;
+    background: var(--border);
+    border-radius: 1px;
+  }
+
+  .timeline-block { position: relative; margin-bottom: 18px; }
+  .timeline-block::before {
+    content: '';
+    position: absolute;
+    left: -18px; top: 12px;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    border: 2px solid white;
+    box-shadow: 0 0 0 1px var(--border);
+  }
+  .timeline-block.warmup::before   { background: #D97706; }
+  .timeline-block.skill::before    { background: var(--orange); }
+  .timeline-block.tech::before     { background: var(--accent-purple); }
+  .timeline-block.fitness::before  { background: var(--accent-green); }
+  .timeline-block.core::before     { background: var(--accent-blue); }
+  .timeline-block.cooldown::before { background: var(--text-muted); }
+
+  .block-header {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 10px;
+  }
+  .block-time {
+    font-size: 11px; font-weight: 700; color: var(--text-muted);
+    font-variant-numeric: tabular-nums;
+    min-width: 95px;
+    background: var(--bg-page);
+    padding: 2px 8px;
+    border-radius: 5px;
+    border: 1px solid var(--border);
+  }
+  .block-title { font-size: 15px; font-weight: 700; flex: 1; color: var(--text-primary); }
+  .block-duration {
+    font-size: 12px; color: var(--text-muted);
+    background: var(--bg-page);
+    padding: 3px 10px; border-radius: 10px;
+    border: 1px solid var(--border);
+  }
+
+  .block-content {
+    background: var(--bg-page);
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .exercise-row {
+    display: grid;
+    grid-template-columns: 1fr auto auto auto;
+    align-items: center;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    gap: 10px;
+    transition: background 0.12s;
+  }
+  .exercise-row:last-child { border-bottom: none; }
+  .exercise-row:hover { background: rgba(255,107,43,0.03); }
+  .ex-name { font-size: 13px; font-weight: 500; color: var(--text-primary); }
+  .ex-detail { font-size: 12px; color: var(--orange); font-weight: 700; white-space: nowrap; }
+  .ex-rest { font-size: 11px; color: var(--text-muted); white-space: nowrap; }
+  .ex-intensity { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .intensity-low  { background: var(--accent-green); }
+  .intensity-med  { background: var(--accent-yellow); }
+  .intensity-high { background: var(--orange); }
+  .intensity-max  { background: var(--accent-red); }
+
+  /* --- Back Button --- */
+  .back-btn {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 9px 16px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text-secondary);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.18s;
+    margin-bottom: 20px;
+  }
+  .back-btn:hover { background: var(--bg-page); color: var(--text-primary); border-color: var(--border-strong); }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 3px; }
+
+  /* Animations */
+  .fade-in { animation: fadeIn 0.35s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+  .rest-day-box {
+    text-align: center;
+    padding: 52px 24px;
+    background: var(--bg-page);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+  }
+  .rest-day-box .big-icon { font-size: 56px; margin-bottom: 16px; }
+  .rest-day-box h3 { font-size: 20px; font-weight: 800; margin-bottom: 8px; color: var(--text-primary); }
+  .rest-day-box p { font-size: 13px; color: var(--text-secondary); max-width: 340px; margin: 0 auto; line-height: 1.7; }
+
+  .tip-box {
+    background: rgba(255,107,43,0.05);
+    border: 1px solid rgba(255,107,43,0.2);
+    border-radius: 10px;
+    padding: 13px 16px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-top: 16px;
+    line-height: 1.6;
+  }
+  .tip-box strong { color: var(--orange); }
+
+  /* ===== INTRO TEXT ===== */
+  .page-intro {
+    margin-bottom: 24px;
+  }
+  .page-intro h1 {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+  }
+  .page-intro p {
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+
+  /* ===== MOBILE / TABLET RESPONSIVE ===== */
+
+  /* iPad (768px – 1024px) */
+  @media (max-width: 1024px) {
+    .main-container { max-width: 100%; padding: 20px 16px 80px; }
+    .goals-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  /* Mobile (≤ 600px) */
+  @media (max-width: 600px) {
+    /* Header */
+    .app-header { padding: 0 14px; height: 56px; }
+    .app-logo { width: 34px; height: 34px; font-size: 17px; border-radius: 8px; }
+    .app-title { font-size: 15px; }
+    .app-subtitle { display: none; }
+    .lang-btn { padding: 6px 10px; font-size: 12px; }
+
+    /* Container */
+    .main-container { padding: 14px 12px 100px; }
+
+    /* Intro */
+    .page-intro h1 { font-size: 20px; }
+    .page-intro p { font-size: 13px; }
+
+    /* Cards */
+    .input-card { padding: 18px 14px; border-radius: 14px; }
+    .form-grid { grid-template-columns: 1fr; gap: 18px; }
+
+    /* Sliders – bigger touch target */
+    input[type="range"] { height: 6px; }
+    input[type="range"]::-webkit-slider-thumb { width: 24px; height: 24px; }
+
+    /* Option buttons – bigger tap area */
+    .option-btn { padding: 9px 14px; font-size: 14px; border-radius: 22px; }
+
+    /* Generate button */
+    .generate-btn { padding: 16px; font-size: 15px; border-radius: 14px; }
+
+    /* Summary banner */
+    .summary-banner { padding: 20px 18px; border-radius: 14px; }
+    .summary-banner h2 { font-size: 18px; }
+    .summary-banner p { font-size: 13px; }
+    .summary-banner::after { font-size: 64px; right: 14px; }
+    .stat-pill { font-size: 12px; padding: 4px 10px; }
+
+    /* Goals */
+    .goals-card, .calendar-card, .daily-detail { padding: 16px 14px; border-radius: 14px; }
+    .goals-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .goal-item { padding: 12px 8px; }
+    .goal-icon { font-size: 22px; }
+    .goal-title { font-size: 10px; }
+    .goal-value { font-size: 13px; }
+
+    /* Day tabs – scrollable row */
+    .day-tabs {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 6px;
+      gap: 6px;
+      scrollbar-width: none;
+    }
+    .day-tabs::-webkit-scrollbar { display: none; }
+    .day-tab {
+      min-width: 48px;
+      flex-shrink: 0;
+      padding: 8px 10px;
+      font-size: 11px;
+    }
+
+    /* Daily detail */
+    .daily-title { font-size: 17px; }
+    .daily-theme-badge { font-size: 11px; padding: 5px 10px; }
+
+    /* Timeline */
+    .timeline { padding-left: 18px; }
+    .block-time { font-size: 10px; min-width: 80px; }
+    .block-title { font-size: 14px; }
+    .block-duration { font-size: 11px; }
+
+    /* Exercise rows – stack on very small screens */
+    .exercise-row {
+      grid-template-columns: 1fr auto;
+      grid-template-rows: auto auto;
+      gap: 4px 8px;
+      padding: 10px 12px;
+    }
+    .ex-name { grid-column: 1; grid-row: 1; font-size: 13px; }
+    .ex-detail { grid-column: 2; grid-row: 1; font-size: 12px; }
+    .ex-rest { grid-column: 1; grid-row: 2; font-size: 11px; }
+    .ex-intensity { grid-column: 2; grid-row: 2; justify-self: end; }
+
+    /* Back button */
+    .back-btn { padding: 9px 14px; font-size: 13px; }
+
+    /* Rest day */
+    .rest-day-box { padding: 36px 16px; }
+    .rest-day-box .big-icon { font-size: 44px; }
+    .rest-day-box h3 { font-size: 18px; }
+
+    /* Tip box */
+    .tip-box { font-size: 12px; padding: 12px 14px; }
+  }
+
+  /* Safe area for iPhone notch / home bar */
+  @supports (padding-bottom: env(safe-area-inset-bottom)) {
+    .main-container { padding-bottom: calc(80px + env(safe-area-inset-bottom)); }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="app-header">
+  <div class="header-left">
+    <div class="app-logo">🏀</div>
+    <div>
+      <div class="app-title" id="headerTitle">篮球训练计划</div>
+      <div class="app-subtitle" id="headerSub">分钟级精准课表 · 按需定制</div>
+    </div>
+  </div>
+  <div class="lang-switcher">
+    <button class="lang-btn active" id="btnZH" onclick="setLang('zh')">🇨🇳 中文</button>
+    <button class="lang-btn" id="btnPT" onclick="setLang('pt')">🇵🇹 PT</button>
+  </div>
+</header>
+
+<!-- ===== INPUT SCREEN ===== -->
+<div id="screen-input" class="screen active">
+  <div class="main-container">
+
+    <div class="page-intro fade-in">
+      <h1 id="introTitle">生成专属训练计划</h1>
+      <p id="introSub">填写孩子的基本信息，自动生成精确到每分钟的篮球训练课表。</p>
+    </div>
+
+    <div class="input-card fade-in">
+      <div class="section-label" id="secBasic">基本信息</div>
+      <div class="form-grid">
+
+        <div class="form-group">
+          <label class="form-label">🧒 <span id="lblAge">孩子年龄</span></label>
+          <input type="range" id="age" min="6" max="18" value="10" oninput="updateSlider('age','ageVal')">
+          <div><span class="slider-value" id="ageVal">10</span></div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">⏳ <span id="lblYears">打球基础</span></label>
+          <input type="range" id="years" min="0" max="10" value="2" step="0.5" oninput="updateSlider('years','yearsVal')">
+          <div><span class="slider-value" id="yearsVal">2</span></div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">📅 <span id="lblDays">训练天数</span></label>
+          <input type="range" id="days" min="3" max="30" value="14" oninput="updateSlider('days','daysVal')">
+          <div><span class="slider-value" id="daysVal">14</span></div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">⏱️ <span id="lblMins">每天时长</span></label>
+          <input type="range" id="minutes" min="30" max="120" value="60" step="5" oninput="updateSlider('minutes','minutesVal')">
+          <div><span class="slider-value" id="minutesVal">60</span></div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="input-card fade-in">
+      <div class="section-label" id="secPref">训练偏好</div>
+      <div class="form-grid">
+
+        <div class="form-group">
+          <label class="form-label">🎯 <span id="lblGoal">训练目标</span></label>
+          <div class="option-group" id="goalGroup">
+            <button class="option-btn selected" data-group="goal" data-val="综合" data-pt="Geral">综合提升</button>
+            <button class="option-btn" data-group="goal" data-val="控球" data-pt="Dribble">控球为主</button>
+            <button class="option-btn" data-group="goal" data-val="投篮" data-pt="Arremesso">投篮为主</button>
+            <button class="option-btn" data-group="goal" data-val="体能" data-pt="Físico">体能为主</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">🏟️ <span id="lblSpace">训练场地</span></label>
+          <div class="option-group" id="spaceGroup">
+            <button class="option-btn selected" data-group="space" data-val="家里" data-pt="Casa">家里（客厅）</button>
+            <button class="option-btn" data-group="space" data-val="户外" data-pt="Quintal">户外空地</button>
+            <button class="option-btn" data-group="space" data-val="球场" data-pt="Quadra">标准球场</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">🏀 <span id="lblHoop">是否有篮筐</span></label>
+          <div class="option-group" id="hoopGroup">
+            <button class="option-btn selected" data-group="hoop" data-val="无" data-pt="Sem aro">没有篮筐</button>
+            <button class="option-btn" data-group="hoop" data-val="有" data-pt="Com aro">有篮筐</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">💪 <span id="lblFitness">体能基础</span></label>
+          <div class="option-group" id="fitnessGroup">
+            <button class="option-btn" data-group="fitness" data-val="一般" data-pt="Fraco">一般</button>
+            <button class="option-btn selected" data-group="fitness" data-val="中等" data-pt="Médio">中等</button>
+            <button class="option-btn" data-group="fitness" data-val="较强" data-pt="Bom">较强</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <button class="generate-btn" onclick="generatePlan()">
+      <span>⚡</span>
+      <span id="btnGenerate">生成专属训练计划</span>
+    </button>
+
+  </div>
+</div>
+
+<!-- ===== LOADING ===== -->
+<div id="screen-loading" class="loading-screen">
+  <div class="loader"></div>
+  <div class="loading-text" id="loadingText">正在生成训练计划…</div>
+  <div class="loading-sub" id="loadingTip">分析运动参数中</div>
+</div>
+
+<!-- ===== RESULT SCREEN ===== -->
+<div id="screen-result" class="screen">
+  <div class="main-container">
+    <button class="back-btn" onclick="goBack()">← <span id="backLabel">重新设置</span></button>
+    <div id="result-content"></div>
+  </div>
+</div>
+
+<script>
+// =============================================
+// LANGUAGE
+// =============================================
+let currentLang = 'zh';
+
+const STRINGS = {
+  zh: {
+    headerTitle: '篮球训练计划',
+    headerSub: '分钟级精准课表 · 按需定制',
+    introTitle: '生成专属训练计划',
+    introSub: '填写孩子的基本信息，自动生成精确到每分钟的篮球训练课表。',
+    secBasic: '基本信息',
+    secPref: '训练偏好',
+    lblAge: '孩子年龄',
+    lblYears: '打球基础',
+    lblDays: '训练天数',
+    lblMins: '每天时长',
+    lblGoal: '训练目标',
+    lblSpace: '训练场地',
+    lblHoop: '是否有篮筐',
+    lblFitness: '体能基础',
+    btnGenerate: '生成专属训练计划',
+    backLabel: '重新设置',
+    loadingText: '正在生成训练计划…',
+    loadingTips: ['分析运动参数中…','计算训练等级…','生成热身方案…','设计技术训练序列…','规划体能间歇模块…','编排主题周期…','优化休息节奏…','最终检查…'],
+    sliderUnits: { age:'岁', years:'年', days:'天', minutes:'分钟' },
+    goalOpts: ['综合提升','控球为主','投篮为主','体能为主'],
+    spaceOpts: ['家里（客厅）','户外空地','标准球场'],
+    hoopOpts: ['没有篮筐','有篮筐'],
+    fitnessOpts: ['一般','中等','较强'],
+    levelNames: { L1:'新手起步', L2:'打基础', L3:'进阶强化', L4:'竞技冲刺' },
+    themes: ['控球基础','脚步与平衡','出手手型','综合实战','轻松恢复','强化挑战','完全休息'],
+    themesGoalMap: {
+      '控球': ['控球基础','控球基础','脚步与平衡','综合实战','轻松恢复','强化挑战','完全休息'],
+      '投篮': ['出手手型','控球基础','出手手型','综合实战','轻松恢复','出手手型','完全休息'],
+      '体能': ['控球基础','强化挑战','脚步与平衡','强化挑战','轻松恢复','综合实战','完全休息'],
+    },
+    bannerAge: (a,y,d) => `${a}岁 · ${y}年球龄 · ${d}天计划`,
+    bannerSub: (lvl,goal,space) => `等级：${lvl} · 目标：${goal} · 场地：${space}`,
+    pills: (d,m,hoop,fit) => [`📅 ${d} 天`,`⏱️ 每天 ${m} 分钟`,`🏀 ${hoop==='有'?'有篮筐':'无篮筐'}`,`💪 体能：${fit}`],
+    overallGoalsLabel: '假期训练目标',
+    calendarLabel: '训练日历',
+    todayGoalLabel: '今日目标',
+    restTitle: '完全休息',
+    restH3: '今天，就好好休息',
+    restTips: ['今天不安排任何训练，让身体充分恢复。','可以散步15-20分钟，做10分钟轻松拉伸。','保证充足睡眠（推荐9小时以上）。','补充好营养，多喝水。'],
+    overallGoals: (lvl) => [
+      {icon:'🎯',title:'控球稳定',value:'运球失误 -50%'},
+      {icon:'⚡',title:'脚步灵活',value:'启停时间 -20%'},
+      {icon:'💪',title:'体能提升',value:'间歇完成率 ≥85%'},
+      {icon:'🧠',title:'篮球感知',value:'无球意识增强'},
+      {icon:'🏋️',title:'核心稳定',value:'核心力量 +1级'},
+      {icon:'📈',title:'综合水平',value:`${lvl} → 进阶`},
+    ],
+    blockTitles: { warmup:'热身', skill:'球感训练', tech:'技术主题', fitness:'体能间歇', core:'核心力量', coreLight:'柔韧 & 灵活', cooldown:'放松拉伸' },
+    minLabel: '分钟',
+    estimateLabel: '预计用时',
+    coachTip: '教练提示：',
+    tips: {
+      '控球基础': '关注运球高度和手掌控制，不要用掌心，用指尖！',
+      '脚步与平衡': '落地时膝盖不要内扣，重心放低，动作先慢后快。',
+      '出手手型': '拨球时手腕要完全下弯，每一次出手动作都要一模一样。',
+      '综合实战': '变向时眼睛看前方，不要低头看球，模拟真实比赛意识。',
+      '轻松恢复': '今天强度低，但拉伸要认真做，这才是真正的恢复。',
+      '强化挑战': '今天比平时多一点点努力，但不要追求数量，要追求质量。',
+    },
+    dayGoals: (theme, hoop) => ({
+      '控球基础': ['右手/左手各连续运球60次不失误','启动-急停动作完成 9/10 组','训练全程专注，无长时间走神'],
+      '脚步与平衡': ['跳停练习做到落地重心稳、不晃动','防守滑步来回全程不交叉步','单腿平衡站立超过20秒'],
+      '出手手型': [`手型出手动作完成${hoop==='有'?'50次投篮':'80次拨球/推射'}`,'出手轨迹保持一致，不乱甩手腕','接球-转髋-出手连贯无停顿'],
+      '综合实战': ['绕杆突破全程不碰倒水瓶','变向-急停-假投流程熟练完成 6 组','体能间歇完成 8/10 组'],
+      '轻松恢复': ['今天以放松为主，不追求强度','完整完成柔韧拉伸，每个部位到位','睡前再做5分钟静态拉伸'],
+      '强化挑战': ['比上一个强化日多完成1组','体能间歇心率到位，不偷懒','训练完成率 ≥ 90%'],
+    }[theme] || []),
+    exercises: {
+      warmupList: (dur) => [
+        {name:'原地慢跑/高抬腿热身',detail:'2分钟',rest:'不休息',intensity:'low'},
+        {name:'开合跳',detail:'1分钟',rest:'休息20秒',intensity:'low'},
+        {name:'高抬腿',detail:'1分钟',rest:'休息20秒',intensity:'med'},
+        {name:'动态拉伸（髋、膝、踝）',detail:'3分钟',rest:'不休息',intensity:'low'},
+        {name:'手腕 / 手指激活',detail:'1分钟',rest:'不休息',intensity:'low'},
+        ...(dur>=10?[{name:'侧向滑步激活',detail:'2分钟',rest:'不休息',intensity:'low'}]:[]),
+      ],
+      skillShoot: [
+        {name:'单手持球稳定感',detail:'2分钟',rest:'休息20秒',intensity:'low'},
+        {name:'指尖拨球（腕力）',detail:'1.5分钟',rest:'休息20秒',intensity:'low'},
+        {name:'手型检查：托球直上直下',detail:'1.5分钟',rest:'休息20秒',intensity:'low'},
+      ],
+      skillDribble: (t, level) => [
+        {name:'右手低运球',detail:'1分钟',rest:'休息20秒',intensity:'low'},
+        {name:'左手低运球',detail:'1分钟',rest:'休息20秒',intensity:'low'},
+        {name:'右手高运球',detail:'1分钟',rest:'休息20秒',intensity:'low'},
+        {name:'左手高运球',detail:'1分钟',rest:'休息20秒',intensity:'low'},
+        {name:'体前变向连续运球',detail:`2分钟（每${t}秒停10秒）`,rest:'休息20秒',intensity:'med'},
+        ...(level!=='L1'?[{name:'胯下运球',detail:`2分钟（每${t}秒停10秒）`,rest:'休息20秒',intensity:'med'}]:[]),
+        ...(level==='L3'||level==='L4'?[{name:'背后运球',detail:`2分钟（每${t}秒停10秒）`,rest:'休息20秒',intensity:'med'}]:[]),
+      ],
+      techControl: (sets,t1,t2) => [
+        {name:'原地变向后1步启动',detail:`${sets}组 × ${t2}秒`,rest:'组间休息40秒',intensity:'med'},
+        {name:'2步急停（无球）',detail:`${sets}组 × ${t1}秒`,rest:'组间休息40秒',intensity:'med'},
+        {name:'启动-急停-假投模拟',detail:`${sets-1}组 × ${t2}秒`,rest:'组间休息40秒',intensity:'high'},
+      ],
+      techFootwork: (sets,t1) => [
+        {name:'跳停（双脚同时落地）',detail:`${sets}组 × ${t1}秒`,rest:'组间休息40秒',intensity:'med'},
+        {name:'转身脚步（左右各）',detail:`${sets}组 × ${t1}秒`,rest:'组间休息30秒',intensity:'med'},
+        {name:'防守滑步来回',detail:`${sets}组 × 25秒`,rest:'组间休息35秒',intensity:'high'},
+      ],
+      techShoot: (sets,r1,r2,r3,hoop) => [
+        {name:'拨球（单手手腕发力）',detail:`${r1}次 × ${sets-1}组`,rest:'组间休息40秒',intensity:'low'},
+        {name:'托球直上直下出手',detail:`${r2}次 × ${sets-1}组`,rest:'组间休息40秒',intensity:'low'},
+        {name:hoop==='有'?'近距投篮出手动作':'对墙目标点推射',detail:`${r3}次 × ${sets}组`,rest:'组间休息40秒',intensity:'med'},
+        {name:'接球-转髋-出手连贯动作',detail:`15次 × ${sets-1}组`,rest:'组间休息40秒',intensity:'med'},
+      ],
+      techCombined: (sets,t1,t2,extra) => [
+        {name:'变向-启动-急停-假投循环',detail:`${sets+extra}组 × ${t2+5}秒`,rest:'组间休息35秒',intensity:'high'},
+        {name:'障碍物（水瓶）绕杆突破',detail:`${sets}组 × ${t1+5}秒`,rest:'组间休息35秒',intensity:'high'},
+        {name:'后撤步变向模拟',detail:`${sets-1}组 × ${t2}秒`,rest:'组间休息40秒',intensity:'high'},
+      ],
+      techLight: [
+        {name:'低强度慢节奏运球',detail:'4分钟',rest:'不计休息',intensity:'low'},
+        {name:'静态平衡站立（单腿）',detail:'每腿1分钟 × 2组',rest:'休息30秒',intensity:'low'},
+        {name:'脚步灵活性走步练习',detail:'3分钟',rest:'不计休息',intensity:'low'},
+      ],
+      fitnessMoves: (level, light) => light
+        ? ['开合跳','轻踏步','小跳绳']
+        : (level==='L1' ? ['波比跳（简化版）','开合跳','小跳绳'] : ['波比跳','登山跑','跳绳','侧滑步冲刺']),
+      coreMain: (rounds) => [
+        {name:'平板支撑',detail:`25秒 × ${rounds}组`,rest:'组间休息15秒',intensity:'med'},
+        {name:'侧桥（左侧）',detail:`20秒 × ${rounds}组`,rest:'组间休息10秒',intensity:'med'},
+        {name:'侧桥（右侧）',detail:`20秒 × ${rounds}组`,rest:'组间休息10秒',intensity:'med'},
+        {name:'臀桥',detail:`20次 × ${rounds}组`,rest:'组间休息20秒',intensity:'med'},
+      ],
+      coreLight: [
+        {name:'静态拉伸全身流程',detail:'4分钟',rest:'不计休息',intensity:'low'},
+        {name:'泡沫轴放松（腿部）',detail:'2分钟',rest:'不计休息',intensity:'low'},
+        {name:'髋部深度拉伸',detail:'2分钟',rest:'不计休息',intensity:'low'},
+      ],
+      cooldown: [
+        {name:'小腿拉伸',detail:'1分钟（左右各）',rest:'不计休息',intensity:'low'},
+        {name:'大腿前侧拉伸',detail:'1分钟（左右各）',rest:'不计休息',intensity:'low'},
+        {name:'腘绳肌拉伸',detail:'1分钟',rest:'不计休息',intensity:'low'},
+        {name:'深呼吸放松',detail:'1分钟',rest:'不计休息',intensity:'low'},
+      ],
+    },
+    fitDetail: (work, rounds) => `${work}秒冲 × ${rounds}轮`,
+    fitRest: (rest) => `每轮休息${rest}秒`,
+  },
+
+  pt: {
+    headerTitle: 'Gerador de Plano de Treino',
+    headerSub: 'Plano minuto a minuto · Totalmente personalizado',
+    introTitle: 'Gere seu plano exclusivo',
+    introSub: 'Preencha as informações da criança e gere automaticamente um plano de treino de basquete por minuto.',
+    secBasic: 'Informações Básicas',
+    secPref: 'Preferências de Treino',
+    lblAge: 'Idade',
+    lblYears: 'Anos de experiência',
+    lblDays: 'Dias de treino',
+    lblMins: 'Minutos por dia',
+    lblGoal: 'Objetivo',
+    lblSpace: 'Local de treino',
+    lblHoop: 'Tem cesta?',
+    lblFitness: 'Condição física',
+    btnGenerate: '⚡ Gerar Plano de Treino',
+    backLabel: 'Refazer configuração',
+    loadingText: 'Gerando plano de treino…',
+    loadingTips: ['Analisando parâmetros…','Calculando nível…','Montando aquecimento…','Desenhando treino técnico…','Planejando intervalos físicos…','Organizando ciclo temático…','Otimizando descanso…','Verificação final…'],
+    sliderUnits: { age:'anos', years:'anos', days:'dias', minutes:'min' },
+    goalOpts: ['Geral','Dribble','Arremesso','Físico'],
+    spaceOpts: ['Casa (sala)','Quintal','Quadra oficial'],
+    hoopOpts: ['Sem cesta','Com cesta'],
+    fitnessOpts: ['Fraco','Médio','Bom'],
+    levelNames: { L1:'Iniciante', L2:'Básico', L3:'Intermediário', L4:'Avançado' },
+    themes: ['Dribble','Passos e Equilíbrio','Arremesso','Jogo Combinado','Recuperação Leve','Desafio Intenso','Descanso Total'],
+    themesGoalMap: {
+      'Dribble': ['Dribble','Dribble','Passos e Equilíbrio','Jogo Combinado','Recuperação Leve','Desafio Intenso','Descanso Total'],
+      'Arremesso': ['Arremesso','Dribble','Arremesso','Jogo Combinado','Recuperação Leve','Arremesso','Descanso Total'],
+      'Físico': ['Dribble','Desafio Intenso','Passos e Equilíbrio','Desafio Intenso','Recuperação Leve','Jogo Combinado','Descanso Total'],
+    },
+    bannerAge: (a,y,d) => `${a} anos · ${y} ano(s) de exp. · ${d} dias`,
+    bannerSub: (lvl,goal,space) => `Nível: ${lvl} · Foco: ${goal} · Local: ${space}`,
+    pills: (d,m,hoop,fit) => [`📅 ${d} dias`,`⏱️ ${m} min/dia`,`🏀 ${hoop==='Com aro'?'Com cesta':'Sem cesta'}`,`💪 Físico: ${fit}`],
+    overallGoalsLabel: 'Metas do Período de Férias',
+    calendarLabel: 'Calendário de Treinos',
+    todayGoalLabel: 'METAS DE HOJE',
+    restTitle: 'Descanso Total',
+    restH3: 'Hoje é dia de descanso!',
+    restTips: ['Nenhum treino hoje — deixe o corpo se recuperar totalmente.','Caminhada leve de 15-20 min e 10 min de alongamento estão liberados.','Garanta pelo menos 9 horas de sono.','Hidrate-se bem e cuide da alimentação.'],
+    overallGoals: (lvl) => [
+      {icon:'🎯',title:'Dribble estável',value:'Erros -50%'},
+      {icon:'⚡',title:'Passos ágeis',value:'Tempo de parada -20%'},
+      {icon:'💪',title:'Condição física',value:'Taxa de intervalo ≥85%'},
+      {icon:'🧠',title:'Leitura de jogo',value:'Visão sem bola'},
+      {icon:'🏋️',title:'Core forte',value:'Força +1 nível'},
+      {icon:'📈',title:'Nível geral',value:`${lvl} → Progresso`},
+    ],
+    blockTitles: { warmup:'Aquecimento', skill:'Treino de Dribble', tech:'Técnica do Dia', fitness:'Intervalo Físico', core:'Força de Core', coreLight:'Flexibilidade', cooldown:'Alongamento Final' },
+    minLabel: 'min',
+    estimateLabel: 'Duração estimada',
+    coachTip: 'Dica do treinador: ',
+    tips: {
+      'Dribble': 'Controle a altura do dribble. Use as pontas dos dedos, não a palma da mão!',
+      'Passos e Equilíbrio': 'Ao pousar, não deixe os joelhos entrar. Centro de gravidade baixo, movimento primeiro lento depois rápido.',
+      'Arremesso': 'O pulso deve flexionar completamente. Cada arremesso deve ser idêntico ao anterior.',
+      'Jogo Combinado': 'Olhos sempre à frente na mudança de direção. Simule consciência de jogo real.',
+      'Recuperação Leve': 'Hoje a intensidade é baixa, mas o alongamento deve ser feito com cuidado — isso é recuperação real.',
+      'Desafio Intenso': 'Um pouco mais de esforço hoje, mas priorize qualidade, não quantidade.',
+    },
+    dayGoals: (theme, hoop) => ({
+      'Dribble': ['Dribble contínuo 60x c/ mão direita e 60x c/ esquerda sem errar','Completar 9/10 séries de arranque-parada','Foco total durante o treino'],
+      'Passos e Equilíbrio': ['Jump-stop estável ao pousar, sem balançar','Defesa lateral sem cruzar os pés','Equilíbrio em um pé por mais de 20s'],
+      'Arremesso': [`Completar ${hoop==='Com aro'?'50 arremessos':'80 passes na parede'} com forma correta`,'Trajetória do arremesso consistente','Recepção-quadril-arremesso sem pausa'],
+      'Jogo Combinado': ['Contornar garrafas sem derrubar','Completar 6 séries de mudança-parada-finta','Completar 8/10 intervalos físicos'],
+      'Recuperação Leve': ['Dia de relaxamento — sem buscar intensidade','Completar todo o alongamento com amplitude real','5 min de alongamento estático antes de dormir'],
+      'Desafio Intenso': ['Completar 1 série a mais que o último dia intenso','Frequência cardíaca no alvo em todos os intervalos','Taxa de conclusão ≥ 90%'],
+    }[theme] || []),
+    exercises: {
+      warmupList: (dur) => [
+        {name:'Corrida leve / joelho alto',detail:'2 min',rest:'sem pausa',intensity:'low'},
+        {name:'Jumping jack',detail:'1 min',rest:'20s pausa',intensity:'low'},
+        {name:'Joelho alto',detail:'1 min',rest:'20s pausa',intensity:'med'},
+        {name:'Alongamento dinâmico (quadril, joelho, tornozelo)',detail:'3 min',rest:'sem pausa',intensity:'low'},
+        {name:'Ativação de pulso e dedos',detail:'1 min',rest:'sem pausa',intensity:'low'},
+        ...(dur>=10?[{name:'Deslize lateral de ativação',detail:'2 min',rest:'sem pausa',intensity:'low'}]:[]),
+      ],
+      skillShoot: [
+        {name:'Estabilidade com bola numa mão',detail:'2 min',rest:'20s pausa',intensity:'low'},
+        {name:'Giro de bola na ponta dos dedos',detail:'1,5 min',rest:'20s pausa',intensity:'low'},
+        {name:'Verificação de pegada: empurrar bola para cima',detail:'1,5 min',rest:'20s pausa',intensity:'low'},
+      ],
+      skillDribble: (t, level) => [
+        {name:'Dribble baixo mão direita',detail:'1 min',rest:'20s pausa',intensity:'low'},
+        {name:'Dribble baixo mão esquerda',detail:'1 min',rest:'20s pausa',intensity:'low'},
+        {name:'Dribble alto mão direita',detail:'1 min',rest:'20s pausa',intensity:'low'},
+        {name:'Dribble alto mão esquerda',detail:'1 min',rest:'20s pausa',intensity:'low'},
+        {name:'Crossover contínuo',detail:`2 min (pausa 10s a cada ${t}s)`,rest:'20s pausa',intensity:'med'},
+        ...(level!=='L1'?[{name:'Dribble entre as pernas',detail:`2 min (pausa 10s a cada ${t}s)`,rest:'20s pausa',intensity:'med'}]:[]),
+        ...(level==='L3'||level==='L4'?[{name:'Dribble pelas costas',detail:`2 min (pausa 10s a cada ${t}s)`,rest:'20s pausa',intensity:'med'}]:[]),
+      ],
+      techControl: (sets,t1,t2) => [
+        {name:'Mudança de direção + 1 passo',detail:`${sets} séries × ${t2}s`,rest:'40s entre séries',intensity:'med'},
+        {name:'Parada em 2 passos (sem bola)',detail:`${sets} séries × ${t1}s`,rest:'40s entre séries',intensity:'med'},
+        {name:'Arranque-parada-finta simulada',detail:`${sets-1} séries × ${t2}s`,rest:'40s entre séries',intensity:'high'},
+      ],
+      techFootwork: (sets,t1) => [
+        {name:'Jump-stop (dois pés juntos)',detail:`${sets} séries × ${t1}s`,rest:'40s entre séries',intensity:'med'},
+        {name:'Giro de pivô (esq. e dir.)',detail:`${sets} séries × ${t1}s`,rest:'30s entre séries',intensity:'med'},
+        {name:'Defesa lateral vai-e-vem',detail:`${sets} séries × 25s`,rest:'35s entre séries',intensity:'high'},
+      ],
+      techShoot: (sets,r1,r2,r3,hoop) => [
+        {name:'Empurrar bola (força do pulso)',detail:`${r1} reps × ${sets-1} séries`,rest:'40s entre séries',intensity:'low'},
+        {name:'Empurrar bola para cima',detail:`${r2} reps × ${sets-1} séries`,rest:'40s entre séries',intensity:'low'},
+        {name:hoop==='Com aro'?'Arremesso de curta distância':'Acertar alvo na parede',detail:`${r3} reps × ${sets} séries`,rest:'40s entre séries',intensity:'med'},
+        {name:'Recepção-quadril-arremesso encadeado',detail:`15 reps × ${sets-1} séries`,rest:'40s entre séries',intensity:'med'},
+      ],
+      techCombined: (sets,t1,t2,extra) => [
+        {name:'Crossover-arranque-parada-finta (ciclo)',detail:`${sets+extra} séries × ${t2+5}s`,rest:'35s entre séries',intensity:'high'},
+        {name:'Contorno de garrafas com dribble',detail:`${sets} séries × ${t1+5}s`,rest:'35s entre séries',intensity:'high'},
+        {name:'Recuo + mudança de direção simulada',detail:`${sets-1} séries × ${t2}s`,rest:'40s entre séries',intensity:'high'},
+      ],
+      techLight: [
+        {name:'Dribble lento e relaxado',detail:'4 min',rest:'sem pausa',intensity:'low'},
+        {name:'Equilíbrio estático (um pé)',detail:'1 min/pé × 2 séries',rest:'30s pausa',intensity:'low'},
+        {name:'Exercício de passos e agilidade leve',detail:'3 min',rest:'sem pausa',intensity:'low'},
+      ],
+      fitnessMoves: (level, light) => light
+        ? ['Jumping jack','Passinhos','Pular corda leve']
+        : (level==='L1' ? ['Burpee (simplificado)','Jumping jack','Pular corda'] : ['Burpee','Mountain climber','Pular corda','Deslize lateral sprint']),
+      coreMain: (rounds) => [
+        {name:'Prancha',detail:`25s × ${rounds} séries`,rest:'15s entre séries',intensity:'med'},
+        {name:'Prancha lateral esquerda',detail:`20s × ${rounds} séries`,rest:'10s entre séries',intensity:'med'},
+        {name:'Prancha lateral direita',detail:`20s × ${rounds} séries`,rest:'10s entre séries',intensity:'med'},
+        {name:'Ponte de glúteo',detail:`20 reps × ${rounds} séries`,rest:'20s entre séries',intensity:'med'},
+      ],
+      coreLight: [
+        {name:'Alongamento estático completo',detail:'4 min',rest:'sem pausa',intensity:'low'},
+        {name:'Rolo de espuma (pernas)',detail:'2 min',rest:'sem pausa',intensity:'low'},
+        {name:'Alongamento profundo de quadril',detail:'2 min',rest:'sem pausa',intensity:'low'},
+      ],
+      cooldown: [
+        {name:'Alongamento de panturrilha',detail:'1 min (cada perna)',rest:'sem pausa',intensity:'low'},
+        {name:'Alongamento de quadríceps',detail:'1 min (cada perna)',rest:'sem pausa',intensity:'low'},
+        {name:'Alongamento de isquiotibiais',detail:'1 min',rest:'sem pausa',intensity:'low'},
+        {name:'Respiração profunda e relaxamento',detail:'1 min',rest:'sem pausa',intensity:'low'},
+      ],
+    },
+    fitDetail: (work, rounds) => `${work}s esforço × ${rounds} rodadas`,
+    fitRest: (rest) => `${rest}s descanso/rodada`,
+  }
+};
+
+function setLang(lang) {
+  currentLang = lang;
+  const s = STRINGS[lang];
+
+  document.getElementById('headerTitle').textContent = s.headerTitle;
+  document.getElementById('headerSub').textContent = s.headerSub;
+  document.getElementById('introTitle').textContent = s.introTitle;
+  document.getElementById('introSub').textContent = s.introSub;
+  document.getElementById('secBasic').childNodes[0].textContent = s.secBasic;
+  document.getElementById('secPref').childNodes[0].textContent = s.secPref;
+  document.getElementById('lblAge').textContent = s.lblAge;
+  document.getElementById('lblYears').textContent = s.lblYears;
+  document.getElementById('lblDays').textContent = s.lblDays;
+  document.getElementById('lblMins').textContent = s.lblMins;
+  document.getElementById('lblGoal').textContent = s.lblGoal;
+  document.getElementById('lblSpace').textContent = s.lblSpace;
+  document.getElementById('lblHoop').textContent = s.lblHoop;
+  document.getElementById('lblFitness').textContent = s.lblFitness;
+  document.getElementById('btnGenerate').textContent = s.btnGenerate;
+  document.getElementById('backLabel').textContent = s.backLabel;
+  document.getElementById('loadingText').textContent = s.loadingText;
+
+  // Update option buttons text
+  const goalBtns = document.querySelectorAll('[data-group="goal"]');
+  s.goalOpts.forEach((t, i) => { if (goalBtns[i]) goalBtns[i].textContent = t; });
+  const spaceBtns = document.querySelectorAll('[data-group="space"]');
+  s.spaceOpts.forEach((t, i) => { if (spaceBtns[i]) spaceBtns[i].textContent = t; });
+  const hoopBtns = document.querySelectorAll('[data-group="hoop"]');
+  s.hoopOpts.forEach((t, i) => { if (hoopBtns[i]) hoopBtns[i].textContent = t; });
+  const fitBtns = document.querySelectorAll('[data-group="fitness"]');
+  s.fitnessOpts.forEach((t, i) => { if (fitBtns[i]) fitBtns[i].textContent = t; });
+
+  // Update slider values
+  updateSlider('age','ageVal');
+  updateSlider('years','yearsVal');
+  updateSlider('days','daysVal');
+  updateSlider('minutes','minutesVal');
+
+  // Update lang button states
+  document.getElementById('btnZH').classList.toggle('active', lang === 'zh');
+  document.getElementById('btnPT').classList.toggle('active', lang === 'pt');
+
+  // Update html lang
+  document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'pt-BR';
+
+  // Update selections to PT counterparts if switching
+  if (lang === 'pt') {
+    selections.goal = selections._goalPT || 'Geral';
+    selections.space = selections._spacePT || 'Casa';
+    selections.hoop = selections._hoopPT || 'Sem aro';
+    selections.fitness = selections._fitnessPT || 'Médio';
+  } else {
+    selections.goal = selections._goalZH || '综合';
+    selections.space = selections._spaceZH || '家里';
+    selections.hoop = selections._hoopZH || '无';
+    selections.fitness = selections._fitnessZH || '中等';
+  }
+}
+
+// =============================================
+// UTILS
+// =============================================
+function updateSlider(id, valId) {
+  const val = document.getElementById(id).value;
+  const s = STRINGS[currentLang];
+  const keyMap = { age:'age', years:'years', days:'days', minutes:'minutes' };
+  const unit = s.sliderUnits[keyMap[id]] || '';
+  document.getElementById(valId).textContent = val + ' ' + unit;
+}
+
+const selections = {
+  goal: '综合', space: '家里', hoop: '无', fitness: '中等',
+  _goalZH: '综合', _goalPT: 'Geral',
+  _spaceZH: '家里', _spacePT: 'Casa',
+  _hoopZH: '无', _hoopPT: 'Sem aro',
+  _fitnessZH: '中等', _fitnessPT: 'Médio',
+};
+
+// Map PT goal to ZH key for engine
+const PT_TO_ZH_GOAL = { 'Geral':'综合','Dribble':'控球','Arremesso':'投篮','Físico':'体能' };
+const PT_TO_ZH_HOOP = { 'Sem aro':'无','Com aro':'有' };
+const PT_TO_ZH_FITNESS = { 'Fraco':'一般','Médio':'中等','Bom':'较强' };
+
+document.querySelectorAll('.option-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const group = btn.dataset.group;
+    document.querySelectorAll(`[data-group="${group}"]`).forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    selections[group] = btn.dataset.val;
+    // Store both lang versions
+    if (currentLang === 'zh') {
+      const ptVal = btn.dataset.pt;
+      if (group === 'goal') { selections._goalZH = btn.dataset.val; selections._goalPT = ptVal || btn.dataset.val; }
+      if (group === 'space') { selections._spaceZH = btn.dataset.val; }
+      if (group === 'hoop') { selections._hoopZH = btn.dataset.val; selections._hoopPT = (btn.dataset.val==='有'?'Com aro':'Sem aro'); }
+      if (group === 'fitness') { selections._fitnessZH = btn.dataset.val; }
+    } else {
+      const zhVal = btn.dataset.val;
+      if (group === 'goal') { selections._goalPT = zhVal; }
+      if (group === 'hoop') { selections._hoopPT = zhVal; }
+      if (group === 'fitness') { selections._fitnessPT = zhVal; }
+    }
+  });
+});
+
+function goBack() {
+  document.getElementById('screen-result').classList.remove('active');
+  document.getElementById('screen-input').classList.add('active');
+}
+
+// =============================================
+// TRAINING ENGINE (language-aware)
+// =============================================
+
+function getLevel(age, years) {
+  const base = years + (age - 8) * 0.3;
+  if (base < 1.5) return 'L1';
+  if (base < 4)   return 'L2';
+  if (base < 8)   return 'L3';
+  return 'L4';
+}
+
+function getTheme(dayIndex, goalZH) {
+  const s = STRINGS[currentLang];
+  const ptGoalMap = { '综合':null,'控球':'Dribble','投篮':'Arremesso','体能':'Físico' };
+  if (currentLang === 'pt') {
+    const ptGoal = PT_TO_ZH_GOAL[goalZH] ? goalZH : (ptGoalMap[goalZH] || null);
+    const ptKey = ptGoal || goalZH;
+    if (s.themesGoalMap[ptKey]) return s.themesGoalMap[ptKey][dayIndex % 7];
+    return s.themes[dayIndex % 7];
+  }
+  const zhThemes = STRINGS.zh.themes;
+  const zhMap = STRINGS.zh.themesGoalMap;
+  if (zhMap[goalZH]) return zhMap[goalZH][dayIndex % 7];
+  return zhThemes[dayIndex % 7];
+}
+
+function getThemeZH(themeDisplay) {
+  // Convert displayed theme back to ZH key for engine logic
+  const ptToZH = {
+    'Dribble':'控球基础','Passos e Equilíbrio':'脚步与平衡','Arremesso':'出手手型',
+    'Jogo Combinado':'综合实战','Recuperação Leve':'轻松恢复','Desafio Intenso':'强化挑战','Descanso Total':'完全休息'
+  };
+  return ptToZH[themeDisplay] || themeDisplay;
+}
+
+function getProgression(dayIndex) {
+  const week = Math.floor(dayIndex / 7);
+  return { setBonus: week, timeBonus: week * 5 };
+}
+
+function isRestTheme(theme) {
+  return theme === '完全休息' || theme === 'Descanso Total';
+}
+function isLightTheme(theme) {
+  return theme === '轻松恢复' || theme === 'Recuperação Leve';
+}
+
+function fmtTime(min) {
+  return `${String(Math.floor(min)).padStart(2,'0')}:${String(Math.round((min%1)*60)).padStart(2,'0')}`;
+}
+
+function buildDay(dayIndex, params) {
+  const { age, years, totalMin, goal, hoop, fitness } = params;
+  const level = getLevel(age, years);
+  const theme = getTheme(dayIndex, goal);
+  const prog = getProgression(dayIndex);
+  const s = STRINGS[currentLang];
+
+  const isRest = isRestTheme(theme);
+  const isLight = isLightTheme(theme);
+  const themeZH = getThemeZH(theme);
+
+  if (isRest) {
+    return { dayIndex, theme, isRest: true, title: s.restTitle, tips: s.restTips };
+  }
+
+  // Determine hoop state
+  const hoopZH = currentLang === 'pt' ? (PT_TO_ZH_HOOP[hoop] || '无') : hoop;
+  const fitnessZH = currentLang === 'pt' ? (PT_TO_ZH_FITNESS[fitness] || '中等') : fitness;
+
+  let cursor = 0;
+  const blocks = [];
+
+  // --- WARMUP ---
+  const warmDur = level === 'L1' ? 8 : 10;
+  blocks.push({ type: 'warmup', title: s.blockTitles.warmup, dur: warmDur, startMin: cursor,
+    exercises: s.exercises.warmupList(warmDur) });
+  cursor += warmDur;
+
+  // --- SKILL ---
+  const skillDur = { L1:10, L2:12, L3:14, L4:16 }[level];
+  const tExtra = 50 + prog.timeBonus;
+  let skillEx;
+  if (themeZH === '出手手型') skillEx = s.exercises.skillShoot;
+  else skillEx = s.exercises.skillDribble(tExtra, level);
+  blocks.push({ type: 'skill', title: s.blockTitles.skill, dur: skillDur, startMin: cursor, exercises: skillEx });
+  cursor += skillDur;
+
+  // --- TECH ---
+  const techDur = { L1:12, L2:15, L3:17, L4:20 }[level];
+  const sets = (level === 'L1' ? 3 : level === 'L2' ? 4 : 5) + prog.setBonus;
+  const t1 = 30 + prog.timeBonus, t2 = 40 + prog.timeBonus;
+  let techEx;
+  if (themeZH === '控球基础') techEx = s.exercises.techControl(sets, t1, t2);
+  else if (themeZH === '脚步与平衡') techEx = s.exercises.techFootwork(sets, t1);
+  else if (themeZH === '出手手型') {
+    const r1=40+prog.setBonus*10, r2=30+prog.setBonus*5;
+    const r3 = hoopZH==='有' ? 15+prog.setBonus*3 : 20+prog.setBonus*5;
+    techEx = s.exercises.techShoot(sets,r1,r2,r3, currentLang==='pt'?(hoopZH==='有'?'Com aro':'Sem aro'):hoopZH);
+  } else if (themeZH === '综合实战' || themeZH === '强化挑战') {
+    techEx = s.exercises.techCombined(sets, t1, t2, themeZH==='强化挑战'?1:0);
+  } else if (isLight) {
+    techEx = s.exercises.techLight;
+  } else {
+    techEx = s.exercises.techControl(sets, t1, t2);
+  }
+  blocks.push({ type: 'tech', title: s.blockTitles.tech, dur: techDur, startMin: cursor, exercises: techEx });
+  cursor += techDur;
+
+  // --- FITNESS ---
+  const fitBaseDur = { L1:8, L2:10, L3:12, L4:14 }[level];
+  const fitDur = isLight ? Math.floor(fitBaseDur * 0.6) : fitBaseDur;
+  const rounds = isLight ? 6 : ((level==='L1'?8:10)+prog.setBonus);
+  const workSec = fitnessZH==='较强'?25:fitnessZH==='中等'?20:15;
+  const restSec = fitnessZH==='较强'?15:fitnessZH==='中等'?20:25;
+  const moves = s.exercises.fitnessMoves(level, isLight);
+  const sel = []; for (let i=0;i<rounds;i++) sel.push(moves[i%moves.length]);
+  const grouped = []; let cur2 = null;
+  sel.forEach(m => { if(cur2&&cur2.name===m){cur2.rounds++;}else{cur2={name:m,rounds:1};grouped.push(cur2);} });
+  const fitEx = grouped.map(g => ({
+    name: g.name,
+    detail: s.fitDetail(workSec, g.rounds),
+    rest: s.fitRest(restSec),
+    intensity: isLight?'med':'high'
+  }));
+  blocks.push({ type: 'fitness', title: s.blockTitles.fitness, dur: fitDur, startMin: cursor, exercises: fitEx });
+  cursor += fitDur;
+
+  // --- CORE ---
+  if (!isLight) {
+    const coreRounds = level==='L1'?2:3;
+    blocks.push({ type:'core', title:s.blockTitles.core, dur:8, startMin:cursor, exercises:s.exercises.coreMain(coreRounds) });
+  } else {
+    blocks.push({ type:'core', title:s.blockTitles.coreLight, dur:8, startMin:cursor, exercises:s.exercises.coreLight });
+  }
+  cursor += 8;
+
+  // --- COOLDOWN ---
+  blocks.push({ type:'cooldown', title:s.blockTitles.cooldown, dur:5, startMin:cursor, exercises:s.exercises.cooldown });
+  cursor += 5;
+
+  const goals = s.dayGoals(theme, currentLang==='pt'?(hoopZH==='有'?'Com aro':'Sem aro'):hoopZH);
+
+  return { dayIndex, theme, themeZH, level, isRest:false, isLight, blocks, goals, totalActual:cursor };
+}
+
+// =============================================
+// RENDER
+// =============================================
+
+const THEME_COLORS = {
+  '控球基础':   { bg:'rgba(255,107,43,0.10)',  color:'#E0551A' },
+  '脚步与平衡': { bg:'rgba(124,58,237,0.10)',  color:'#7C3AED' },
+  '出手手型':   { bg:'rgba(37,99,235,0.10)',   color:'#2563EB' },
+  '综合实战':   { bg:'rgba(220,38,38,0.10)',   color:'#DC2626' },
+  '轻松恢复':   { bg:'rgba(24,169,106,0.10)',  color:'#18A96A' },
+  '强化挑战':   { bg:'rgba(217,119,6,0.10)',   color:'#D97706' },
+  '完全休息':   { bg:'rgba(37,99,235,0.10)',   color:'#2563EB' },
+  'Dribble':              { bg:'rgba(255,107,43,0.10)',  color:'#E0551A' },
+  'Passos e Equilíbrio':  { bg:'rgba(124,58,237,0.10)',  color:'#7C3AED' },
+  'Arremesso':            { bg:'rgba(37,99,235,0.10)',   color:'#2563EB' },
+  'Jogo Combinado':       { bg:'rgba(220,38,38,0.10)',   color:'#DC2626' },
+  'Recuperação Leve':     { bg:'rgba(24,169,106,0.10)',  color:'#18A96A' },
+  'Desafio Intenso':      { bg:'rgba(217,119,6,0.10)',   color:'#D97706' },
+  'Descanso Total':       { bg:'rgba(37,99,235,0.10)',   color:'#2563EB' },
+};
+
+let planData = null;
+
+function renderResult(params, days) {
+  const s = STRINGS[currentLang];
+  const level = getLevel(params.age, params.years);
+  const lvlName = s.levelNames[level];
+  const goals = s.overallGoals(lvlName);
+
+  // Goal / space display values
+  const hoopDisp = currentLang==='pt'
+    ? (params.hoop==='无'?'Sem aro':'Com aro')
+    : params.hoop;
+  const fitnessDisp = currentLang==='pt'
+    ? PT_TO_ZH_FITNESS[params.fitness] || params.fitness
+    : params.fitness;
+
+  let html = `
+  <div class="summary-banner fade-in">
+    <h2>${s.bannerAge(params.age, params.years, params.days)}</h2>
+    <p>${s.bannerSub(lvlName, params.goal, params.space)}</p>
+    <div class="summary-stats">
+      ${s.pills(params.days, params.totalMin, hoopDisp, fitnessDisp).map(p=>`<div class="stat-pill">${p}</div>`).join('')}
+    </div>
+  </div>`;
+
+  html += `<div class="goals-card fade-in">
+    <div class="section-label">${s.overallGoalsLabel}</div>
+    <div class="goals-grid">
+      ${goals.map(g=>`<div class="goal-item"><div class="goal-icon">${g.icon}</div><div class="goal-title">${g.title}</div><div class="goal-value">${g.value}</div></div>`).join('')}
+    </div>
+  </div>`;
+
+  html += `<div class="calendar-card fade-in">
+    <div class="section-label">${s.calendarLabel}</div>
+    <div class="day-tabs" id="dayTabs">
+      ${days.map((d,i)=>{
+        const cls = d.isRest ? 'rest' : (d.isLight ? 'light' : '');
+        const icon = d.isRest ? '😴' : (d.isLight ? '🌿' : '🔥');
+        return `<button class="day-tab ${cls}${i===0?' active':''}" onclick="switchDay(${i})">${icon}<span class="day-num">D${i+1}</span></button>`;
+      }).join('')}
+    </div>
+  </div>`;
+
+  html += `<div id="dailyDetail" class="fade-in"></div>`;
+  document.getElementById('result-content').innerHTML = html;
+  renderDay(days[0]);
+}
+
+function switchDay(idx) {
+  document.querySelectorAll('.day-tab').forEach((t,i)=>t.classList.toggle('active',i===idx));
+  renderDay(planData[idx]);
+  document.getElementById('dailyDetail').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function renderDay(day) {
+  const s = STRINGS[currentLang];
+  const container = document.getElementById('dailyDetail');
+  container.innerHTML = '';
+  container.classList.remove('fade-in');
+  void container.offsetWidth;
+  container.classList.add('fade-in');
+
+  if (day.isRest) {
+    const thStyle = THEME_COLORS[day.theme] || { bg:'rgba(37,99,235,0.10)', color:'#2563EB' };
+    container.innerHTML = `
+      <div class="daily-detail">
+        <div class="daily-header">
+          <div><div class="daily-title">Day ${day.dayIndex+1} · ${day.title}</div></div>
+          <div class="daily-theme-badge" style="background:${thStyle.bg};color:${thStyle.color}">😴 ${day.title}</div>
+        </div>
+        <div class="rest-day-box">
+          <div class="big-icon">🛌</div>
+          <h3>${s.restH3}</h3>
+          <p>${day.tips.join('<br>')}</p>
+        </div>
+      </div>`;
+    return;
+  }
+
+  const thStyle = THEME_COLORS[day.theme] || { bg:'rgba(255,107,43,0.10)', color:'#E0551A' };
+
+  let html = `<div class="daily-detail">
+    <div class="daily-header">
+      <div>
+        <div class="daily-title">Day ${day.dayIndex+1} · ${day.theme}</div>
+        <div style="font-size:12px;color:var(--text-muted);margin-top:4px">${s.estimateLabel} ${day.totalActual} ${s.minLabel}</div>
+      </div>
+      <div class="daily-theme-badge" style="background:${thStyle.bg};color:${thStyle.color}">${day.theme}</div>
+    </div>`;
+
+  if (day.goals.length > 0) {
+    html += `<div class="daily-goals">
+      <h4>${s.todayGoalLabel}</h4>
+      <ul class="goal-list">${day.goals.map(g=>`<li>${g}</li>`).join('')}</ul>
+    </div>`;
+  }
+
+  html += `<div class="timeline">`;
+  day.blocks.forEach(block => {
+    const endMin = block.startMin + block.dur;
+    html += `<div class="timeline-block ${block.type}">
+      <div class="block-header">
+        <span class="block-time">${fmtTime(block.startMin)} – ${fmtTime(endMin)}</span>
+        <span class="block-title">${block.title}</span>
+        <span class="block-duration">${block.dur} ${s.minLabel}</span>
+      </div>
+      <div class="block-content">
+        ${block.exercises.map(ex=>`
+          <div class="exercise-row">
+            <span class="ex-name">${ex.name}</span>
+            <span class="ex-detail">${ex.detail}</span>
+            <span class="ex-rest">${ex.rest}</span>
+            <span class="ex-intensity intensity-${ex.intensity}"></span>
+          </div>`).join('')}
+      </div>
+    </div>`;
+  });
+  html += `</div>`;
+
+  const tip = s.tips[day.theme];
+  if (tip) html += `<div class="tip-box"><strong>${s.coachTip}</strong>${tip}</div>`;
+
+  html += `</div>`;
+  container.innerHTML = html;
+}
+
+// =============================================
+// GENERATE
+// =============================================
+function generatePlan() {
+  const s = STRINGS[currentLang];
+  const params = {
+    age:      parseInt(document.getElementById('age').value),
+    years:    parseFloat(document.getElementById('years').value),
+    days:     parseInt(document.getElementById('days').value),
+    totalMin: parseInt(document.getElementById('minutes').value),
+    goal:     selections.goal,
+    space:    selections.space,
+    hoop:     selections.hoop,
+    fitness:  selections.fitness,
+  };
+
+  document.getElementById('screen-input').classList.remove('active');
+  document.getElementById('screen-loading').classList.add('active');
+  document.getElementById('loadingText').textContent = s.loadingText;
+
+  let tipIdx = 0;
+  const tipEl = document.getElementById('loadingTip');
+  const tipInterval = setInterval(() => {
+    tipEl.textContent = s.loadingTips[tipIdx % s.loadingTips.length];
+    tipIdx++;
+  }, 220);
+
+  setTimeout(() => {
+    clearInterval(tipInterval);
+    const days = [];
+    for (let i = 0; i < params.days; i++) days.push(buildDay(i, params));
+    planData = days;
+
+    document.getElementById('screen-loading').classList.remove('active');
+    document.getElementById('screen-result').classList.add('active');
+    renderResult(params, days);
+  }, 1600);
+}
+
+// Init
+updateSlider('age','ageVal');
+updateSlider('years','yearsVal');
+updateSlider('days','daysVal');
+updateSlider('minutes','minutesVal');
+</script>
+</body>
+</html>
