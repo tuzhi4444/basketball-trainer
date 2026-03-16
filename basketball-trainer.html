@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>篮球训练计划 / Plano de Treino de Basquete</title>
+<title>Murray & Friends Basketball Training Plan</title>
 <style>
   :root {
     --orange: #FF6B2B;
@@ -640,13 +640,14 @@
   <div class="header-left">
     <div class="app-logo">🏀</div>
     <div>
-      <div class="app-title" id="headerTitle">篮球训练计划</div>
+      <div class="app-title" id="headerTitle">Murray & Friends 篮球训练计划</div>
       <div class="app-subtitle" id="headerSub">分钟级精准课表 · 按需定制</div>
     </div>
   </div>
   <div class="lang-switcher">
     <button class="lang-btn active" id="btnZH" onclick="setLang('zh')">🇨🇳 中文</button>
     <button class="lang-btn" id="btnPT" onclick="setLang('pt')">🇵🇹 PT</button>
+    <button class="lang-btn" id="btnEN" onclick="setLang('en')">🇬🇧 EN</button>
   </div>
 </header>
 
@@ -764,7 +765,7 @@ let currentLang = 'zh';
 
 const STRINGS = {
   zh: {
-    headerTitle: '篮球训练计划',
+    headerTitle: 'Murray & Friends 篮球训练计划',
     headerSub: '分钟级精准课表 · 按需定制',
     introTitle: '生成专属训练计划',
     introSub: '填写孩子的基本信息，自动生成精确到每分钟的篮球训练课表。',
@@ -906,7 +907,7 @@ const STRINGS = {
   },
 
   pt: {
-    headerTitle: 'Gerador de Plano de Treino',
+    headerTitle: 'Murray & Friends — Plano de Treino',
     headerSub: 'Plano minuto a minuto · Totalmente personalizado',
     introTitle: 'Gere seu plano exclusivo',
     introSub: 'Preencha as informações da criança e gere automaticamente um plano de treino de basquete por minuto.',
@@ -1045,6 +1046,149 @@ const STRINGS = {
     },
     fitDetail: (work, rounds) => `${work}s esforço × ${rounds} rodadas`,
     fitRest: (rest) => `${rest}s descanso/rodada`,
+  },
+
+  en: {
+    headerTitle: "Murray & Friends Basketball Training Plan",
+    headerSub: 'Minute-by-minute schedule · Fully personalised',
+    introTitle: 'Build Your Custom Training Plan',
+    introSub: 'Fill in the details and instantly get a minute-by-minute basketball training schedule.',
+    secBasic: 'Basic Info',
+    secPref: 'Training Preferences',
+    lblAge: 'Age',
+    lblYears: 'Years of experience',
+    lblDays: 'Training days',
+    lblMins: 'Minutes per day',
+    lblGoal: 'Training goal',
+    lblSpace: 'Training location',
+    lblHoop: 'Have a hoop?',
+    lblFitness: 'Fitness level',
+    btnGenerate: '⚡ Generate Training Plan',
+    backLabel: 'Start over',
+    loadingText: 'Building your training plan…',
+    loadingTips: ['Analysing parameters…','Calculating level…','Building warm-up…','Designing skill drills…','Planning cardio intervals…','Organising weekly themes…','Optimising rest rhythm…','Final check…'],
+    sliderUnits: { age:'yrs', years:'yrs', days:'days', minutes:'min' },
+    goalOpts: ['All-round','Ball handling','Shooting','Fitness'],
+    spaceOpts: ['Home (living room)','Outdoor space','Full court'],
+    hoopOpts: ['No hoop','Have a hoop'],
+    fitnessOpts: ['Low','Medium','High'],
+    levelNames: { L1:'Beginner', L2:'Foundation', L3:'Intermediate', L4:'Advanced' },
+    themes: ['Ball Handling','Footwork & Balance','Shooting Form','Game Simulation','Active Recovery','Intensity Challenge','Full Rest'],
+    themesGoalMap: {
+      'All-round': ['Ball Handling','Footwork & Balance','Shooting Form','Game Simulation','Active Recovery','Intensity Challenge','Full Rest'],
+      'Ball handling': ['Ball Handling','Ball Handling','Footwork & Balance','Game Simulation','Active Recovery','Intensity Challenge','Full Rest'],
+      'Shooting': ['Shooting Form','Ball Handling','Shooting Form','Game Simulation','Active Recovery','Shooting Form','Full Rest'],
+      'Fitness': ['Ball Handling','Intensity Challenge','Footwork & Balance','Intensity Challenge','Active Recovery','Game Simulation','Full Rest'],
+    },
+    bannerAge: (a,y,d) => `${a} yrs · ${y} yr(s) exp · ${d}-day plan`,
+    bannerSub: (lvl,goal,space) => `Level: ${lvl} · Focus: ${goal} · Location: ${space}`,
+    pills: (d,m,hoop,fit) => [`📅 ${d} days`,`⏱️ ${m} min/day`,`🏀 ${hoop==='Have a hoop'?'With hoop':'No hoop'}`,`💪 Fitness: ${fit}`],
+    overallGoalsLabel: 'Training Period Goals',
+    calendarLabel: 'Training Calendar',
+    todayGoalLabel: "TODAY'S TARGETS",
+    restTitle: 'Full Rest Day',
+    restH3: "Today is a rest day!",
+    restTips: ['No training today — let your body fully recover.','A light 15-20 min walk and 10 min of gentle stretching is fine.','Aim for at least 9 hours of sleep.','Stay hydrated and eat well.'],
+    overallGoals: (lvl) => [
+      {icon:'🎯',title:'Ball control',value:'Turnovers -50%'},
+      {icon:'⚡',title:'Agile footwork',value:'Stop time -20%'},
+      {icon:'💪',title:'Fitness boost',value:'Interval completion ≥85%'},
+      {icon:'🧠',title:'Court vision',value:'Off-ball awareness up'},
+      {icon:'🏋️',title:'Core strength',value:'Core level +1'},
+      {icon:'📈',title:'Overall level',value:`${lvl} → Progress`},
+    ],
+    blockTitles: { warmup:'Warm-Up', skill:'Ball Skills', tech:'Skill Focus', fitness:'Cardio Intervals', core:'Core Strength', coreLight:'Flexibility', cooldown:'Cool-Down' },
+    minLabel: 'min',
+    estimateLabel: 'Estimated time',
+    coachTip: "Coach's tip: ",
+    tips: {
+      'Ball Handling': 'Focus on dribble height and control — use your fingertips, not your palm!',
+      'Footwork & Balance': 'Keep knees from caving in on landing. Stay low; start slow, speed up as form improves.',
+      'Shooting Form': 'Wrist must follow through completely. Every shot release should look identical.',
+      'Game Simulation': 'Eyes up on every change of direction — no ball-watching. Simulate real game awareness.',
+      'Active Recovery': 'Low intensity today, but do the stretching properly — that is the real recovery.',
+      'Intensity Challenge': 'Push a little harder today, but quality over quantity always.',
+    },
+    dayGoals: (theme, hoop) => ({
+      'Ball Handling': ['Continuous dribble 60× right hand and 60× left hand without error','Complete 9/10 sets of drive-and-stop','Stay focused throughout — no zoning out'],
+      'Footwork & Balance': ['Land jump-stops solidly without wobbling','Defensive slides without crossing feet','Single-leg balance hold for more than 20 seconds'],
+      'Shooting Form': [`Complete ${hoop==='Have a hoop'?'50 shots':'80 wall-target reps'} with correct form`,'Consistent release arc — no wild wrist flicks','Catch-pivot-shoot in one fluid motion'],
+      'Game Simulation': ['Cone dribbling without knocking any over','Complete 6 sets of crossover-stop-fake','Finish 8/10 cardio intervals'],
+      'Active Recovery': ['Recovery day — no intensity needed','Complete full flexibility routine with proper range','5 min static stretching before bed'],
+      'Intensity Challenge': ['Complete 1 more set than last challenge day','Hit target heart rate in every interval','Overall completion rate ≥ 90%'],
+    }[theme] || []),
+    exercises: {
+      warmupList: (dur) => [
+        {name:'Light jog / high knees',detail:'2 min',rest:'no rest',intensity:'low'},
+        {name:'Jumping jacks',detail:'1 min',rest:'20s rest',intensity:'low'},
+        {name:'High knees',detail:'1 min',rest:'20s rest',intensity:'med'},
+        {name:'Dynamic stretch (hip, knee, ankle)',detail:'3 min',rest:'no rest',intensity:'low'},
+        {name:'Wrist & finger activation',detail:'1 min',rest:'no rest',intensity:'low'},
+        ...(dur>=10?[{name:'Lateral shuffle activation',detail:'2 min',rest:'no rest',intensity:'low'}]:[]),
+      ],
+      skillShoot: [
+        {name:'Single-hand ball stability',detail:'2 min',rest:'20s rest',intensity:'low'},
+        {name:'Fingertip ball spin (wrist power)',detail:'1.5 min',rest:'20s rest',intensity:'low'},
+        {name:'Form check: straight-up ball push',detail:'1.5 min',rest:'20s rest',intensity:'low'},
+      ],
+      skillDribble: (t, level) => [
+        {name:'Right-hand low dribble',detail:'1 min',rest:'20s rest',intensity:'low'},
+        {name:'Left-hand low dribble',detail:'1 min',rest:'20s rest',intensity:'low'},
+        {name:'Right-hand high dribble',detail:'1 min',rest:'20s rest',intensity:'low'},
+        {name:'Left-hand high dribble',detail:'1 min',rest:'20s rest',intensity:'low'},
+        {name:'Crossover (continuous)',detail:`2 min (pause 10s every ${t}s)`,rest:'20s rest',intensity:'med'},
+        ...(level!=='L1'?[{name:'Between-legs dribble',detail:`2 min (pause 10s every ${t}s)`,rest:'20s rest',intensity:'med'}]:[]),
+        ...(level==='L3'||level==='L4'?[{name:'Behind-back dribble',detail:`2 min (pause 10s every ${t}s)`,rest:'20s rest',intensity:'med'}]:[]),
+      ],
+      techControl: (sets,t1,t2) => [
+        {name:'Crossover + 1-step drive',detail:`${sets} sets × ${t2}s`,rest:'40s between sets',intensity:'med'},
+        {name:'2-step jump-stop (no ball)',detail:`${sets} sets × ${t1}s`,rest:'40s between sets',intensity:'med'},
+        {name:'Drive-stop-fake simulation',detail:`${sets-1} sets × ${t2}s`,rest:'40s between sets',intensity:'high'},
+      ],
+      techFootwork: (sets,t1) => [
+        {name:'Jump-stop (two feet together)',detail:`${sets} sets × ${t1}s`,rest:'40s between sets',intensity:'med'},
+        {name:'Pivot turns (left & right)',detail:`${sets} sets × ${t1}s`,rest:'30s between sets',intensity:'med'},
+        {name:'Defensive shuffle back-and-forth',detail:`${sets} sets × 25s`,rest:'35s between sets',intensity:'high'},
+      ],
+      techShoot: (sets,r1,r2,r3,hoop) => [
+        {name:'Push-shot wrist flick',detail:`${r1} reps × ${sets-1} sets`,rest:'40s between sets',intensity:'low'},
+        {name:'Straight-up ball push',detail:`${r2} reps × ${sets-1} sets`,rest:'40s between sets',intensity:'low'},
+        {name:hoop==='Have a hoop'?'Close-range shooting':'Wall-target push shot',detail:`${r3} reps × ${sets} sets`,rest:'40s between sets',intensity:'med'},
+        {name:'Catch-pivot-shoot chain',detail:`15 reps × ${sets-1} sets`,rest:'40s between sets',intensity:'med'},
+      ],
+      techCombined: (sets,t1,t2,extra) => [
+        {name:'Crossover-drive-stop-fake cycle',detail:`${sets+extra} sets × ${t2+5}s`,rest:'35s between sets',intensity:'high'},
+        {name:'Cone dribble weave',detail:`${sets} sets × ${t1+5}s`,rest:'35s between sets',intensity:'high'},
+        {name:'Step-back crossover simulation',detail:`${sets-1} sets × ${t2}s`,rest:'40s between sets',intensity:'high'},
+      ],
+      techLight: [
+        {name:'Slow relaxed dribble',detail:'4 min',rest:'no rest',intensity:'low'},
+        {name:'Single-leg balance hold',detail:'1 min/leg × 2 sets',rest:'30s rest',intensity:'low'},
+        {name:'Light footwork agility walk',detail:'3 min',rest:'no rest',intensity:'low'},
+      ],
+      fitnessMoves: (level, light) => light
+        ? ['Jumping jacks','Light step-ups','Easy jump rope']
+        : (level==='L1' ? ['Burpee (simplified)','Jumping jacks','Jump rope'] : ['Burpee','Mountain climbers','Jump rope','Lateral shuffle sprint']),
+      coreMain: (rounds) => [
+        {name:'Plank hold',detail:`25s × ${rounds} sets`,rest:'15s between sets',intensity:'med'},
+        {name:'Side plank (left)',detail:`20s × ${rounds} sets`,rest:'10s between sets',intensity:'med'},
+        {name:'Side plank (right)',detail:`20s × ${rounds} sets`,rest:'10s between sets',intensity:'med'},
+        {name:'Glute bridge',detail:`20 reps × ${rounds} sets`,rest:'20s between sets',intensity:'med'},
+      ],
+      coreLight: [
+        {name:'Full-body static stretch flow',detail:'4 min',rest:'no rest',intensity:'low'},
+        {name:'Foam roller (legs)',detail:'2 min',rest:'no rest',intensity:'low'},
+        {name:'Deep hip stretch',detail:'2 min',rest:'no rest',intensity:'low'},
+      ],
+      cooldown: [
+        {name:'Calf stretch',detail:'1 min (each leg)',rest:'no rest',intensity:'low'},
+        {name:'Quad stretch',detail:'1 min (each leg)',rest:'no rest',intensity:'low'},
+        {name:'Hamstring stretch',detail:'1 min',rest:'no rest',intensity:'low'},
+        {name:'Deep breathing & relax',detail:'1 min',rest:'no rest',intensity:'low'},
+      ],
+    },
+    fitDetail: (work, rounds) => `${work}s work × ${rounds} rounds`,
+    fitRest: (rest) => `${rest}s rest per round`,
   }
 };
 
@@ -1089,16 +1233,23 @@ function setLang(lang) {
   // Update lang button states
   document.getElementById('btnZH').classList.toggle('active', lang === 'zh');
   document.getElementById('btnPT').classList.toggle('active', lang === 'pt');
+  document.getElementById('btnEN').classList.toggle('active', lang === 'en');
 
   // Update html lang
-  document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'pt-BR';
+  const langMap = { zh:'zh-CN', pt:'pt-PT', en:'en-GB' };
+  document.documentElement.lang = langMap[lang] || 'en';
 
-  // Update selections to PT counterparts if switching
+  // Sync selections to current lang
   if (lang === 'pt') {
     selections.goal = selections._goalPT || 'Geral';
     selections.space = selections._spacePT || 'Casa';
     selections.hoop = selections._hoopPT || 'Sem aro';
     selections.fitness = selections._fitnessPT || 'Médio';
+  } else if (lang === 'en') {
+    selections.goal = selections._goalEN || 'All-round';
+    selections.space = selections._spaceEN || 'Home (living room)';
+    selections.hoop = selections._hoopEN || 'No hoop';
+    selections.fitness = selections._fitnessEN || 'Medium';
   } else {
     selections.goal = selections._goalZH || '综合';
     selections.space = selections._spaceZH || '家里';
@@ -1120,16 +1271,20 @@ function updateSlider(id, valId) {
 
 const selections = {
   goal: '综合', space: '家里', hoop: '无', fitness: '中等',
-  _goalZH: '综合', _goalPT: 'Geral',
-  _spaceZH: '家里', _spacePT: 'Casa',
-  _hoopZH: '无', _hoopPT: 'Sem aro',
-  _fitnessZH: '中等', _fitnessPT: 'Médio',
+  _goalZH: '综合', _goalPT: 'Geral', _goalEN: 'All-round',
+  _spaceZH: '家里', _spacePT: 'Casa', _spaceEN: 'Home (living room)',
+  _hoopZH: '无', _hoopPT: 'Sem aro', _hoopEN: 'No hoop',
+  _fitnessZH: '中等', _fitnessPT: 'Médio', _fitnessEN: 'Medium',
 };
 
 // Map PT goal to ZH key for engine
 const PT_TO_ZH_GOAL = { 'Geral':'综合','Dribble':'控球','Arremesso':'投篮','Físico':'体能' };
 const PT_TO_ZH_HOOP = { 'Sem aro':'无','Com aro':'有' };
 const PT_TO_ZH_FITNESS = { 'Fraco':'一般','Médio':'中等','Bom':'较强' };
+// Map EN goal to ZH key for engine
+const EN_TO_ZH_GOAL = { 'All-round':'综合','Ball handling':'控球','Shooting':'投篮','Fitness':'体能' };
+const EN_TO_ZH_HOOP = { 'No hoop':'无','Have a hoop':'有' };
+const EN_TO_ZH_FITNESS = { 'Low':'一般','Medium':'中等','High':'较强' };
 
 document.querySelectorAll('.option-btn').forEach(btn => {
   btn.addEventListener('click', () => {
@@ -1140,15 +1295,20 @@ document.querySelectorAll('.option-btn').forEach(btn => {
     // Store both lang versions
     if (currentLang === 'zh') {
       const ptVal = btn.dataset.pt;
-      if (group === 'goal') { selections._goalZH = btn.dataset.val; selections._goalPT = ptVal || btn.dataset.val; }
+      if (group === 'goal') { selections._goalZH = btn.dataset.val; selections._goalPT = ptVal || btn.dataset.val; selections._goalEN = btn.dataset.en || btn.dataset.val; }
       if (group === 'space') { selections._spaceZH = btn.dataset.val; }
-      if (group === 'hoop') { selections._hoopZH = btn.dataset.val; selections._hoopPT = (btn.dataset.val==='有'?'Com aro':'Sem aro'); }
+      if (group === 'hoop') { selections._hoopZH = btn.dataset.val; selections._hoopPT = (btn.dataset.val==='有'?'Com aro':'Sem aro'); selections._hoopEN = (btn.dataset.val==='有'?'Have a hoop':'No hoop'); }
       if (group === 'fitness') { selections._fitnessZH = btn.dataset.val; }
-    } else {
+    } else if (currentLang === 'pt') {
       const zhVal = btn.dataset.val;
       if (group === 'goal') { selections._goalPT = zhVal; }
       if (group === 'hoop') { selections._hoopPT = zhVal; }
       if (group === 'fitness') { selections._fitnessPT = zhVal; }
+    } else {
+      const zhVal = btn.dataset.val;
+      if (group === 'goal') { selections._goalEN = zhVal; }
+      if (group === 'hoop') { selections._hoopEN = zhVal; }
+      if (group === 'fitness') { selections._fitnessEN = zhVal; }
     }
   });
 });
@@ -1172,11 +1332,17 @@ function getLevel(age, years) {
 
 function getTheme(dayIndex, goalZH) {
   const s = STRINGS[currentLang];
-  const ptGoalMap = { '综合':null,'控球':'Dribble','投篮':'Arremesso','体能':'Físico' };
   if (currentLang === 'pt') {
+    const ptGoalMap = { '综合':null,'控球':'Dribble','投篮':'Arremesso','体能':'Físico' };
     const ptGoal = PT_TO_ZH_GOAL[goalZH] ? goalZH : (ptGoalMap[goalZH] || null);
     const ptKey = ptGoal || goalZH;
     if (s.themesGoalMap[ptKey]) return s.themesGoalMap[ptKey][dayIndex % 7];
+    return s.themes[dayIndex % 7];
+  }
+  if (currentLang === 'en') {
+    const enGoalMap = { '综合':'All-round','控球':'Ball handling','投篮':'Shooting','体能':'Fitness' };
+    const enKey = EN_TO_ZH_GOAL[goalZH] ? goalZH : (enGoalMap[goalZH] || 'All-round');
+    if (s.themesGoalMap[enKey]) return s.themesGoalMap[enKey][dayIndex % 7];
     return s.themes[dayIndex % 7];
   }
   const zhThemes = STRINGS.zh.themes;
@@ -1191,7 +1357,11 @@ function getThemeZH(themeDisplay) {
     'Dribble':'控球基础','Passos e Equilíbrio':'脚步与平衡','Arremesso':'出手手型',
     'Jogo Combinado':'综合实战','Recuperação Leve':'轻松恢复','Desafio Intenso':'强化挑战','Descanso Total':'完全休息'
   };
-  return ptToZH[themeDisplay] || themeDisplay;
+  const enToZH = {
+    'Ball Handling':'控球基础','Footwork & Balance':'脚步与平衡','Shooting Form':'出手手型',
+    'Game Simulation':'综合实战','Active Recovery':'轻松恢复','Intensity Challenge':'强化挑战','Full Rest':'完全休息'
+  };
+  return ptToZH[themeDisplay] || enToZH[themeDisplay] || themeDisplay;
 }
 
 function getProgression(dayIndex) {
@@ -1200,10 +1370,10 @@ function getProgression(dayIndex) {
 }
 
 function isRestTheme(theme) {
-  return theme === '完全休息' || theme === 'Descanso Total';
+  return theme === '完全休息' || theme === 'Descanso Total' || theme === 'Full Rest';
 }
 function isLightTheme(theme) {
-  return theme === '轻松恢复' || theme === 'Recuperação Leve';
+  return theme === '轻松恢复' || theme === 'Recuperação Leve' || theme === 'Active Recovery';
 }
 
 function fmtTime(min) {
@@ -1226,8 +1396,12 @@ function buildDay(dayIndex, params) {
   }
 
   // Determine hoop state
-  const hoopZH = currentLang === 'pt' ? (PT_TO_ZH_HOOP[hoop] || '无') : hoop;
-  const fitnessZH = currentLang === 'pt' ? (PT_TO_ZH_FITNESS[fitness] || '中等') : fitness;
+  const hoopZH = currentLang === 'pt' ? (PT_TO_ZH_HOOP[hoop] || '无')
+               : currentLang === 'en' ? (EN_TO_ZH_HOOP[hoop] || '无')
+               : hoop;
+  const fitnessZH = currentLang === 'pt' ? (PT_TO_ZH_FITNESS[fitness] || '中等')
+                  : currentLang === 'en' ? (EN_TO_ZH_FITNESS[fitness] || '中等')
+                  : fitness;
 
   let cursor = 0;
   const blocks = [];
@@ -1257,7 +1431,10 @@ function buildDay(dayIndex, params) {
   else if (themeZH === '出手手型') {
     const r1=40+prog.setBonus*10, r2=30+prog.setBonus*5;
     const r3 = hoopZH==='有' ? 15+prog.setBonus*3 : 20+prog.setBonus*5;
-    techEx = s.exercises.techShoot(sets,r1,r2,r3, currentLang==='pt'?(hoopZH==='有'?'Com aro':'Sem aro'):hoopZH);
+    techEx = s.exercises.techShoot(sets,r1,r2,r3,
+      currentLang==='pt' ? (hoopZH==='有'?'Com aro':'Sem aro')
+      : currentLang==='en' ? (hoopZH==='有'?'Have a hoop':'No hoop')
+      : hoopZH);
   } else if (themeZH === '综合实战' || themeZH === '强化挑战') {
     techEx = s.exercises.techCombined(sets, t1, t2, themeZH==='强化挑战'?1:0);
   } else if (isLight) {
@@ -1300,7 +1477,10 @@ function buildDay(dayIndex, params) {
   blocks.push({ type:'cooldown', title:s.blockTitles.cooldown, dur:5, startMin:cursor, exercises:s.exercises.cooldown });
   cursor += 5;
 
-  const goals = s.dayGoals(theme, currentLang==='pt'?(hoopZH==='有'?'Com aro':'Sem aro'):hoopZH);
+  const goals = s.dayGoals(theme,
+    currentLang==='pt' ? (hoopZH==='有'?'Com aro':'Sem aro')
+    : currentLang==='en' ? (hoopZH==='有'?'Have a hoop':'No hoop')
+    : hoopZH);
 
   return { dayIndex, theme, themeZH, level, isRest:false, isLight, blocks, goals, totalActual:cursor };
 }
@@ -1324,6 +1504,13 @@ const THEME_COLORS = {
   'Recuperação Leve':     { bg:'rgba(24,169,106,0.10)',  color:'#18A96A' },
   'Desafio Intenso':      { bg:'rgba(217,119,6,0.10)',   color:'#D97706' },
   'Descanso Total':       { bg:'rgba(37,99,235,0.10)',   color:'#2563EB' },
+  'Ball Handling':        { bg:'rgba(255,107,43,0.10)',  color:'#E0551A' },
+  'Footwork & Balance':   { bg:'rgba(124,58,237,0.10)',  color:'#7C3AED' },
+  'Shooting Form':        { bg:'rgba(37,99,235,0.10)',   color:'#2563EB' },
+  'Game Simulation':      { bg:'rgba(220,38,38,0.10)',   color:'#DC2626' },
+  'Active Recovery':      { bg:'rgba(24,169,106,0.10)',  color:'#18A96A' },
+  'Intensity Challenge':  { bg:'rgba(217,119,6,0.10)',   color:'#D97706' },
+  'Full Rest':            { bg:'rgba(37,99,235,0.10)',   color:'#2563EB' },
 };
 
 let planData = null;
@@ -1335,12 +1522,12 @@ function renderResult(params, days) {
   const goals = s.overallGoals(lvlName);
 
   // Goal / space display values
-  const hoopDisp = currentLang==='pt'
-    ? (params.hoop==='无'?'Sem aro':'Com aro')
-    : params.hoop;
-  const fitnessDisp = currentLang==='pt'
-    ? PT_TO_ZH_FITNESS[params.fitness] || params.fitness
-    : params.fitness;
+  const hoopDisp = currentLang==='pt' ? (params.hoop==='无'?'Sem aro':'Com aro')
+                 : currentLang==='en' ? (params.hoop==='无'?'No hoop':'Have a hoop')
+                 : params.hoop;
+  const fitnessDisp = currentLang==='pt' ? (PT_TO_ZH_FITNESS[params.fitness] || params.fitness)
+                    : currentLang==='en' ? (EN_TO_ZH_FITNESS[params.fitness] || params.fitness)
+                    : params.fitness;
 
   let html = `
   <div class="summary-banner fade-in">
