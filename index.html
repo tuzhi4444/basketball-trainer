@@ -873,6 +873,139 @@
   @supports (padding-bottom: env(safe-area-inset-bottom)) {
     .main-container { padding-bottom: calc(80px + env(safe-area-inset-bottom)); }
   }
+
+  /* ===== CHECKIN BUTTON ===== */
+  .checkin-area {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .checkin-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 22px;
+    border-radius: 12px;
+    border: 2px solid var(--accent-green);
+    background: white;
+    color: var(--accent-green);
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .checkin-btn:hover { background: rgba(24,169,106,0.06); transform: translateY(-1px); }
+  .checkin-btn.done {
+    background: var(--accent-green);
+    color: white;
+    border-color: var(--accent-green);
+    box-shadow: 0 4px 14px rgba(24,169,106,0.3);
+    cursor: default;
+  }
+  .checkin-progress {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+  .checkin-progress span { color: var(--accent-green); font-weight: 700; }
+
+  /* Day tab done indicator */
+  .day-tab.done::after {
+    content: '✓';
+    display: block;
+    font-size: 9px;
+    color: var(--accent-green);
+    font-weight: 900;
+    line-height: 1;
+  }
+
+  /* ===== COACH NOTES ===== */
+  .coach-notes-area {
+    margin-top: 20px;
+    background: var(--bg-page);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+  }
+  .coach-notes-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--orange);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .coach-notes-textarea {
+    width: 100%;
+    min-height: 80px;
+    border: 1px solid var(--border-strong);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 13px;
+    color: var(--text-primary);
+    background: white;
+    resize: vertical;
+    outline: none;
+    font-family: inherit;
+    line-height: 1.6;
+    transition: border-color 0.18s;
+  }
+  .coach-notes-textarea:focus { border-color: var(--orange); }
+  .coach-notes-textarea::placeholder { color: var(--text-muted); }
+  .notes-save-hint {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 6px;
+    text-align: right;
+  }
+  .notes-save-hint.saved { color: var(--accent-green); }
+
+  /* ===== EXPORT / ACTION BAR ===== */
+  .action-bar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  .action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 16px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text-secondary);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.18s;
+  }
+  .action-btn:hover { background: var(--bg-page); color: var(--text-primary); border-color: var(--border-strong); }
+  .action-btn.primary {
+    background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+    color: white;
+    border-color: transparent;
+    box-shadow: 0 3px 10px rgba(255,107,43,0.25);
+  }
+  .action-btn.primary:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(255,107,43,0.35); }
+
+  /* ===== PRINT STYLES ===== */
+  @media print {
+    .app-header, .action-bar, .checkin-area, .coach-notes-area,
+    .day-tabs, .team-tabs-bar, .player-tabs-row, .player-count-card,
+    #screen-input, #screen-loading { display: none !important; }
+    body { background: white; }
+    .main-container { padding: 0; max-width: 100%; }
+    .summary-banner { box-shadow: none; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .timeline-block { break-inside: avoid; }
+    .daily-detail { box-shadow: none; border: 1px solid #e8ecf2; }
+  }
 </style>
 </head>
 <body>
@@ -926,7 +1059,10 @@
 <!-- ===== RESULT SCREEN ===== -->
 <div id="screen-result" class="screen">
   <div class="main-container">
-    <button class="back-btn" onclick="goBack()">← <span id="backLabel">重新设置</span></button>
+    <div class="action-bar">
+      <button class="action-btn" onclick="goBack()">← <span id="backLabel">重新设置</span></button>
+      <button class="action-btn primary" onclick="window.print()">🖨️ <span id="exportLabel">导出 / 打印</span></button>
+    </div>
     <div id="result-content"></div>
   </div>
 </div>
@@ -1020,21 +1156,36 @@ const STRINGS = {
         {name:'指尖拨球（腕力）',detail:'1.5分钟',rest:'休息20秒',intensity:'low'},
         {name:'手型检查：托球直上直下',detail:'1.5分钟',rest:'休息20秒',intensity:'low'},
       ],
-      skillDribble: (t, level) => [
+      skillDribble: (t, level, age) => [
         {name:'右手低运球',detail:'1分钟',rest:'休息20秒',intensity:'low'},
         {name:'左手低运球',detail:'1分钟',rest:'休息20秒',intensity:'low'},
         {name:'右手高运球',detail:'1分钟',rest:'休息20秒',intensity:'low'},
         {name:'左手高运球',detail:'1分钟',rest:'休息20秒',intensity:'low'},
-        {name:'体前变向连续运球',detail:`2分钟（每${t}秒停10秒）`,rest:'休息20秒',intensity:'med'},
-        ...(level!=='L1'?[{name:'胯下运球',detail:`2分钟（每${t}秒停10秒）`,rest:'休息20秒',intensity:'med'}]:[]),
-        ...(level==='L3'||level==='L4'?[{name:'背后运球',detail:`2分钟（每${t}秒停10秒）`,rest:'休息20秒',intensity:'med'}]:[]),
+        // 8岁以下用简单变向，8岁+才做体前变向
+        age < 8
+          ? {name:'双手拍球（原地节奏感）',detail:`2分钟（每${t}秒停10秒）`,rest:'休息20秒',intensity:'low'}
+          : {name:'体前变向连续运球',detail:`2分钟（每${t}秒停10秒）`,rest:'休息20秒',intensity:'med'},
+        // 胯下运球：L2以上且10岁+
+        ...(level!=='L1' && age>=10 ? [{name:'胯下运球',detail:`2分钟（每${t}秒停10秒）`,rest:'休息20秒',intensity:'med'}]:[]),
+        // 背后运球：L3/L4且12岁+
+        ...((level==='L3'||level==='L4') && age>=12 ? [{name:'背后运球',detail:`2分钟（每${t}秒停10秒）`,rest:'休息20秒',intensity:'med'}]:[]),
       ],
-      techControl: (sets,t1,t2) => [
+      techControl: (sets,t1,t2,age) => age < 8 ? [
+        // 低龄版：简化脚步，无假投
+        {name:'原地启停练习（慢速）',detail:`${sets}组 × ${t1}秒`,rest:'组间休息40秒',intensity:'low'},
+        {name:'2步慢跑急停（无球）',detail:`${sets}组 × ${t1}秒`,rest:'组间休息40秒',intensity:'low'},
+        {name:'原地变向后退步（单向）',detail:`${sets-1}组 × ${t1}秒`,rest:'组间休息40秒',intensity:'med'},
+      ] : [
         {name:'原地变向后1步启动',detail:`${sets}组 × ${t2}秒`,rest:'组间休息40秒',intensity:'med'},
         {name:'2步急停（无球）',detail:`${sets}组 × ${t1}秒`,rest:'组间休息40秒',intensity:'med'},
         {name:'启动-急停-假投模拟',detail:`${sets-1}组 × ${t2}秒`,rest:'组间休息40秒',intensity:'high'},
       ],
-      techFootwork: (sets,t1) => [
+      techFootwork: (sets,t1,age) => age < 8 ? [
+        // 低龄版：双脚跳、原地转圈
+        {name:'原地双脚跳（节奏练习）',detail:`${sets}组 × ${t1}秒`,rest:'组间休息40秒',intensity:'low'},
+        {name:'左右侧并步移动',detail:`${sets}组 × ${t1}秒`,rest:'组间休息30秒',intensity:'low'},
+        {name:'慢速防守滑步（短距离）',detail:`${sets}组 × 20秒`,rest:'组间休息35秒',intensity:'med'},
+      ] : [
         {name:'跳停（双脚同时落地）',detail:`${sets}组 × ${t1}秒`,rest:'组间休息40秒',intensity:'med'},
         {name:'转身脚步（左右各）',detail:`${sets}组 × ${t1}秒`,rest:'组间休息30秒',intensity:'med'},
         {name:'防守滑步来回',detail:`${sets}组 × 25秒`,rest:'组间休息35秒',intensity:'high'},
@@ -1045,7 +1196,12 @@ const STRINGS = {
         {name:hoop==='有'?'近距投篮出手动作':'对墙目标点推射',detail:`${r3}次 × ${sets}组`,rest:'组间休息40秒',intensity:'med'},
         {name:'接球-转髋-出手连贯动作',detail:`15次 × ${sets-1}组`,rest:'组间休息40秒',intensity:'med'},
       ],
-      techCombined: (sets,t1,t2,extra) => [
+      techCombined: (sets,t1,t2,extra,age) => age < 10 ? [
+        // 低龄版：绕桩练习替代高强度综合
+        {name:'慢速绕杆运球（水瓶/障碍物）',detail:`${sets}组 × ${t1}秒`,rest:'组间休息40秒',intensity:'med'},
+        {name:'简单变向-停步练习',detail:`${sets}组 × ${t1}秒`,rest:'组间休息35秒',intensity:'med'},
+        {name:'手持球原地慢速假动作',detail:`${sets-1}组 × ${t1}秒`,rest:'组间休息40秒',intensity:'low'},
+      ] : [
         {name:'变向-启动-急停-假投循环',detail:`${sets+extra}组 × ${t2+5}秒`,rest:'组间休息35秒',intensity:'high'},
         {name:'障碍物（水瓶）绕杆突破',detail:`${sets}组 × ${t1+5}秒`,rest:'组间休息35秒',intensity:'high'},
         {name:'后撤步变向模拟',detail:`${sets-1}组 × ${t2}秒`,rest:'组间休息40秒',intensity:'high'},
@@ -1055,9 +1211,11 @@ const STRINGS = {
         {name:'静态平衡站立（单腿）',detail:'每腿1分钟 × 2组',rest:'休息30秒',intensity:'low'},
         {name:'脚步灵活性走步练习',detail:'3分钟',rest:'不计休息',intensity:'low'},
       ],
-      fitnessMoves: (level, light) => light
+      fitnessMoves: (level, light, age) => light
         ? ['开合跳','轻踏步','小跳绳']
-        : (level==='L1' ? ['波比跳（简化版）','开合跳','小跳绳'] : ['波比跳','登山跑','跳绳','侧滑步冲刺']),
+        : (age < 8
+            ? ['开合跳','小跳绳','快速踏步']
+            : level==='L1' ? ['波比跳（简化版）','开合跳','小跳绳'] : ['波比跳','登山跑','跳绳','侧滑步冲刺']),
       coreMain: (rounds) => [
         {name:'平板支撑',detail:`25秒 × ${rounds}组`,rest:'组间休息15秒',intensity:'med'},
         {name:'侧桥（左侧）',detail:`20秒 × ${rounds}组`,rest:'组间休息10秒',intensity:'med'},
@@ -1090,6 +1248,16 @@ const STRINGS = {
     teamScheduleLabel: '团队训练日历',
     teamTip: '💡 团队提示：',
     teamTipText: '先完成共同热身和对练环节，再各自进入专项练习。',
+    // Checkin & Notes
+    checkinMark: '标记今天已完成',
+    checkinDone: '今天已完成 🎉',
+    checkinProgress: (d,t) => `已完成 <span>${d}/${t}</span> 天`,
+    notesLabel: '📝 教练备注 / 今日记录',
+    notesPlaceholder: '记录今天的训练感受、孩子的表现、需要改进的地方…',
+    notesHint: '内容自动保存',
+    notesSaving: '保存中…',
+    notesSaved: '✓ 已保存',
+    exportBtn: '导出 / 打印',
   },
 
   pt: {
@@ -1174,21 +1342,31 @@ const STRINGS = {
         {name:'Giro de bola na ponta dos dedos',detail:'1,5 min',rest:'20s pausa',intensity:'low'},
         {name:'Verificação de pegada: empurrar bola para cima',detail:'1,5 min',rest:'20s pausa',intensity:'low'},
       ],
-      skillDribble: (t, level) => [
+      skillDribble: (t, level, age) => [
         {name:'Dribble baixo mão direita',detail:'1 min',rest:'20s pausa',intensity:'low'},
         {name:'Dribble baixo mão esquerda',detail:'1 min',rest:'20s pausa',intensity:'low'},
         {name:'Dribble alto mão direita',detail:'1 min',rest:'20s pausa',intensity:'low'},
         {name:'Dribble alto mão esquerda',detail:'1 min',rest:'20s pausa',intensity:'low'},
-        {name:'Crossover contínuo',detail:`2 min (pausa 10s a cada ${t}s)`,rest:'20s pausa',intensity:'med'},
-        ...(level!=='L1'?[{name:'Dribble entre as pernas',detail:`2 min (pausa 10s a cada ${t}s)`,rest:'20s pausa',intensity:'med'}]:[]),
-        ...(level==='L3'||level==='L4'?[{name:'Dribble pelas costas',detail:`2 min (pausa 10s a cada ${t}s)`,rest:'20s pausa',intensity:'med'}]:[]),
+        age < 8
+          ? {name:'Bater bola com duas mãos (ritmo)',detail:`2 min (pausa 10s a cada ${t}s)`,rest:'20s pausa',intensity:'low'}
+          : {name:'Crossover contínuo',detail:`2 min (pausa 10s a cada ${t}s)`,rest:'20s pausa',intensity:'med'},
+        ...(level!=='L1'&&age>=10?[{name:'Dribble entre as pernas',detail:`2 min (pausa 10s a cada ${t}s)`,rest:'20s pausa',intensity:'med'}]:[]),
+        ...((level==='L3'||level==='L4')&&age>=12?[{name:'Dribble pelas costas',detail:`2 min (pausa 10s a cada ${t}s)`,rest:'20s pausa',intensity:'med'}]:[]),
       ],
-      techControl: (sets,t1,t2) => [
+      techControl: (sets,t1,t2,age) => age < 8 ? [
+        {name:'Arranque-parada lento (sem bola)',detail:`${sets} séries × ${t1}s`,rest:'40s entre séries',intensity:'low'},
+        {name:'Parada em 2 passos devagar',detail:`${sets} séries × ${t1}s`,rest:'40s entre séries',intensity:'low'},
+        {name:'Passo lateral simples',detail:`${sets-1} séries × ${t1}s`,rest:'40s entre séries',intensity:'med'},
+      ] : [
         {name:'Mudança de direção + 1 passo',detail:`${sets} séries × ${t2}s`,rest:'40s entre séries',intensity:'med'},
         {name:'Parada em 2 passos (sem bola)',detail:`${sets} séries × ${t1}s`,rest:'40s entre séries',intensity:'med'},
         {name:'Arranque-parada-finta simulada',detail:`${sets-1} séries × ${t2}s`,rest:'40s entre séries',intensity:'high'},
       ],
-      techFootwork: (sets,t1) => [
+      techFootwork: (sets,t1,age) => age < 8 ? [
+        {name:'Salto com dois pés (ritmo)',detail:`${sets} séries × ${t1}s`,rest:'40s entre séries',intensity:'low'},
+        {name:'Passo lateral simples',detail:`${sets} séries × ${t1}s`,rest:'30s entre séries',intensity:'low'},
+        {name:'Deslize defensivo curto',detail:`${sets} séries × 20s`,rest:'35s entre séries',intensity:'med'},
+      ] : [
         {name:'Jump-stop (dois pés juntos)',detail:`${sets} séries × ${t1}s`,rest:'40s entre séries',intensity:'med'},
         {name:'Giro de pivô (esq. e dir.)',detail:`${sets} séries × ${t1}s`,rest:'30s entre séries',intensity:'med'},
         {name:'Defesa lateral vai-e-vem',detail:`${sets} séries × 25s`,rest:'35s entre séries',intensity:'high'},
@@ -1199,7 +1377,11 @@ const STRINGS = {
         {name:hoop==='Com aro'?'Arremesso de curta distância':'Acertar alvo na parede',detail:`${r3} reps × ${sets} séries`,rest:'40s entre séries',intensity:'med'},
         {name:'Recepção-quadril-arremesso encadeado',detail:`15 reps × ${sets-1} séries`,rest:'40s entre séries',intensity:'med'},
       ],
-      techCombined: (sets,t1,t2,extra) => [
+      techCombined: (sets,t1,t2,extra,age) => age < 10 ? [
+        {name:'Contorno lento de garrafas',detail:`${sets} séries × ${t1}s`,rest:'40s entre séries',intensity:'med'},
+        {name:'Mudança simples + parada',detail:`${sets} séries × ${t1}s`,rest:'35s entre séries',intensity:'med'},
+        {name:'Finta lenta com bola parado',detail:`${sets-1} séries × ${t1}s`,rest:'40s entre séries',intensity:'low'},
+      ] : [
         {name:'Crossover-arranque-parada-finta (ciclo)',detail:`${sets+extra} séries × ${t2+5}s`,rest:'35s entre séries',intensity:'high'},
         {name:'Contorno de garrafas com dribble',detail:`${sets} séries × ${t1+5}s`,rest:'35s entre séries',intensity:'high'},
         {name:'Recuo + mudança de direção simulada',detail:`${sets-1} séries × ${t2}s`,rest:'40s entre séries',intensity:'high'},
@@ -1209,9 +1391,11 @@ const STRINGS = {
         {name:'Equilíbrio estático (um pé)',detail:'1 min/pé × 2 séries',rest:'30s pausa',intensity:'low'},
         {name:'Exercício de passos e agilidade leve',detail:'3 min',rest:'sem pausa',intensity:'low'},
       ],
-      fitnessMoves: (level, light) => light
+      fitnessMoves: (level, light, age) => light
         ? ['Jumping jack','Passinhos','Pular corda leve']
-        : (level==='L1' ? ['Burpee (simplificado)','Jumping jack','Pular corda'] : ['Burpee','Mountain climber','Pular corda','Deslize lateral sprint']),
+        : (age < 8
+            ? ['Jumping jack','Pular corda leve','Passinhos rápidos']
+            : level==='L1' ? ['Burpee (simplificado)','Jumping jack','Pular corda'] : ['Burpee','Mountain climber','Pular corda','Deslize lateral sprint']),
       coreMain: (rounds) => [
         {name:'Prancha',detail:`25s × ${rounds} séries`,rest:'15s entre séries',intensity:'med'},
         {name:'Prancha lateral esquerda',detail:`20s × ${rounds} séries`,rest:'10s entre séries',intensity:'med'},
@@ -1244,6 +1428,16 @@ const STRINGS = {
     teamScheduleLabel: 'Calendário de equipa',
     teamTip: '💡 Dica de equipa: ',
     teamTipText: 'Façam primeiro o aquecimento e os exercícios partilhados, depois cada um faz o seu treino individual.',
+    // Checkin & Notes
+    checkinMark: 'Marcar treino de hoje como concluído',
+    checkinDone: 'Treino de hoje concluído 🎉',
+    checkinProgress: (d,t) => `Concluídos <span>${d}/${t}</span> dias`,
+    notesLabel: '📝 Notas do treinador',
+    notesPlaceholder: 'Registe as sensações de hoje, o desempenho da criança, o que precisa de melhorar…',
+    notesHint: 'Guardado automaticamente',
+    notesSaving: 'A guardar…',
+    notesSaved: '✓ Guardado',
+    exportBtn: 'Exportar / Imprimir',
   },
 
   en: {
@@ -1329,21 +1523,31 @@ const STRINGS = {
         {name:'Fingertip ball spin (wrist power)',detail:'1.5 min',rest:'20s rest',intensity:'low'},
         {name:'Form check: straight-up ball push',detail:'1.5 min',rest:'20s rest',intensity:'low'},
       ],
-      skillDribble: (t, level) => [
+      skillDribble: (t, level, age) => [
         {name:'Right-hand low dribble',detail:'1 min',rest:'20s rest',intensity:'low'},
         {name:'Left-hand low dribble',detail:'1 min',rest:'20s rest',intensity:'low'},
         {name:'Right-hand high dribble',detail:'1 min',rest:'20s rest',intensity:'low'},
         {name:'Left-hand high dribble',detail:'1 min',rest:'20s rest',intensity:'low'},
-        {name:'Crossover (continuous)',detail:`2 min (pause 10s every ${t}s)`,rest:'20s rest',intensity:'med'},
-        ...(level!=='L1'?[{name:'Between-legs dribble',detail:`2 min (pause 10s every ${t}s)`,rest:'20s rest',intensity:'med'}]:[]),
-        ...(level==='L3'||level==='L4'?[{name:'Behind-back dribble',detail:`2 min (pause 10s every ${t}s)`,rest:'20s rest',intensity:'med'}]:[]),
+        age < 8
+          ? {name:'Two-hand rhythm bounce',detail:`2 min (pause 10s every ${t}s)`,rest:'20s rest',intensity:'low'}
+          : {name:'Crossover (continuous)',detail:`2 min (pause 10s every ${t}s)`,rest:'20s rest',intensity:'med'},
+        ...(level!=='L1'&&age>=10?[{name:'Between-legs dribble',detail:`2 min (pause 10s every ${t}s)`,rest:'20s rest',intensity:'med'}]:[]),
+        ...((level==='L3'||level==='L4')&&age>=12?[{name:'Behind-back dribble',detail:`2 min (pause 10s every ${t}s)`,rest:'20s rest',intensity:'med'}]:[]),
       ],
-      techControl: (sets,t1,t2) => [
+      techControl: (sets,t1,t2,age) => age < 8 ? [
+        {name:'Slow drive-and-stop (no ball)',detail:`${sets} sets × ${t1}s`,rest:'40s between sets',intensity:'low'},
+        {name:'Slow 2-step stop',detail:`${sets} sets × ${t1}s`,rest:'40s between sets',intensity:'low'},
+        {name:'Simple side-step',detail:`${sets-1} sets × ${t1}s`,rest:'40s between sets',intensity:'med'},
+      ] : [
         {name:'Crossover + 1-step drive',detail:`${sets} sets × ${t2}s`,rest:'40s between sets',intensity:'med'},
         {name:'2-step jump-stop (no ball)',detail:`${sets} sets × ${t1}s`,rest:'40s between sets',intensity:'med'},
         {name:'Drive-stop-fake simulation',detail:`${sets-1} sets × ${t2}s`,rest:'40s between sets',intensity:'high'},
       ],
-      techFootwork: (sets,t1) => [
+      techFootwork: (sets,t1,age) => age < 8 ? [
+        {name:'Two-foot rhythm jump',detail:`${sets} sets × ${t1}s`,rest:'40s between sets',intensity:'low'},
+        {name:'Simple side-step shuffle',detail:`${sets} sets × ${t1}s`,rest:'30s between sets',intensity:'low'},
+        {name:'Short defensive slide',detail:`${sets} sets × 20s`,rest:'35s between sets',intensity:'med'},
+      ] : [
         {name:'Jump-stop (two feet together)',detail:`${sets} sets × ${t1}s`,rest:'40s between sets',intensity:'med'},
         {name:'Pivot turns (left & right)',detail:`${sets} sets × ${t1}s`,rest:'30s between sets',intensity:'med'},
         {name:'Defensive shuffle back-and-forth',detail:`${sets} sets × 25s`,rest:'35s between sets',intensity:'high'},
@@ -1354,7 +1558,11 @@ const STRINGS = {
         {name:hoop==='Have a hoop'?'Close-range shooting':'Wall-target push shot',detail:`${r3} reps × ${sets} sets`,rest:'40s between sets',intensity:'med'},
         {name:'Catch-pivot-shoot chain',detail:`15 reps × ${sets-1} sets`,rest:'40s between sets',intensity:'med'},
       ],
-      techCombined: (sets,t1,t2,extra) => [
+      techCombined: (sets,t1,t2,extra,age) => age < 10 ? [
+        {name:'Slow cone dribble weave',detail:`${sets} sets × ${t1}s`,rest:'40s between sets',intensity:'med'},
+        {name:'Simple crossover + stop',detail:`${sets} sets × ${t1}s`,rest:'35s between sets',intensity:'med'},
+        {name:'Slow fake move with ball',detail:`${sets-1} sets × ${t1}s`,rest:'40s between sets',intensity:'low'},
+      ] : [
         {name:'Crossover-drive-stop-fake cycle',detail:`${sets+extra} sets × ${t2+5}s`,rest:'35s between sets',intensity:'high'},
         {name:'Cone dribble weave',detail:`${sets} sets × ${t1+5}s`,rest:'35s between sets',intensity:'high'},
         {name:'Step-back crossover simulation',detail:`${sets-1} sets × ${t2}s`,rest:'40s between sets',intensity:'high'},
@@ -1364,9 +1572,11 @@ const STRINGS = {
         {name:'Single-leg balance hold',detail:'1 min/leg × 2 sets',rest:'30s rest',intensity:'low'},
         {name:'Light footwork agility walk',detail:'3 min',rest:'no rest',intensity:'low'},
       ],
-      fitnessMoves: (level, light) => light
+      fitnessMoves: (level, light, age) => light
         ? ['Jumping jacks','Light step-ups','Easy jump rope']
-        : (level==='L1' ? ['Burpee (simplified)','Jumping jacks','Jump rope'] : ['Burpee','Mountain climbers','Jump rope','Lateral shuffle sprint']),
+        : (age < 8
+            ? ['Jumping jacks','Easy jump rope','Fast step-ups']
+            : level==='L1' ? ['Burpee (simplified)','Jumping jacks','Jump rope'] : ['Burpee','Mountain climbers','Jump rope','Lateral shuffle sprint']),
       coreMain: (rounds) => [
         {name:'Plank hold',detail:`25s × ${rounds} sets`,rest:'15s between sets',intensity:'med'},
         {name:'Side plank (left)',detail:`20s × ${rounds} sets`,rest:'10s between sets',intensity:'med'},
@@ -1399,6 +1609,16 @@ const STRINGS = {
     teamScheduleLabel: 'Team Calendar',
     teamTip: '💡 Team tip: ',
     teamTipText: 'Complete the shared warm-up and partner drills first, then split off for individual training.',
+    // Checkin & Notes
+    checkinMark: "Mark today's training as done",
+    checkinDone: "Today's training complete 🎉",
+    checkinProgress: (d,t) => `Completed <span>${d}/${t}</span> days`,
+    notesLabel: "📝 Coach Notes",
+    notesPlaceholder: "Record how training went, the kid's performance, what needs work…",
+    notesHint: 'Auto-saved',
+    notesSaving: 'Saving…',
+    notesSaved: '✓ Saved',
+    exportBtn: 'Export / Print',
   }
 };
 
@@ -1419,6 +1639,8 @@ function setLang(lang) {
   document.getElementById('headerSub').textContent = s.headerSub;
   document.getElementById('introTitle').textContent = s.introTitle;
   document.getElementById('introSub').textContent = s.introSub;
+  const exportLbl = document.getElementById('exportLabel');
+  if (exportLbl) exportLbl.textContent = s.exportBtn || '导出 / 打印';
 
   document.getElementById('btnZH').classList.toggle('active', lang === 'zh');
   document.getElementById('btnPT').classList.toggle('active', lang === 'pt');
@@ -1570,11 +1792,11 @@ function buildPlayerPanel(pid, s, isActive) {
           <input type="range" id="p${pid}_years" min="0" max="10" value="2" step="0.5" oninput="updatePlayerSlider(${pid},'years','yearsVal')">
           <div><span class="slider-value" id="p${pid}_yearsVal">2 ${s.sliderUnits.years}</span></div>
         </div>
-        <div class="form-group">
+        ${currentPlayerCount === 1 ? `<div class="form-group">
           <label class="form-label">📅 <span>${s.lblDays}</span></label>
           <input type="range" id="p${pid}_days" min="3" max="30" value="14" oninput="updatePlayerSlider(${pid},'days','daysVal')">
           <div><span class="slider-value" id="p${pid}_daysVal">14 ${s.sliderUnits.days}</span></div>
-        </div>
+        </div>` : `<input type="hidden" id="p${pid}_days" value="14">`}
         <div class="form-group">
           <label class="form-label">⏱️ <span>${s.lblMins}</span></label>
           <input type="range" id="p${pid}_minutes" min="30" max="120" value="60" step="5" oninput="updatePlayerSlider(${pid},'minutes','minutesVal')">
@@ -1595,7 +1817,12 @@ function buildPlayerPanel(pid, s, isActive) {
             <button class="count-btn${currentPlayerCount===4?' active':''}" data-count="4" onclick="setPlayerCount(4)">4</button>
             <button class="count-btn${currentPlayerCount===5?' active':''}" data-count="5" onclick="setPlayerCount(5)">5</button>
           </div>
-        </div>` : ''}
+        </div>
+        ${currentPlayerCount > 1 ? `<div class="form-group" style="grid-column:1/-1">
+          <label class="form-label">📅 <span>${s.lblDays}</span> <span style="font-size:11px;color:var(--text-muted);font-weight:400">（${currentLang==='zh'?'全队统一':'shared by all'}）</span></label>
+          <input type="range" id="sharedDays" min="3" max="30" value="14" oninput="updateSharedDays(this.value)">
+          <div><span class="slider-value" id="sharedDaysVal">14 ${s.sliderUnits.days}</span></div>
+        </div>` : ''}` : ''}
         <div class="form-group">
           <label class="form-label">🎯 <span>${s.lblGoal}</span></label>
           <div class="option-group">
@@ -1631,6 +1858,17 @@ function switchPlayerPanel(idx) {
     if (p) p.style.display = i === idx ? 'block' : 'none';
     const tb = document.getElementById(`ptab_${i}`);
     if (tb) tb.classList.toggle('active', i === idx);
+  }
+}
+
+function updateSharedDays(val) {
+  const s = STRINGS[currentLang];
+  const el = document.getElementById('sharedDaysVal');
+  if (el) el.textContent = val + ' ' + (s.sliderUnits.days || '天');
+  // sync to all player hidden inputs
+  for (let i = 0; i < currentPlayerCount; i++) {
+    const hidden = document.getElementById(`p${i}_days`);
+    if (hidden) hidden.value = val;
   }
 }
 
@@ -1733,31 +1971,55 @@ function buildDay(dayIndex, params) {
                   : currentLang === 'en' ? (EN_TO_ZH_FITNESS[fitness] || '中等')
                   : fitness;
 
+  // ---- 按年龄过滤动作难度 ----
+  function filterByAge(exercises, minAge) {
+    return exercises.filter(ex => !ex._minAge || age >= ex._minAge);
+  }
+
+  // ---- 基础比例分配（按 level 定基准），然后等比缩放到 totalMin ----
+  const baseWarm  = level === 'L1' ? 8  : 10;
+  const baseSkill = { L1:10, L2:12, L3:14, L4:16 }[level];
+  const baseTech  = { L1:12, L2:15, L3:17, L4:20 }[level];
+  const baseFit   = isLight ? Math.floor({ L1:8, L2:10, L3:12, L4:14 }[level] * 0.6)
+                            : { L1:8, L2:10, L3:12, L4:14 }[level];
+  const baseCore  = 8;
+  const baseCool  = 5;
+  const baseTotal = baseWarm + baseSkill + baseTech + baseFit + baseCore + baseCool;
+
+  // 缩放因子，确保总时长 = totalMin
+  const scale = totalMin / baseTotal;
+  function sc(v) { return Math.max(1, Math.round(v * scale)); }
+
+  const warmDur  = sc(baseWarm);
+  const skillDur = sc(baseSkill);
+  const techDur  = sc(baseTech);
+  const fitDur   = sc(baseFit);
+  const coreDur  = sc(baseCore);
+  // 剩余时间全给 cooldown，避免四舍五入导致总时长偏差
+  const coolDur  = totalMin - warmDur - skillDur - techDur - fitDur - coreDur;
+
   let cursor = 0;
   const blocks = [];
 
   // --- WARMUP ---
-  const warmDur = level === 'L1' ? 8 : 10;
   blocks.push({ type: 'warmup', title: s.blockTitles.warmup, dur: warmDur, startMin: cursor,
     exercises: s.exercises.warmupList(warmDur) });
   cursor += warmDur;
 
   // --- SKILL ---
-  const skillDur = { L1:10, L2:12, L3:14, L4:16 }[level];
   const tExtra = 50 + prog.timeBonus;
   let skillEx;
   if (themeZH === '出手手型') skillEx = s.exercises.skillShoot;
-  else skillEx = s.exercises.skillDribble(tExtra, level);
+  else skillEx = s.exercises.skillDribble(tExtra, level, age);
   blocks.push({ type: 'skill', title: s.blockTitles.skill, dur: skillDur, startMin: cursor, exercises: skillEx });
   cursor += skillDur;
 
   // --- TECH ---
-  const techDur = { L1:12, L2:15, L3:17, L4:20 }[level];
   const sets = (level === 'L1' ? 3 : level === 'L2' ? 4 : 5) + prog.setBonus;
   const t1 = 30 + prog.timeBonus, t2 = 40 + prog.timeBonus;
   let techEx;
-  if (themeZH === '控球基础') techEx = s.exercises.techControl(sets, t1, t2);
-  else if (themeZH === '脚步与平衡') techEx = s.exercises.techFootwork(sets, t1);
+  if (themeZH === '控球基础') techEx = s.exercises.techControl(sets, t1, t2, age);
+  else if (themeZH === '脚步与平衡') techEx = s.exercises.techFootwork(sets, t1, age);
   else if (themeZH === '出手手型') {
     const r1=40+prog.setBonus*10, r2=30+prog.setBonus*5;
     const r3 = hoopZH==='有' ? 15+prog.setBonus*3 : 20+prog.setBonus*5;
@@ -1766,22 +2028,20 @@ function buildDay(dayIndex, params) {
       : currentLang==='en' ? (hoopZH==='有'?'Have a hoop':'No hoop')
       : hoopZH);
   } else if (themeZH === '综合实战' || themeZH === '强化挑战') {
-    techEx = s.exercises.techCombined(sets, t1, t2, themeZH==='强化挑战'?1:0);
+    techEx = s.exercises.techCombined(sets, t1, t2, themeZH==='强化挑战'?1:0, age);
   } else if (isLight) {
     techEx = s.exercises.techLight;
   } else {
-    techEx = s.exercises.techControl(sets, t1, t2);
+    techEx = s.exercises.techControl(sets, t1, t2, age);
   }
   blocks.push({ type: 'tech', title: s.blockTitles.tech, dur: techDur, startMin: cursor, exercises: techEx });
   cursor += techDur;
 
   // --- FITNESS ---
-  const fitBaseDur = { L1:8, L2:10, L3:12, L4:14 }[level];
-  const fitDur = isLight ? Math.floor(fitBaseDur * 0.6) : fitBaseDur;
   const rounds = isLight ? 6 : ((level==='L1'?8:10)+prog.setBonus);
   const workSec = fitnessZH==='较强'?25:fitnessZH==='中等'?20:15;
   const restSec = fitnessZH==='较强'?15:fitnessZH==='中等'?20:25;
-  const moves = s.exercises.fitnessMoves(level, isLight);
+  const moves = s.exercises.fitnessMoves(level, isLight, age);
   const sel = []; for (let i=0;i<rounds;i++) sel.push(moves[i%moves.length]);
   const grouped = []; let cur2 = null;
   sel.forEach(m => { if(cur2&&cur2.name===m){cur2.rounds++;}else{cur2={name:m,rounds:1};grouped.push(cur2);} });
@@ -1797,15 +2057,15 @@ function buildDay(dayIndex, params) {
   // --- CORE ---
   if (!isLight) {
     const coreRounds = level==='L1'?2:3;
-    blocks.push({ type:'core', title:s.blockTitles.core, dur:8, startMin:cursor, exercises:s.exercises.coreMain(coreRounds) });
+    blocks.push({ type:'core', title:s.blockTitles.core, dur: coreDur, startMin:cursor, exercises:s.exercises.coreMain(coreRounds) });
   } else {
-    blocks.push({ type:'core', title:s.blockTitles.coreLight, dur:8, startMin:cursor, exercises:s.exercises.coreLight });
+    blocks.push({ type:'core', title:s.blockTitles.coreLight, dur: coreDur, startMin:cursor, exercises:s.exercises.coreLight });
   }
-  cursor += 8;
+  cursor += coreDur;
 
   // --- COOLDOWN ---
-  blocks.push({ type:'cooldown', title:s.blockTitles.cooldown, dur:5, startMin:cursor, exercises:s.exercises.cooldown });
-  cursor += 5;
+  blocks.push({ type:'cooldown', title:s.blockTitles.cooldown, dur: coolDur, startMin:cursor, exercises:s.exercises.cooldown });
+  cursor += coolDur;
 
   const goals = s.dayGoals(theme,
     currentLang==='pt' ? (hoopZH==='有'?'Com aro':'Sem aro')
@@ -1951,12 +2211,14 @@ function renderSoloCalendar(days, params) {
   </div>
   <div id="dailyDetail" class="fade-in"></div>`;
   document.getElementById('resultMainArea').innerHTML = html;
-  renderDay(days[0]);
+  renderDay(days[0], 0);
+  refreshCalendarDots(0);
 }
 
 function switchDay(idx) {
   document.querySelectorAll('.day-tab').forEach((t,i)=>t.classList.toggle('active',i===idx));
-  renderDay(planData[0].days[idx]);
+  renderDay(planData[0].days[idx], 0);
+  refreshCalendarDots(0);
   document.getElementById('dailyDetail').scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 
@@ -2080,12 +2342,14 @@ function renderPlayerView(playerData) {
   <div id="dailyDetail" class="fade-in"></div>`;
 
   document.getElementById('resultMainArea').innerHTML = html;
-  renderDay(days[0]);
+  renderDay(days[0], currentResultView);
+  refreshCalendarDots(currentResultView);
 }
 
 function switchPlayerDay(idx) {
   document.querySelectorAll('#dayTabs .day-tab').forEach((t,i)=>t.classList.toggle('active',i===idx));
-  renderDay(planData[currentResultView].days[idx]);
+  renderDay(planData[currentResultView].days[idx], currentResultView);
+  refreshCalendarDots(currentResultView);
   document.getElementById('dailyDetail').scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 
@@ -2127,7 +2391,8 @@ function buildTeamDrills(count, spaceZH, hasHoop, s) {
   return (drills2[lang] || drills2.en);
 }
 
-function renderDay(day) {
+function renderDay(day, playerIdx) {
+  playerIdx = playerIdx || 0;
   const s = STRINGS[currentLang];
   const container = document.getElementById('dailyDetail');
   container.innerHTML = '';
@@ -2148,7 +2413,11 @@ function renderDay(day) {
           <h3>${s.restH3}</h3>
           <p>${day.tips.join('<br>')}</p>
         </div>
+        ${renderCheckinArea(playerIdx, day.dayIndex, s)}
+        ${renderNotesArea(playerIdx, day.dayIndex, s)}
       </div>`;
+    updateCheckinBtn(playerIdx, day.dayIndex);
+    bindNotesArea(playerIdx, day.dayIndex);
     return;
   }
 
@@ -2195,8 +2464,129 @@ function renderDay(day) {
   const tip = s.tips[day.theme];
   if (tip) html += `<div class="tip-box"><strong>${s.coachTip}</strong>${tip}</div>`;
 
+  html += renderCheckinArea(playerIdx, day.dayIndex, s);
+  html += renderNotesArea(playerIdx, day.dayIndex, s);
   html += `</div>`;
   container.innerHTML = html;
+  updateCheckinBtn(playerIdx, day.dayIndex);
+  bindNotesArea(playerIdx, day.dayIndex);
+}
+
+function renderCheckinArea(playerIdx, dayIdx, s) {
+  const done = isCheckedIn(playerIdx, dayIdx);
+  const total = planData ? planData[playerIdx].params.days : 0;
+  let count = 0;
+  if (planData) for (let i = 0; i < total; i++) if (isCheckedIn(playerIdx, i)) count++;
+  return `<div class="checkin-area">
+    <button id="checkinBtn" class="checkin-btn${done?' done':''}" onclick="${done?'':` toggleCheckIn(${playerIdx},${dayIdx})`}">
+      ${done ? `✅ ${s.checkinDone||'今天已完成 🎉'}` : `⬜ ${s.checkinMark||'标记今天已完成'}`}
+    </button>
+    <div class="checkin-progress" id="checkinProgress">
+      ${(s.checkinProgress||(d,t)=>`已完成 <span>${d}/${t}</span> 天`)(count,total)}
+    </div>
+  </div>`;
+}
+
+function renderNotesArea(playerIdx, dayIdx, s) {
+  const note = getNote(playerIdx, dayIdx);
+  return `<div class="coach-notes-area">
+    <div class="coach-notes-label">📝 ${s.notesLabel||'教练备注 / 今日记录'}</div>
+    <textarea class="coach-notes-textarea" id="coachNotesTA" placeholder="${s.notesPlaceholder||'记录今天的训练感受、孩子的表现、需要改进的地方…'}">${note}</textarea>
+    <div class="notes-save-hint" id="notesSaveHint">${s.notesHint||'内容自动保存'}</div>
+  </div>`;
+}
+
+function bindNotesArea(playerIdx, dayIdx) {
+  const ta = document.getElementById('coachNotesTA');
+  const hint = document.getElementById('notesSaveHint');
+  if (!ta) return;
+  let timer;
+  ta.addEventListener('input', () => {
+    clearTimeout(timer);
+    hint.textContent = STRINGS[currentLang].notesSaving || '保存中…';
+    hint.className = 'notes-save-hint';
+    timer = setTimeout(() => {
+      saveNote(playerIdx, dayIdx, ta.value);
+      hint.textContent = STRINGS[currentLang].notesSaved || '✓ 已保存';
+      hint.className = 'notes-save-hint saved';
+    }, 600);
+  });
+}
+
+// =============================================
+// CHECKIN & NOTES (localStorage)
+// =============================================
+let currentPlanKey = '';
+
+function getPlanKey(allParams) {
+  // 用第一个玩家的名字+天数作为 key
+  const p = allParams[0];
+  return `btp_${p.name}_${p.days}_${p.age}`;
+}
+
+function isCheckedIn(playerIdx, dayIdx) {
+  const key = `${currentPlanKey}_p${playerIdx}_d${dayIdx}`;
+  return localStorage.getItem(key) === '1';
+}
+
+function toggleCheckIn(playerIdx, dayIdx) {
+  const key = `${currentPlanKey}_p${playerIdx}_d${dayIdx}`;
+  const was = localStorage.getItem(key) === '1';
+  localStorage.setItem(key, was ? '0' : '1');
+  // refresh day display
+  const btn = document.getElementById('checkinBtn');
+  if (btn) updateCheckinBtn(playerIdx, dayIdx);
+  // refresh calendar tab indicator
+  refreshCalendarDots(playerIdx);
+}
+
+function updateCheckinBtn(playerIdx, dayIdx) {
+  const done = isCheckedIn(playerIdx, dayIdx);
+  const btn = document.getElementById('checkinBtn');
+  if (!btn) return;
+  const s = STRINGS[currentLang];
+  if (done) {
+    btn.className = 'checkin-btn done';
+    btn.innerHTML = `✅ ${s.checkinDone || '今天已完成 🎉'}`;
+    btn.onclick = null;
+  } else {
+    btn.className = 'checkin-btn';
+    btn.innerHTML = `⬜ ${s.checkinMark || '标记今天已完成'}`;
+    btn.onclick = () => toggleCheckIn(playerIdx, dayIdx);
+  }
+  // update progress
+  const progEl = document.getElementById('checkinProgress');
+  if (progEl) {
+    const total = planData[playerIdx].params.days;
+    let count = 0;
+    for (let i = 0; i < total; i++) if (isCheckedIn(playerIdx, i)) count++;
+    progEl.innerHTML = (s.checkinProgress || (d,t)=>`已完成 <span>${d}/${t}</span> 天`)(count, total);
+  }
+}
+
+function refreshCalendarDots(playerIdx) {
+  const dayTabs = document.querySelectorAll('#dayTabs .day-tab');
+  dayTabs.forEach((tab, i) => {
+    if (isCheckedIn(playerIdx, i)) tab.classList.add('done');
+    else tab.classList.remove('done');
+  });
+}
+
+function getNote(playerIdx, dayIdx) {
+  const key = `${currentPlanKey}_note_p${playerIdx}_d${dayIdx}`;
+  return localStorage.getItem(key) || '';
+}
+
+function saveNote(playerIdx, dayIdx, text) {
+  const key = `${currentPlanKey}_note_p${playerIdx}_d${dayIdx}`;
+  localStorage.setItem(key, text);
+}
+
+// =============================================
+// EXPORT to PDF (print)
+// =============================================
+function exportDay(dayIdx) {
+  window.print();
 }
 
 // =============================================
@@ -2258,6 +2648,7 @@ function generatePlan() {
       return { params, days };
     });
     planData = allPlanData;
+    currentPlanKey = getPlanKey(allParams);
 
     document.getElementById('screen-loading').classList.remove('active');
     document.getElementById('screen-result').classList.add('active');
