@@ -2482,7 +2482,7 @@ function renderCheckinArea(playerIdx, dayIdx, s) {
       ${done ? `✅ ${s.checkinDone||'今天已完成 🎉'}` : `⬜ ${s.checkinMark||'标记今天已完成'}`}
     </button>
     <div class="checkin-progress" id="checkinProgress">
-      ${(s.checkinProgress||(d,t)=>`已完成 <span>${d}/${t}</span> 天`)(count,total)}
+      ${(s.checkinProgress||((d,t)=>`已完成 <span>${d}/${t}</span> 天`))(count,total)}
     </div>
   </div>`;
 }
@@ -2560,7 +2560,7 @@ function updateCheckinBtn(playerIdx, dayIdx) {
     const total = planData[playerIdx].params.days;
     let count = 0;
     for (let i = 0; i < total; i++) if (isCheckedIn(playerIdx, i)) count++;
-    progEl.innerHTML = (s.checkinProgress || (d,t)=>`已完成 <span>${d}/${t}</span> 天`)(count, total);
+    progEl.innerHTML = (s.checkinProgress || ((d,t)=>`已完成 <span>${d}/${t}</span> 天`))(count, total);
   }
 }
 
