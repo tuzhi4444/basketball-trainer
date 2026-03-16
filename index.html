@@ -523,6 +523,247 @@
     color: var(--text-muted);
   }
 
+  /* ===== PLAYER COUNT SELECTOR ===== */
+  .player-count-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 22px 28px;
+    margin-bottom: 16px;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .player-count-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+  }
+  .player-count-btns {
+    display: flex;
+    gap: 8px;
+  }
+  .count-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    border: 2px solid var(--border-strong);
+    background: var(--bg);
+    color: var(--text-secondary);
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.18s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .count-btn:hover { border-color: var(--orange); color: var(--orange); background: rgba(255,107,43,0.05); }
+  .count-btn.active {
+    background: var(--orange);
+    border-color: var(--orange);
+    color: white;
+    box-shadow: 0 3px 12px rgba(255,107,43,0.3);
+  }
+
+  /* ===== PLAYER TABS (input) ===== */
+  .player-tabs-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+  .player-tab-btn {
+    padding: 8px 18px;
+    border-radius: 10px;
+    border: 2px solid var(--border);
+    background: var(--bg);
+    color: var(--text-muted);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.18s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .player-tab-btn:hover { border-color: var(--orange-light); color: var(--orange); }
+  .player-tab-btn.active {
+    background: var(--orange);
+    border-color: var(--orange);
+    color: white;
+    box-shadow: 0 3px 10px rgba(255,107,43,0.3);
+  }
+  .player-avatar {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    background: rgba(255,255,255,0.3);
+  }
+  .player-tab-btn:not(.active) .player-avatar {
+    background: var(--border);
+    color: var(--text-muted);
+  }
+
+  /* Player name input */
+  .player-name-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding: 10px 14px;
+    background: var(--bg-page);
+    border-radius: 10px;
+    border: 1px solid var(--border);
+  }
+  .player-name-row label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    white-space: nowrap;
+  }
+  .player-name-input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    outline: none;
+    min-width: 0;
+  }
+  .player-name-input::placeholder { color: var(--text-muted); font-weight: 400; }
+
+  /* ===== RESULT: TEAM TABS ===== */
+  .team-tabs-bar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  .team-tab-btn {
+    padding: 9px 20px;
+    border-radius: 10px;
+    border: 2px solid var(--border);
+    background: var(--bg);
+    color: var(--text-muted);
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.18s;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .team-tab-btn:hover { border-color: var(--orange-light); color: var(--orange); }
+  .team-tab-btn.active {
+    background: var(--orange);
+    border-color: var(--orange);
+    color: white;
+    box-shadow: 0 3px 10px rgba(255,107,43,0.3);
+  }
+  .team-tab-btn.team-tab {
+    border-color: #A78BFA;
+    color: #7C3AED;
+  }
+  .team-tab-btn.team-tab.active {
+    background: linear-gradient(135deg, #7C3AED, #A78BFA);
+    border-color: #7C3AED;
+    color: white;
+    box-shadow: 0 3px 10px rgba(124,58,237,0.3);
+  }
+
+  /* ===== TEAM EXERCISE section ===== */
+  .team-section-banner {
+    background: linear-gradient(135deg, #7C3AED 0%, #A78BFA 100%);
+    border-radius: 14px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(124,58,237,0.25);
+  }
+  .team-section-banner::after {
+    content: '🤝';
+    position: absolute;
+    right: 20px; top: 50%;
+    transform: translateY(-50%);
+    font-size: 56px;
+    opacity: 0.15;
+  }
+  .team-section-banner h3 { font-size: 18px; font-weight: 800; margin-bottom: 4px; }
+  .team-section-banner p { font-size: 13px; opacity: 0.88; }
+
+  .team-drill-block {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 14px;
+    box-shadow: var(--shadow-sm);
+  }
+  .team-drill-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .team-drill-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    background: rgba(124,58,237,0.1);
+    flex-shrink: 0;
+  }
+  .team-drill-title { font-size: 15px; font-weight: 700; color: var(--text-primary); flex: 1; }
+  .team-drill-duration {
+    font-size: 12px;
+    color: #7C3AED;
+    background: rgba(124,58,237,0.1);
+    padding: 3px 10px;
+    border-radius: 10px;
+    font-weight: 600;
+  }
+  .team-drill-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.65;
+    padding: 10px 12px;
+    background: var(--bg-page);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+  }
+  .team-drill-desc strong { color: var(--orange); }
+  .players-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(124,58,237,0.08);
+    border: 1px solid rgba(124,58,237,0.2);
+    border-radius: 20px;
+    padding: 3px 10px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #7C3AED;
+    margin-bottom: 10px;
+  }
+
   /* ===== MOBILE / TABLET RESPONSIVE ===== */
 
   /* iPad (768px – 1024px) */
@@ -660,79 +901,21 @@
       <p id="introSub">填写孩子的基本信息，自动生成精确到每分钟的篮球训练课表。</p>
     </div>
 
-    <div class="input-card fade-in">
-      <div class="section-label" id="secBasic">基本信息</div>
-      <div class="form-grid">
-
-        <div class="form-group">
-          <label class="form-label">🧒 <span id="lblAge">孩子年龄</span></label>
-          <input type="range" id="age" min="6" max="18" value="10" oninput="updateSlider('age','ageVal')">
-          <div><span class="slider-value" id="ageVal">10</span></div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">⏳ <span id="lblYears">打球基础</span></label>
-          <input type="range" id="years" min="0" max="10" value="2" step="0.5" oninput="updateSlider('years','yearsVal')">
-          <div><span class="slider-value" id="yearsVal">2</span></div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">📅 <span id="lblDays">训练天数</span></label>
-          <input type="range" id="days" min="3" max="30" value="14" oninput="updateSlider('days','daysVal')">
-          <div><span class="slider-value" id="daysVal">14</span></div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">⏱️ <span id="lblMins">每天时长</span></label>
-          <input type="range" id="minutes" min="30" max="120" value="60" step="5" oninput="updateSlider('minutes','minutesVal')">
-          <div><span class="slider-value" id="minutesVal">60</span></div>
-        </div>
-
+    <!-- Player count selector -->
+    <div class="player-count-card fade-in">
+      <div class="player-count-label">👥 <span id="lblPlayerCount">训练人数</span></div>
+      <div class="player-count-btns">
+        <button class="count-btn active" data-count="1" onclick="setPlayerCount(1)">1</button>
+        <button class="count-btn" data-count="2" onclick="setPlayerCount(2)">2</button>
+        <button class="count-btn" data-count="3" onclick="setPlayerCount(3)">3</button>
       </div>
     </div>
 
-    <div class="input-card fade-in">
-      <div class="section-label" id="secPref">训练偏好</div>
-      <div class="form-grid">
+    <!-- Player input tabs (visible when >1 player) -->
+    <div id="playerTabsRow" class="player-tabs-row fade-in" style="display:none"></div>
 
-        <div class="form-group">
-          <label class="form-label">🎯 <span id="lblGoal">训练目标</span></label>
-          <div class="option-group" id="goalGroup">
-            <button class="option-btn selected" data-group="goal" data-val="综合" data-pt="Geral">综合提升</button>
-            <button class="option-btn" data-group="goal" data-val="控球" data-pt="Dribble">控球为主</button>
-            <button class="option-btn" data-group="goal" data-val="投篮" data-pt="Arremesso">投篮为主</button>
-            <button class="option-btn" data-group="goal" data-val="体能" data-pt="Físico">体能为主</button>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">🏟️ <span id="lblSpace">训练场地</span></label>
-          <div class="option-group" id="spaceGroup">
-            <button class="option-btn selected" data-group="space" data-val="家里" data-pt="Casa">家里（客厅）</button>
-            <button class="option-btn" data-group="space" data-val="户外" data-pt="Quintal">户外空地</button>
-            <button class="option-btn" data-group="space" data-val="球场" data-pt="Quadra">标准球场</button>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">🏀 <span id="lblHoop">是否有篮筐</span></label>
-          <div class="option-group" id="hoopGroup">
-            <button class="option-btn selected" data-group="hoop" data-val="无" data-pt="Sem aro">没有篮筐</button>
-            <button class="option-btn" data-group="hoop" data-val="有" data-pt="Com aro">有篮筐</button>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">💪 <span id="lblFitness">体能基础</span></label>
-          <div class="option-group" id="fitnessGroup">
-            <button class="option-btn" data-group="fitness" data-val="一般" data-pt="Fraco">一般</button>
-            <button class="option-btn selected" data-group="fitness" data-val="中等" data-pt="Médio">中等</button>
-            <button class="option-btn" data-group="fitness" data-val="较强" data-pt="Bom">较强</button>
-          </div>
-        </div>
-
-      </div>
-    </div>
+    <!-- Player panels (one per player) -->
+    <div id="playerPanels"></div>
 
     <button class="generate-btn" onclick="generatePlan()">
       <span>⚡</span>
@@ -904,6 +1087,18 @@ const STRINGS = {
     },
     fitDetail: (work, rounds) => `${work}秒冲 × ${rounds}轮`,
     fitRest: (rest) => `每轮休息${rest}秒`,
+    // Multi-player
+    playerCountLabel: '训练人数',
+    playerNameLabel: '姓名',
+    playersLabel: '人',
+    daysLabel: '天',
+    multiSubtitle: '团队训练计划 · 共同对练 + 各自专项',
+    teamLabel: '🤝 团队训练',
+    teamDrillsTitle: '共同训练环节',
+    teamDrillsDesc: '每次训练先一起完成以下环节，培养配合默契',
+    teamScheduleLabel: '团队训练日历',
+    teamTip: '💡 团队提示：',
+    teamTipText: '先完成共同热身和对练环节，再各自进入专项练习。',
   },
 
   pt: {
@@ -1046,6 +1241,18 @@ const STRINGS = {
     },
     fitDetail: (work, rounds) => `${work}s esforço × ${rounds} rodadas`,
     fitRest: (rest) => `${rest}s descanso/rodada`,
+    // Multi-player
+    playerCountLabel: 'Número de jogadores',
+    playerNameLabel: 'Nome',
+    playersLabel: 'jogadores',
+    daysLabel: 'dias',
+    multiSubtitle: 'Plano em equipa · Treino partilhado + foco individual',
+    teamLabel: '🤝 Treino em Equipa',
+    teamDrillsTitle: 'Sessão partilhada',
+    teamDrillsDesc: 'Comecem sempre com esta sessão juntos antes do treino individual',
+    teamScheduleLabel: 'Calendário de equipa',
+    teamTip: '💡 Dica de equipa: ',
+    teamTipText: 'Façam primeiro o aquecimento e os exercícios partilhados, depois cada um faz o seu treino individual.',
   },
 
   en: {
@@ -1189,92 +1396,19 @@ const STRINGS = {
     },
     fitDetail: (work, rounds) => `${work}s work × ${rounds} rounds`,
     fitRest: (rest) => `${rest}s rest per round`,
+    // Multi-player
+    playerCountLabel: 'Number of players',
+    playerNameLabel: 'Name',
+    playersLabel: 'players',
+    daysLabel: 'days',
+    multiSubtitle: 'Team Training Plan · Shared drills + individual focus',
+    teamLabel: '🤝 Team Drills',
+    teamDrillsTitle: 'Shared Training Session',
+    teamDrillsDesc: 'Start every training day together with these drills before going solo',
+    teamScheduleLabel: 'Team Calendar',
+    teamTip: '💡 Team tip: ',
+    teamTipText: 'Complete the shared warm-up and partner drills first, then split off for individual training.',
   }
-};
-
-function setLang(lang) {
-  currentLang = lang;
-  const s = STRINGS[lang];
-
-  document.getElementById('headerTitle').textContent = s.headerTitle;
-  document.getElementById('headerSub').textContent = s.headerSub;
-  document.getElementById('introTitle').textContent = s.introTitle;
-  document.getElementById('introSub').textContent = s.introSub;
-  document.getElementById('secBasic').childNodes[0].textContent = s.secBasic;
-  document.getElementById('secPref').childNodes[0].textContent = s.secPref;
-  document.getElementById('lblAge').textContent = s.lblAge;
-  document.getElementById('lblYears').textContent = s.lblYears;
-  document.getElementById('lblDays').textContent = s.lblDays;
-  document.getElementById('lblMins').textContent = s.lblMins;
-  document.getElementById('lblGoal').textContent = s.lblGoal;
-  document.getElementById('lblSpace').textContent = s.lblSpace;
-  document.getElementById('lblHoop').textContent = s.lblHoop;
-  document.getElementById('lblFitness').textContent = s.lblFitness;
-  document.getElementById('btnGenerate').textContent = s.btnGenerate;
-  document.getElementById('backLabel').textContent = s.backLabel;
-  document.getElementById('loadingText').textContent = s.loadingText;
-
-  // Update option buttons text
-  const goalBtns = document.querySelectorAll('[data-group="goal"]');
-  s.goalOpts.forEach((t, i) => { if (goalBtns[i]) goalBtns[i].textContent = t; });
-  const spaceBtns = document.querySelectorAll('[data-group="space"]');
-  s.spaceOpts.forEach((t, i) => { if (spaceBtns[i]) spaceBtns[i].textContent = t; });
-  const hoopBtns = document.querySelectorAll('[data-group="hoop"]');
-  s.hoopOpts.forEach((t, i) => { if (hoopBtns[i]) hoopBtns[i].textContent = t; });
-  const fitBtns = document.querySelectorAll('[data-group="fitness"]');
-  s.fitnessOpts.forEach((t, i) => { if (fitBtns[i]) fitBtns[i].textContent = t; });
-
-  // Update slider values
-  updateSlider('age','ageVal');
-  updateSlider('years','yearsVal');
-  updateSlider('days','daysVal');
-  updateSlider('minutes','minutesVal');
-
-  // Update lang button states
-  document.getElementById('btnZH').classList.toggle('active', lang === 'zh');
-  document.getElementById('btnPT').classList.toggle('active', lang === 'pt');
-  document.getElementById('btnEN').classList.toggle('active', lang === 'en');
-
-  // Update html lang
-  const langMap = { zh:'zh-CN', pt:'pt-PT', en:'en-GB' };
-  document.documentElement.lang = langMap[lang] || 'en';
-
-  // Sync selections to current lang
-  if (lang === 'pt') {
-    selections.goal = selections._goalPT || 'Geral';
-    selections.space = selections._spacePT || 'Casa';
-    selections.hoop = selections._hoopPT || 'Sem aro';
-    selections.fitness = selections._fitnessPT || 'Médio';
-  } else if (lang === 'en') {
-    selections.goal = selections._goalEN || 'All-round';
-    selections.space = selections._spaceEN || 'Home (living room)';
-    selections.hoop = selections._hoopEN || 'No hoop';
-    selections.fitness = selections._fitnessEN || 'Medium';
-  } else {
-    selections.goal = selections._goalZH || '综合';
-    selections.space = selections._spaceZH || '家里';
-    selections.hoop = selections._hoopZH || '无';
-    selections.fitness = selections._fitnessZH || '中等';
-  }
-}
-
-// =============================================
-// UTILS
-// =============================================
-function updateSlider(id, valId) {
-  const val = document.getElementById(id).value;
-  const s = STRINGS[currentLang];
-  const keyMap = { age:'age', years:'years', days:'days', minutes:'minutes' };
-  const unit = s.sliderUnits[keyMap[id]] || '';
-  document.getElementById(valId).textContent = val + ' ' + unit;
-}
-
-const selections = {
-  goal: '综合', space: '家里', hoop: '无', fitness: '中等',
-  _goalZH: '综合', _goalPT: 'Geral', _goalEN: 'All-round',
-  _spaceZH: '家里', _spacePT: 'Casa', _spaceEN: 'Home (living room)',
-  _hoopZH: '无', _hoopPT: 'Sem aro', _hoopEN: 'No hoop',
-  _fitnessZH: '中等', _fitnessPT: 'Médio', _fitnessEN: 'Medium',
 };
 
 // Map PT goal to ZH key for engine
@@ -1286,32 +1420,229 @@ const EN_TO_ZH_GOAL = { 'All-round':'综合','Ball handling':'控球','Shooting'
 const EN_TO_ZH_HOOP = { 'No hoop':'无','Have a hoop':'有' };
 const EN_TO_ZH_FITNESS = { 'Low':'一般','Medium':'中等','High':'较强' };
 
-document.querySelectorAll('.option-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const group = btn.dataset.group;
-    document.querySelectorAll(`[data-group="${group}"]`).forEach(b => b.classList.remove('selected'));
-    btn.classList.add('selected');
-    selections[group] = btn.dataset.val;
-    // Store both lang versions
-    if (currentLang === 'zh') {
-      const ptVal = btn.dataset.pt;
-      if (group === 'goal') { selections._goalZH = btn.dataset.val; selections._goalPT = ptVal || btn.dataset.val; selections._goalEN = btn.dataset.en || btn.dataset.val; }
-      if (group === 'space') { selections._spaceZH = btn.dataset.val; }
-      if (group === 'hoop') { selections._hoopZH = btn.dataset.val; selections._hoopPT = (btn.dataset.val==='有'?'Com aro':'Sem aro'); selections._hoopEN = (btn.dataset.val==='有'?'Have a hoop':'No hoop'); }
-      if (group === 'fitness') { selections._fitnessZH = btn.dataset.val; }
-    } else if (currentLang === 'pt') {
-      const zhVal = btn.dataset.val;
-      if (group === 'goal') { selections._goalPT = zhVal; }
-      if (group === 'hoop') { selections._hoopPT = zhVal; }
-      if (group === 'fitness') { selections._fitnessPT = zhVal; }
-    } else {
-      const zhVal = btn.dataset.val;
-      if (group === 'goal') { selections._goalEN = zhVal; }
-      if (group === 'hoop') { selections._hoopEN = zhVal; }
-      if (group === 'fitness') { selections._fitnessEN = zhVal; }
-    }
+function setLang(lang) {
+  currentLang = lang;
+  const s = STRINGS[lang];
+
+  document.getElementById('headerTitle').textContent = s.headerTitle;
+  document.getElementById('headerSub').textContent = s.headerSub;
+  document.getElementById('introTitle').textContent = s.introTitle;
+  document.getElementById('introSub').textContent = s.introSub;
+
+  document.getElementById('btnZH').classList.toggle('active', lang === 'zh');
+  document.getElementById('btnPT').classList.toggle('active', lang === 'pt');
+  document.getElementById('btnEN').classList.toggle('active', lang === 'en');
+
+  const langMap = { zh:'zh-CN', pt:'pt-PT', en:'en-GB' };
+  document.documentElement.lang = langMap[lang] || 'en';
+
+  // Rebuild player panels in new language
+  initPlayerPanels();
+}
+
+// =============================================
+// UTILS
+// =============================================
+function updatePlayerSlider(pid, id, valId) {
+  const val = document.getElementById(`p${pid}_${id}`).value;
+  const s = STRINGS[currentLang];
+  const unit = s.sliderUnits[id] || '';
+  document.getElementById(`p${pid}_${valId}`).textContent = val + ' ' + unit;
+}
+
+// =============================================
+// MULTI-PLAYER SETUP
+// =============================================
+let currentPlayerCount = 1;
+let playerSelections = [
+  { goal: '综合', space: '家里', hoop: '无', fitness: '中等' },
+  { goal: '综合', space: '家里', hoop: '无', fitness: '中等' },
+  { goal: '综合', space: '家里', hoop: '无', fitness: '中等' },
+];
+
+const PLAYER_COLORS = ['#FF6B2B','#7C3AED','#18A96A'];
+const PLAYER_EMOJIS = ['🏀','⚡','🌟'];
+
+function setPlayerCount(count) {
+  currentPlayerCount = count;
+  document.querySelectorAll('.count-btn').forEach(b => {
+    b.classList.toggle('active', parseInt(b.dataset.count) === count);
   });
-});
+  const tabsRow = document.getElementById('playerTabsRow');
+  tabsRow.style.display = count > 1 ? 'flex' : 'none';
+  initPlayerPanels();
+}
+
+function initPlayerPanels() {
+  const count = currentPlayerCount;
+  const s = STRINGS[currentLang];
+
+  // Update player-count label
+  const lbl = document.getElementById('lblPlayerCount');
+  if (lbl) lbl.textContent = s.playerCountLabel || '训练人数';
+
+  // Update player tabs
+  const tabsRow = document.getElementById('playerTabsRow');
+  if (tabsRow) {
+    const dnames = currentLang==='zh' ? ['玩家1','玩家2','玩家3']
+                 : currentLang==='pt' ? ['Jogador 1','Jogador 2','Jogador 3']
+                 : ['Player 1','Player 2','Player 3'];
+    tabsRow.innerHTML = Array.from({length: count}, (_, i) => {
+      return `<button class="player-tab-btn${i===0?' active':''}" id="ptab_${i}" onclick="switchPlayerPanel(${i})">
+        <span class="player-avatar">${PLAYER_EMOJIS[i]}</span>
+        <span id="ptab_name_${i}">${dnames[i]}</span>
+      </button>`;
+    }).join('');
+  }
+
+  // Render player panels
+  const panelsContainer = document.getElementById('playerPanels');
+  if (!panelsContainer) return;
+  panelsContainer.innerHTML = Array.from({length: count}, (_, i) => buildPlayerPanel(i, s, i===0)).join('');
+
+  // Show only panel 0
+  for (let i = 0; i < count; i++) {
+    const p = document.getElementById(`playerPanel_${i}`);
+    if (p) p.style.display = i === 0 ? 'block' : 'none';
+  }
+
+  // Bind option btn events for all panels
+  document.querySelectorAll('.option-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const pid = parseInt(btn.dataset.pid);
+      const group = btn.dataset.group;
+      document.querySelectorAll(`.option-btn[data-pid="${pid}"][data-group="${group}"]`).forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      playerSelections[pid] = playerSelections[pid] || {};
+      const val = btn.dataset.val;
+      // Store as-is; generatePlan will normalise to ZH
+      playerSelections[pid][group] = val;
+    });
+  });
+
+  // Name inputs: sync tab name
+  for (let i = 0; i < count; i++) {
+    const ni = document.getElementById(`p${i}_name`);
+    if (ni) {
+      ni.addEventListener('input', () => {
+        const tabNameEl = document.getElementById(`ptab_name_${i}`);
+        if (tabNameEl) tabNameEl.textContent = ni.value.trim() || (s.playerDefaultNames?.[i] || `Player ${i+1}`);
+      });
+    }
+    // Init sliders
+    ['age','years','days','minutes'].forEach(id => {
+      updatePlayerSlider(i, id, id+'Val');
+    });
+  }
+}
+
+function buildPlayerPanel(pid, s, isActive) {
+  const lang = currentLang;
+  const dnames = lang==='zh' ? ['玩家1','玩家2','玩家3']
+               : lang==='pt' ? ['Jogador 1','Jogador 2','Jogador 3']
+               : ['Player 1','Player 2','Player 3'];
+  const dname = dnames[pid];
+  const color = PLAYER_COLORS[pid];
+
+  const spaceVals = lang==='zh' ? ['家里','户外','球场']
+                  : lang==='pt' ? ['Casa','Quintal','Quadra oficial']
+                  : ['Home (living room)','Outdoor space','Full court'];
+  const goalVals  = lang==='zh' ? ['综合','控球','投篮','体能']
+                  : lang==='pt' ? ['Geral','Dribble','Arremesso','Físico']
+                  : ['All-round','Ball handling','Shooting','Fitness'];
+  const hoopVals  = lang==='zh' ? ['无','有']
+                  : lang==='pt' ? ['Sem aro','Com aro']
+                  : ['No hoop','Have a hoop'];
+  const fitVals   = lang==='zh' ? ['一般','中等','较强']
+                  : lang==='pt' ? ['Fraco','Médio','Bom']
+                  : ['Low','Medium','High'];
+
+  const goalOpts  = s.goalOpts;
+  const spaceOpts = s.spaceOpts;
+  const hoopOpts  = s.hoopOpts;
+  const fitOpts   = s.fitnessOpts;
+
+  return `<div id="playerPanel_${pid}" class="fade-in">
+    ${currentPlayerCount > 1 ? `<div class="player-name-row" style="border-left:3px solid ${color}">
+      <label>${s.playerNameLabel || '姓名'}</label>
+      <input type="text" class="player-name-input" id="p${pid}_name" placeholder="${dname}" maxlength="20">
+    </div>` : ''}
+
+    <div class="input-card">
+      <div class="section-label" style="color:${color}">${s.secBasic}</div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label">🧒 <span>${s.lblAge}</span></label>
+          <input type="range" id="p${pid}_age" min="6" max="18" value="10" oninput="updatePlayerSlider(${pid},'age','ageVal')">
+          <div><span class="slider-value" id="p${pid}_ageVal">10 ${s.sliderUnits.age}</span></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">⏳ <span>${s.lblYears}</span></label>
+          <input type="range" id="p${pid}_years" min="0" max="10" value="2" step="0.5" oninput="updatePlayerSlider(${pid},'years','yearsVal')">
+          <div><span class="slider-value" id="p${pid}_yearsVal">2 ${s.sliderUnits.years}</span></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">📅 <span>${s.lblDays}</span></label>
+          <input type="range" id="p${pid}_days" min="3" max="30" value="14" oninput="updatePlayerSlider(${pid},'days','daysVal')">
+          <div><span class="slider-value" id="p${pid}_daysVal">14 ${s.sliderUnits.days}</span></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">⏱️ <span>${s.lblMins}</span></label>
+          <input type="range" id="p${pid}_minutes" min="30" max="120" value="60" step="5" oninput="updatePlayerSlider(${pid},'minutes','minutesVal')">
+          <div><span class="slider-value" id="p${pid}_minutesVal">60 ${s.sliderUnits.minutes}</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="input-card">
+      <div class="section-label" style="color:${color}">${s.secPref}</div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label">🎯 <span>${s.lblGoal}</span></label>
+          <div class="option-group">
+            ${goalOpts.map((opt,i)=>`<button class="option-btn${i===0?' selected':''}" data-pid="${pid}" data-group="goal" data-val="${goalVals[i]||opt}">${opt}</button>`).join('')}
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">🏟️ <span>${s.lblSpace}</span></label>
+          <div class="option-group">
+            ${spaceOpts.map((opt,i)=>`<button class="option-btn${i===0?' selected':''}" data-pid="${pid}" data-group="space" data-val="${spaceVals[i]||opt}">${opt}</button>`).join('')}
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">🏀 <span>${s.lblHoop}</span></label>
+          <div class="option-group">
+            ${hoopOpts.map((opt,i)=>`<button class="option-btn${i===0?' selected':''}" data-pid="${pid}" data-group="hoop" data-val="${hoopVals[i]||opt}">${opt}</button>`).join('')}
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">💪 <span>${s.lblFitness}</span></label>
+          <div class="option-group">
+            ${fitOpts.map((opt,i)=>`<button class="option-btn${i===1?' selected':''}" data-pid="${pid}" data-group="fitness" data-val="${fitVals[i]||opt}">${opt}</button>`).join('')}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function switchPlayerPanel(idx) {
+  for (let i = 0; i < currentPlayerCount; i++) {
+    const p = document.getElementById(`playerPanel_${i}`);
+    if (p) p.style.display = i === idx ? 'block' : 'none';
+    const tb = document.getElementById(`ptab_${i}`);
+    if (tb) tb.classList.toggle('active', i === idx);
+  }
+}
+
+// Legacy compatibility: keep selections obj (no longer primary, but used in setLang sync)
+const selections = {
+  goal: '综合', space: '家里', hoop: '无', fitness: '中等',
+  _goalZH: '综合', _goalPT: 'Geral', _goalEN: 'All-round',
+  _spaceZH: '家里', _spacePT: 'Casa', _spaceEN: 'Home (living room)',
+  _hoopZH: '无', _hoopPT: 'Sem aro', _hoopEN: 'No hoop',
+  _fitnessZH: '中等', _fitnessPT: 'Médio', _fitnessEN: 'Medium',
+};
 
 function goBack() {
   document.getElementById('screen-result').classList.remove('active');
@@ -1514,32 +1845,224 @@ const THEME_COLORS = {
 };
 
 let planData = null;
+let currentResultView = 'team'; // 'team' | player index number
 
-function renderResult(params, days) {
+function renderResult(allPlanData) {
   const s = STRINGS[currentLang];
+  const count = allPlanData.length;
+  const isSolo = count === 1;
+
+  // For solo, we use single player data
+  const primaryParams = allPlanData[0].params;
+  const primaryDays = allPlanData[0].days;
+
+  let html = '';
+
+  // ---- SUMMARY BANNER ----
+  if (isSolo) {
+    const level = getLevel(primaryParams.age, primaryParams.years);
+    const lvlName = s.levelNames[level];
+    const hoopDisp = currentLang==='pt' ? (primaryParams.hoop==='无'?'Sem aro':'Com aro')
+                   : currentLang==='en' ? (primaryParams.hoop==='无'?'No hoop':'Have a hoop')
+                   : primaryParams.hoop;
+    const fitnessDisp = currentLang==='pt' ? (PT_TO_ZH_FITNESS[primaryParams.fitness] || primaryParams.fitness)
+                      : currentLang==='en' ? (EN_TO_ZH_FITNESS[primaryParams.fitness] || primaryParams.fitness)
+                      : primaryParams.fitness;
+    html += `<div class="summary-banner fade-in">
+      <h2>${s.bannerAge(primaryParams.age, primaryParams.years, primaryParams.days)}</h2>
+      <p>${s.bannerSub(lvlName, primaryParams.goal, primaryParams.space)}</p>
+      <div class="summary-stats">
+        ${s.pills(primaryParams.days, primaryParams.totalMin, hoopDisp, fitnessDisp).map(p=>`<div class="stat-pill">${p}</div>`).join('')}
+      </div>
+    </div>`;
+
+    // Overall goals
+    const goals = s.overallGoals(lvlName);
+    html += `<div class="goals-card fade-in">
+      <div class="section-label">${s.overallGoalsLabel}</div>
+      <div class="goals-grid">
+        ${goals.map(g=>`<div class="goal-item"><div class="goal-icon">${g.icon}</div><div class="goal-title">${g.title}</div><div class="goal-value">${g.value}</div></div>`).join('')}
+      </div>
+    </div>`;
+  } else {
+    // Multi-player banner
+    const names = allPlanData.map(d => d.params.name || 'Player');
+    const maxDays = Math.max(...allPlanData.map(d => d.params.days));
+    html += `<div class="summary-banner fade-in" style="background:linear-gradient(135deg,#7C3AED 0%,#2563EB 100%)">
+      <h2>🤝 ${names.join(' & ')}</h2>
+      <p>${s.multiSubtitle || 'Team Training Plan · Shared drills + individual focus'}</p>
+      <div class="summary-stats">
+        <div class="stat-pill">👥 ${count} ${s.playersLabel || 'players'}</div>
+        <div class="stat-pill">📅 ${maxDays} ${s.daysLabel || 'days'}</div>
+        ${allPlanData.map(d=>`<div class="stat-pill">🏀 ${d.params.name}</div>`).join('')}
+      </div>
+    </div>`;
+  }
+
+  // ---- TEAM / PLAYER TABS ----
+  if (!isSolo) {
+    html += `<div class="team-tabs-bar fade-in" id="teamTabsBar">
+      <button class="team-tab-btn team-tab active" onclick="switchResultView('team')" id="ttab_team">
+        🤝 ${s.teamLabel || 'Team Drills'}
+      </button>
+      ${allPlanData.map((d,i)=>`
+        <button class="team-tab-btn" onclick="switchResultView(${i})" id="ttab_${i}">
+          👤 ${d.params.name || 'Player '+(i+1)}
+        </button>`).join('')}
+    </div>`;
+  }
+
+  html += `<div id="resultMainArea"></div>`;
+  document.getElementById('result-content').innerHTML = html;
+
+  if (isSolo) {
+    // Render calendar + day detail for solo
+    renderSoloCalendar(primaryDays, primaryParams);
+  } else {
+    // Default: show team drills
+    renderTeamView(allPlanData);
+  }
+}
+
+function switchResultView(view) {
+  currentResultView = view;
+  const allTabs = document.querySelectorAll('.team-tab-btn');
+  allTabs.forEach(t => t.classList.remove('active'));
+  if (view === 'team') {
+    document.getElementById('ttab_team')?.classList.add('active');
+    renderTeamView(planData);
+  } else {
+    document.getElementById(`ttab_${view}`)?.classList.add('active');
+    renderPlayerView(planData[view]);
+  }
+}
+
+// ---------- SOLO: calendar + day detail ----------
+function renderSoloCalendar(days, params) {
+  const s = STRINGS[currentLang];
+  let html = `<div class="calendar-card fade-in">
+    <div class="section-label">${s.calendarLabel}</div>
+    <div class="day-tabs" id="dayTabs">
+      ${days.map((d,i)=>{
+        const cls = d.isRest ? 'rest' : (d.isLight ? 'light' : '');
+        const icon = d.isRest ? '😴' : (d.isLight ? '🌿' : '🔥');
+        return `<button class="day-tab ${cls}${i===0?' active':''}" onclick="switchDay(${i})">${icon}<span class="day-num">D${i+1}</span></button>`;
+      }).join('')}
+    </div>
+  </div>
+  <div id="dailyDetail" class="fade-in"></div>`;
+  document.getElementById('resultMainArea').innerHTML = html;
+  renderDay(days[0]);
+}
+
+function switchDay(idx) {
+  document.querySelectorAll('.day-tab').forEach((t,i)=>t.classList.toggle('active',i===idx));
+  renderDay(planData[0].days[idx]);
+  document.getElementById('dailyDetail').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+// ---------- MULTI: team drills ----------
+function renderTeamView(allPlanData) {
+  const s = STRINGS[currentLang];
+  const count = allPlanData.length;
+  const names = allPlanData.map(d => d.params.name || `P${allPlanData.indexOf(d)+1}`);
+
+  // Build team drills based on player count + space
+  const space = allPlanData[0].params.space;
+  const spaceZH = currentLang==='pt' ? (['Casa','Quintal','Quadra oficial'].indexOf(space) >= 0 ? ['家里','户外','球场'][['Casa','Quintal','Quadra oficial'].indexOf(space)] : space)
+                : currentLang==='en' ? ({'Home (living room)':'家里','Outdoor space':'户外','Full court':'球场'}[space] || space)
+                : space;
+  const hasHoop = allPlanData.some(d => {
+    const h = d.params.hoop;
+    return h==='有' || h==='Com aro' || h==='Have a hoop';
+  });
+  const maxDays = Math.max(...allPlanData.map(d => d.params.days));
+  const teamDrills = buildTeamDrills(count, spaceZH, hasHoop, s);
+
+  let html = `<div class="team-section-banner fade-in">
+    <h3>${s.teamDrillsTitle || '共同训练环节'}</h3>
+    <p>${s.teamDrillsDesc || '每次训练先一起完成以下环节，培养配合默契'}</p>
+  </div>`;
+
+  teamDrills.forEach(drill => {
+    html += `<div class="team-drill-block fade-in">
+      <div class="team-drill-header">
+        <div class="team-drill-icon">${drill.icon}</div>
+        <div class="team-drill-title">${drill.title}</div>
+        <div class="team-drill-duration">${drill.duration} ${s.minLabel}</div>
+      </div>
+      <div class="players-badge">👥 ${names.join(' + ')}</div>
+      <div class="team-drill-desc">${drill.desc}</div>
+    </div>`;
+  });
+
+  // Show day-by-day team schedule
+  html += `<div class="calendar-card fade-in" style="margin-top:8px">
+    <div class="section-label">${s.teamScheduleLabel || '团队训练日历'}</div>
+    <div class="day-tabs" id="teamDayTabs">
+      ${Array.from({length: maxDays}, (_,i) => {
+        const anyRest = allPlanData.every(d => i >= d.params.days || (d.days[i] && d.days[i].isRest));
+        const icon = anyRest ? '😴' : '🤝';
+        const cls = anyRest ? 'rest' : '';
+        return `<button class="day-tab ${cls}${i===0?' active':''}" onclick="switchTeamDay(${i},this)">${icon}<span class="day-num">D${i+1}</span></button>`;
+      }).join('')}
+    </div>
+  </div>
+  <div id="teamDayDetail" class="fade-in"></div>`;
+
+  document.getElementById('resultMainArea').innerHTML = html;
+  renderTeamDay(0, allPlanData);
+}
+
+function switchTeamDay(idx, btn) {
+  document.querySelectorAll('#teamDayTabs .day-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  renderTeamDay(idx, planData);
+  document.getElementById('teamDayDetail').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function renderTeamDay(idx, allPlanData) {
+  const s = STRINGS[currentLang];
+  const count = allPlanData.length;
+  const names = allPlanData.map(d => d.params.name || `P${allPlanData.indexOf(d)+1}`);
+
+  let html = '';
+  // Show each player's theme for this day
+  const playerSummaries = allPlanData.map((d, pi) => {
+    if (idx >= d.params.days) return null;
+    const day = d.days[idx];
+    const thStyle = THEME_COLORS[day.theme] || { bg:'rgba(255,107,43,0.10)', color:'#E0551A' };
+    return { name: d.params.name, day, thStyle };
+  }).filter(Boolean);
+
+  html += `<div class="daily-detail fade-in">
+    <div class="daily-header">
+      <div><div class="daily-title">Day ${idx+1} · ${s.teamScheduleLabel || '团队计划'}</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:20px">
+      ${playerSummaries.map(ps => `
+        <div style="background:var(--bg-page);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center">
+          <div style="font-weight:700;font-size:14px;margin-bottom:6px">👤 ${ps.name}</div>
+          <div class="daily-theme-badge" style="background:${ps.thStyle.bg};color:${ps.thStyle.color};display:inline-block">${ps.day.theme}</div>
+          ${ps.day.isRest ? `<div style="font-size:12px;color:var(--text-muted);margin-top:6px">😴 ${s.restTitle}</div>` : `<div style="font-size:12px;color:var(--text-muted);margin-top:6px">⏱️ ${ps.day.totalActual||0} ${s.minLabel}</div>`}
+        </div>`).join('')}
+    </div>
+    <div class="tip-box"><strong>${s.teamTip || '💡 团队提示：'}</strong>${s.teamTipText || '先完成共同热身和对练环节（见「团队训练」），再各自进入专项练习。'}</div>
+  </div>`;
+
+  document.getElementById('teamDayDetail').innerHTML = html;
+}
+
+// ---------- MULTI: individual player view ----------
+function renderPlayerView(playerData) {
+  const s = STRINGS[currentLang];
+  const { params, days } = playerData;
   const level = getLevel(params.age, params.years);
   const lvlName = s.levelNames[level];
   const goals = s.overallGoals(lvlName);
 
-  // Goal / space display values
-  const hoopDisp = currentLang==='pt' ? (params.hoop==='无'?'Sem aro':'Com aro')
-                 : currentLang==='en' ? (params.hoop==='无'?'No hoop':'Have a hoop')
-                 : params.hoop;
-  const fitnessDisp = currentLang==='pt' ? (PT_TO_ZH_FITNESS[params.fitness] || params.fitness)
-                    : currentLang==='en' ? (EN_TO_ZH_FITNESS[params.fitness] || params.fitness)
-                    : params.fitness;
-
-  let html = `
-  <div class="summary-banner fade-in">
-    <h2>${s.bannerAge(params.age, params.years, params.days)}</h2>
-    <p>${s.bannerSub(lvlName, params.goal, params.space)}</p>
-    <div class="summary-stats">
-      ${s.pills(params.days, params.totalMin, hoopDisp, fitnessDisp).map(p=>`<div class="stat-pill">${p}</div>`).join('')}
-    </div>
-  </div>`;
-
-  html += `<div class="goals-card fade-in">
-    <div class="section-label">${s.overallGoalsLabel}</div>
+  let html = `<div class="goals-card fade-in">
+    <div class="section-label">${params.name} · ${s.overallGoalsLabel}</div>
     <div class="goals-grid">
       ${goals.map(g=>`<div class="goal-item"><div class="goal-icon">${g.icon}</div><div class="goal-title">${g.title}</div><div class="goal-value">${g.value}</div></div>`).join('')}
     </div>
@@ -1551,20 +2074,50 @@ function renderResult(params, days) {
       ${days.map((d,i)=>{
         const cls = d.isRest ? 'rest' : (d.isLight ? 'light' : '');
         const icon = d.isRest ? '😴' : (d.isLight ? '🌿' : '🔥');
-        return `<button class="day-tab ${cls}${i===0?' active':''}" onclick="switchDay(${i})">${icon}<span class="day-num">D${i+1}</span></button>`;
+        return `<button class="day-tab ${cls}${i===0?' active':''}" onclick="switchPlayerDay(${i})">${icon}<span class="day-num">D${i+1}</span></button>`;
       }).join('')}
     </div>
-  </div>`;
+  </div>
+  <div id="dailyDetail" class="fade-in"></div>`;
 
-  html += `<div id="dailyDetail" class="fade-in"></div>`;
-  document.getElementById('result-content').innerHTML = html;
+  document.getElementById('resultMainArea').innerHTML = html;
   renderDay(days[0]);
 }
 
-function switchDay(idx) {
-  document.querySelectorAll('.day-tab').forEach((t,i)=>t.classList.toggle('active',i===idx));
-  renderDay(planData[idx]);
+function switchPlayerDay(idx) {
+  document.querySelectorAll('#dayTabs .day-tab').forEach((t,i)=>t.classList.toggle('active',i===idx));
+  renderDay(planData[currentResultView].days[idx]);
   document.getElementById('dailyDetail').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+// ---------- Team drills builder ----------
+function buildTeamDrills(count, spaceZH, hasHoop, s) {
+  const lang = currentLang;
+  const is2 = count >= 2;
+  const is3 = count >= 3;
+
+  const drills2 = {
+    zh: [
+      { icon:'🔥', title:'共同热身', duration:10, desc:'<strong>全员一起</strong>：高抬腿 1 分钟 → 开合跳 1 分钟 → 动态拉伸（髋/膝/踝）3 分钟 → 手腕激活 1 分钟。互相监督，保持一致节奏。' },
+      { icon:'⚡', title:'双人传球热身', duration:8, desc:'<strong>对传激活</strong>：两人相距 3-4 米，胸前传球 2 分钟 → 弹地传球 2 分钟 → 头顶传球 2 分钟。专注接球手型，每次接球喊出「catch」确认。' },
+      { icon:'🎯', title:'1对1 防守轮换', duration:10, desc:'<strong>进攻方</strong>持球，从罚球线出发，尝试突破防守方；<strong>防守方</strong>保持防守姿势，不许手碰人。每 45 秒换攻防。' + (is3 ? '第三人计分并等待轮换。' : '') + (hasHoop ? '进攻方可投篮得分。' : '到达禁区内视为得分。') },
+      { icon:'🏃', title:'团队体能挑战', duration:8, desc:'全员同步完成：<strong>波比跳</strong> 5 次 → 休息 20 秒，重复 4-6 组。互相鼓励，最后一组一起冲！' + (is3 ? '可以3人比赛，最慢的人请喝水。' : '') },
+    ],
+    pt: [
+      { icon:'🔥', title:'Aquecimento em grupo', duration:10, desc:'<strong>Todos juntos</strong>: joelho alto 1 min → jumping jack 1 min → alongamento dinâmico (quadril/joelho/tornozelo) 3 min → ativação de pulso 1 min. Mantenham o mesmo ritmo.' },
+      { icon:'⚡', title:'Passes de aquecimento', duration:8, desc:'<strong>Passe em dupla</strong>: 3-4 m de distância — passe de peito 2 min → passe quicado 2 min → passe alto 2 min. Concentrem-se na pegada ao receber.' },
+      { icon:'🎯', title:'1x1 com revezamento', duration:10, desc:'<strong>Ataque</strong>: bola na linha de lance livre, tenta passar pelo defensor. <strong>Defesa</strong>: postura defensiva, sem tocar. Troca a cada 45s.' + (is3?' Terceiro marca pontos e espera.'  :'') + (hasHoop?' Atacante pode arremessar.'    :' Entrar na área = ponto.') },
+      { icon:'🏃', title:'Desafio físico em grupo', duration:8, desc:'Todos sincronizados: <strong>Burpee</strong> 5x → pausa 20s, repetir 4-6 séries. Incentivem uns aos outros — na última série, vão juntos!' + (is3?' Quem terminar por último paga água!'  :'') },
+    ],
+    en: [
+      { icon:'🔥', title:'Group Warm-Up', duration:10, desc:'<strong>Everyone together</strong>: high knees 1 min → jumping jacks 1 min → dynamic stretch (hip/knee/ankle) 3 min → wrist activation 1 min. Keep the same rhythm and pace.' },
+      { icon:'⚡', title:'Partner Passing Warm-Up', duration:8, desc:'<strong>Passing drills</strong>: stand 3-4 m apart — chest pass 2 min → bounce pass 2 min → overhead pass 2 min. Focus on clean hand placement each catch.' },
+      { icon:'🎯', title:'1-on-1 Defense Rotation', duration:10, desc:'<strong>Offense</strong>: start at the free-throw line and try to beat the defender. <strong>Defense</strong>: maintain stance — no fouling. Rotate every 45s.' + (is3?' Third player keeps score and waits their turn.'  :'') + (hasHoop?' Offense can shoot to score.'    :' Reaching the key counts as a score.') },
+      { icon:'🏃', title:'Team Fitness Challenge', duration:8, desc:'All players in sync: <strong>Burpees</strong> ×5 → rest 20s, repeat 4-6 sets. Hype each other up — finish the last set together!' + (is3?' Loser of each round buys the water!'  :'') },
+    ],
+  };
+
+  return (drills2[lang] || drills2.en);
 }
 
 function renderDay(day) {
@@ -1644,16 +2197,37 @@ function renderDay(day) {
 // =============================================
 function generatePlan() {
   const s = STRINGS[currentLang];
-  const params = {
-    age:      parseInt(document.getElementById('age').value),
-    years:    parseFloat(document.getElementById('years').value),
-    days:     parseInt(document.getElementById('days').value),
-    totalMin: parseInt(document.getElementById('minutes').value),
-    goal:     selections.goal,
-    space:    selections.space,
-    hoop:     selections.hoop,
-    fitness:  selections.fitness,
-  };
+  const count = currentPlayerCount;
+
+  // Collect params for each player
+  const allParams = [];
+  for (let p = 0; p < count; p++) {
+    const ps = playerSelections[p] || {};
+    // Normalise to ZH internal values
+    const goalRaw = ps.goal || '综合';
+    const hoopRaw = ps.hoop || '无';
+    const fitRaw  = ps.fitness || '中等';
+    const goalZH  = EN_TO_ZH_GOAL[goalRaw] || PT_TO_ZH_GOAL[goalRaw] || goalRaw;
+    const hoopZH  = EN_TO_ZH_HOOP[hoopRaw] || PT_TO_ZH_HOOP[hoopRaw] || hoopRaw;
+    const fitZH   = EN_TO_ZH_FITNESS[fitRaw] || PT_TO_ZH_FITNESS[fitRaw] || fitRaw;
+    // Space: always stored as-is from data-val (ZH for zh, PT for pt, EN for en)
+    const spaceRaw = ps.space || '家里';
+    const nameEl = document.getElementById(`p${p}_name`);
+    const dnames = currentLang==='zh' ? ['玩家1','玩家2','玩家3']
+                 : currentLang==='pt' ? ['Jogador 1','Jogador 2','Jogador 3']
+                 : ['Player 1','Player 2','Player 3'];
+    allParams.push({
+      name:     (nameEl && nameEl.value.trim()) || dnames[p],
+      age:      parseInt(document.getElementById(`p${p}_age`).value),
+      years:    parseFloat(document.getElementById(`p${p}_years`).value),
+      days:     parseInt(document.getElementById(`p${p}_days`).value),
+      totalMin: parseInt(document.getElementById(`p${p}_minutes`).value),
+      goal:     goalZH,
+      space:    spaceRaw,
+      hoop:     hoopZH,
+      fitness:  fitZH,
+    });
+  }
 
   document.getElementById('screen-input').classList.remove('active');
   document.getElementById('screen-loading').classList.add('active');
@@ -1668,21 +2242,29 @@ function generatePlan() {
 
   setTimeout(() => {
     clearInterval(tipInterval);
-    const days = [];
-    for (let i = 0; i < params.days; i++) days.push(buildDay(i, params));
-    planData = days;
+
+    // Build days for each player (use max days across players)
+    const maxDays = Math.max(...allParams.map(p => p.days));
+    const allPlanData = allParams.map(params => {
+      const days = [];
+      for (let i = 0; i < params.days; i++) days.push(buildDay(i, params));
+      return { params, days };
+    });
+    planData = allPlanData;
 
     document.getElementById('screen-loading').classList.remove('active');
     document.getElementById('screen-result').classList.add('active');
-    renderResult(params, days);
+    renderResult(allPlanData);
   }, 1600);
 }
 
+function goBack() {
+  document.getElementById('screen-result').classList.remove('active');
+  document.getElementById('screen-input').classList.add('active');
+}
+
 // Init
-updateSlider('age','ageVal');
-updateSlider('years','yearsVal');
-updateSlider('days','daysVal');
-updateSlider('minutes','minutesVal');
+initPlayerPanels();
 </script>
 </body>
 </html>
